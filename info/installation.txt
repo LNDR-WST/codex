@@ -1,0 +1,9 @@
+// Diese Module müssen installiert werden:
+
+npm install express --save
+
+npm install body-parser --save
+
+npm install ejs --save
+
+npm install sqlite3 --save
