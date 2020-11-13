@@ -24,3 +24,7 @@ app.use(express.static(__dirname + "/public"));
 app.get("/index", function(req,res){
     res.sendFile(__dirname + "/views/index.html");
 });
+
+app.get("/welcome", function(req, res) {
+    res.sendFile(__dirname + "/views/welcome.html");
+});

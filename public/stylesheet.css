@@ -1,0 +1,171 @@
+/*
+     ## CSS rules to specify families:
+            font-family: 'Poppins', sans-serif;
+            font-family: 'Share Tech Mono', monospace;
+*/
+
+/* Style des HTML-Body und der enthaltenen Elemente definieren */
+
+body {
+    background-color: #508FBB;
+    min-height: 100vh; /* Ganze Displayhöhe als Mindesthöhe des Bodies */
+    margin: 0px;
+  }
+  
+/* Flex-Box für Responsive-Design definieren */
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
+  .flex-container > div {
+    margin: 0px;
+    padding: 20px;
+    align-items: center;
+  }
+
+  /* Navigationspunkt oben nach Flex-Container */
+  .flex-container > .nav-button-top {
+    display:flex;
+    margin: 0px;
+    align-items: flex-end;
+    border-bottom-style: solid;
+    border-bottom-color: #FF9000;
+    border-bottom-width: 2px;
+    padding-top: 0px;
+    padding-bottom: 5px;
+  }
+
+/* Innere Div-Box zur Zentrierung des gesamten Inhalts */
+.inner {
+  width: 100%;
+  max-width: 960px;
+  margin-top: 0px;
+  margin-right: auto;
+  margin-bottom: 0px;
+  margin-left: auto;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  background-color: white;
+}
+  
+/* Navigationspunkt oben */
+.nav-button-top {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 22px;
+  border-bottom-style: solid;
+  border-bottom-color: #FF9000;
+  border-bottom-width: 2px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+  /* Link in Navigation */
+  .nav-button-top > a:link {
+    text-decoration: none;
+    color: #000000;
+  }
+
+  /* Hover-Link in Navigation */
+  .nav-button-top > a:hover {
+    color: #ffffff;
+    background-color: #FF9000;
+  }
+  
+  
+/* Parallax-Effekt Bildbereiche */
+.parallax-maxiteaser {
+  background-image: url("/img/maxiteaser.jpg");
+  height: 400px;
+
+  /* Parallax-Effekt */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80%;
+}
+
+.parallax-infobox {
+  background-image: url("/img/image-bg2.jpg");
+  height: 350px;
+
+  /* Parallax-Effekt */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80%;
+}
+
+/* Style der Headline 1 */
+h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+}
+
+h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: white;
+}
+
+h3 {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 32px;
+  color: white;
+  background-color: #0A64A4;
+  padding: 5px;
+  margin: 0px;
+}
+
+/* Style Paragraph */
+p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+/* Style Infotext Infobox Startseite */
+.infotext {
+  color: white;
+  font-weight: 500;
+  text-align: center;
+}
+
+
+/* Style Footer */
+.footer {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 14px;
+  color: white;
+  text-align: center;
+  font-weight: 500;
+}
+
+.footer > a:link {
+  text-decoration: none;
+  color: white;
+}
+
+/* Button-Style */
+.cta-button {
+background-color: #FF9000;
+color: white;
+font-family: 'Poppins', sans-serif;
+font-weight: 700;
+font-size: 18px;
+text-decoration: none;
+padding: 5px 10px;
+border-style: solid;
+border-color: #FF9000;
+}
+
+/* Button-Style hover */
+.cta-button:hover {
+  background-color: white;
+  color: #FF9000;
+}
