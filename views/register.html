@@ -1,0 +1,102 @@
+<!-- Registrierung -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Einbinden von Google-Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Share+Tech+Mono&display=swap" rel="stylesheet"> 
+        
+        <!-- Laden des CSS-Stylesheets -->
+        <link rel="stylesheet" href="/stylesheet.css">
+        
+        <!-- Meta-Daten -->
+        <title>Codex - Registrierung</title>
+    </head>
+    <body>
+        <div class="inner">
+            <!-- Navigation & Website-Header -->
+            <div class="flex-container" style="background-color: white;">
+                <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/login">Login</a></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/register">Register</a></div>
+            </div>
+            <!-- Registrationsdialog ['name=""' stehen noch aus zur Übergabe an Datenbank]-->
+            <div class="flex-container">
+                <div style="padding: 25px 75px 75px 75px;">
+                    <h1>Registration</h1>
+                    <p>Wir freuen uns, dass du Teil von <span style="font-weight: 500;">CODEX</span> werden möchtest!
+                       Bitte fülle das nachstehende Formular aus, damit wir dir dein eigenes Profil erstellen können.</p>
+                    <form action="" method="POST"> <!-- action="" fehlt noch! --> 
+                            <div>
+                                <label for="email" class="formlabel" style="margin-right: 95px;">E-Mailadresse:</label>
+                                <input type="text" name="" class="forminput"><br>
+                            </div>
+                            <div>
+                                <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>
+                                <input type="text" name="" class="forminput"><br>
+                            </div>
+                            <div>
+                                <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
+                                <input type="password" name="" class="forminput"><br>
+                            </div>
+                            <div>
+                                <label for="pass_whd" class="formlabel" style="margin-right: 4px;">Passwort wiederholen:</label>
+                                <input type="password" name="" class="forminput"><br><br>
+                            </div>
+                            <!-- Links zu Nutzungsbedingungen & Datenschutz stehen noch aus -->
+                            <p><input type="checkbox" onclick="if(this.checked) showButton(); else hideButton();" 
+                            name="" style="border:none; transform:scale(2); margin-right: 10px;">
+                            Ich habe die <a href="" target="_blank">allgemeinen Nutzungsbedingungen</a> sowie die <a href="" target="_blank">Hinweise zum Datenschutz</a> zur Kenntnis genommen 
+                            und akzeptiere diese mit meiner Registrierung.</p><br>
+                        <div id="bHidden" style="display: none;"><input type="submit" class="cta-button" value="REGISTRIERUNG&nbsp;ABSCHLIESSEN"></div>
+                    </form>
+                    <!-- JS-Script, um den 'Submit'-Button nur anzuzeigen, wenn die Checkbox aktiviert wurde. 
+                        leicht modifiziert von: https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp -->
+                    <script>
+                        function showButton() {
+                          var button = document.getElementById("bHidden");
+                          if (button.style.display === "none") {
+                            button.style.display = "flex";
+                          }
+                        }
+                        function hideButton() {
+                          var button = document.getElementById("bHidden");
+                          if (button.style.display === "flex") {
+                            button.style.display = "none";
+                          }
+                        }
+                    </script>
+                </div>
+            </div>
+            <!-- Info-Box -->
+            <div class="flex-container">
+                <div class="parallax-infobox" style="width: 960px;">
+                    <div class="flex-container" style="margin-top: 20px;">
+                        <div style="text-align: center; padding: 5px;">
+                            <img src="/img/code-icon.svg" alt="Code-Icon" style="height: 115px;"></img><br>
+                            <h2>Code speichern.</h2>
+                            <p class="infotext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div style="text-align: center; padding: 5px;">
+                            <img src="/img/comment-icon.svg" alt="Comment-Icon" style="height: 115px;"></img><br>
+                            <h2>Sicht austauschen.</h2>
+                            <p class="infotext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div style="text-align: center; padding: 5px;">
+                            <img src="/img/learn-icon.svg" alt="Learn-Icon" style="height: 115px;"></img><br>
+                            <h2>Neues lernen.</h2>
+                            <p class="infotext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->
+            <div class="flex-container" style="height: 50px; background-color: #FF9000; margin: 0px;">
+                <p class="footer">© 2020 CODEX &nbsp;
+                <a href="">Impressum</a>	| <a href="">Datenschutz</a>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

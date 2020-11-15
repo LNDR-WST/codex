@@ -1,4 +1,4 @@
-<!-- Startseite Codex -->
+<!-- Login -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="/stylesheet.css">
         
         <!-- Meta-Daten -->
-        <title>Codex - Welcome!</title>
+        <title>Codex - Login</title>
     </head>
     <body>
         <div class="inner">
@@ -21,23 +21,22 @@
                 <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/login">Login</a></div>
                 <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/register">Register</a></div>
             </div>
-            <!-- Maxiteaser -->
+            <!-- Registrationsdialog ['name=""' stehen noch aus zur Übergabe an Datenbank]-->
             <div class="flex-container">
-                <div class="parallax-maxiteaser" style="width: 960px;">
-                    <img src="/img/teaser-text.svg" alt ="Welcome to Codex. Exchange. Explore. Evolve." style="width: 75%; margin-top: 145px; margin-bottom: 15px;"></img><br>
-                    <a href="/register" class="cta-button" style="font-size: 14px;">>&nbsp;START&nbsp;NOW</a>
-                </div>
-            </div>
-            <!-- Einleitung -->
-            <div class="flex-container">
-                <div style="width: 480px; align-items: baseline;">
-                    <h1><span style="font-weight: 400;">Mit </span>
-                    Codex <span style="font-weight: 400;">sammelst du deinen Lieblings-Code!</span></h1>
-                    <p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>                
-                    <a href="/register" class="cta-button">JETZT&nbsp;REGISTRIEREN</a>
-                </div>
-                <div>
-                    <img src="/img/macbook.jpg" alt="Macbook mit Codex-Screen" style="width: 354px"></img>
+                <div style="padding: 25px 75px 75px 75px;">
+                    <h1>Login</h1>
+                    <p>Bitte melde dich mit deinen Nutzerdaten an.</p>
+                    <form action="" method="POST"> <!-- action="" fehlt noch! --> 
+                            <div>
+                                <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>
+                                <input type="text" name="" class="forminput"><br>
+                            </div>
+                            <div style="margin-bottom: 35px;">
+                                <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
+                                <input type="password" name="" class="forminput"><br>
+                            </div>
+                            <input type="submit" class="cta-button" value="LOGIN">
+                    </form>
                 </div>
             </div>
             <!-- Info-Box -->
@@ -61,20 +60,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Was ist Codex -->
-            <div class="flex-container">
-                <div>
-                    <h3 style="width: 250px;">Was ist CODEX?</h3>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor 
-                    invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam 
-                    et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est 
-                    Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed 
-                    diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
-                    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea 
-                    takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                </div>
-                <div style="width: 50%"></div>
             </div>
             <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->
             <div class="flex-container" style="height: 50px; background-color: #FF9000; margin: 0px;">

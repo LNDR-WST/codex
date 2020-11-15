@@ -66,6 +66,8 @@ body {
   .nav-button-top > a:link {
     text-decoration: none;
     color: #000000;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   /* Hover-Link in Navigation */
@@ -136,6 +138,26 @@ p {
   text-align: center;
 }
 
+/* Style für Formular-Label */
+.formlabel {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 24px;
+  color: black;
+  padding: 0px;
+  margin: 2px;
+}
+
+/* Style für Formular-Inputfeld */
+.forminput {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;
+  border:none;
+  background-color: #b4b4b4;
+  width:355px;
+  height:26px;
+  padding: px;
+  margin: 2px;
+}
 
 /* Style Footer */
 .footer {
