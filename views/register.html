@@ -21,28 +21,28 @@
                 <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/login">Login</a></div>
                 <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/register">Register</a></div>
             </div>
-            <!-- Registrationsdialog ['name=""' stehen noch aus zur Übergabe an Datenbank]-->
+            <!-- Registrationsdialog -->
             <div class="flex-container">
                 <div style="padding: 25px 75px 75px 75px;">
                     <h1>Registration</h1>
                     <p>Wir freuen uns, dass du Teil von <span style="font-weight: 500;">CODEX</span> werden möchtest!
                        Bitte fülle das nachstehende Formular aus, damit wir dir dein eigenes Profil erstellen können.</p>
-                    <form action="" method="POST"> <!-- action="" fehlt noch! --> 
+                    <form action="newUser" method="POST">
                             <div>
                                 <label for="email" class="formlabel" style="margin-right: 95px;">E-Mailadresse:</label>
-                                <input type="text" name="" class="forminput"><br>
+                                <input type="text" name="email" class="forminput"><br>
                             </div>
                             <div>
                                 <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>
-                                <input type="text" name="" class="forminput"><br>
+                                <input type="text" name="loginname" class="forminput"><br>
                             </div>
                             <div>
                                 <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
-                                <input type="password" name="" class="forminput"><br>
+                                <input type="password" name="password1" class="forminput"><br>
                             </div>
                             <div>
                                 <label for="pass_whd" class="formlabel" style="margin-right: 4px;">Passwort wiederholen:</label>
-                                <input type="password" name="" class="forminput"><br><br>
+                                <input type="password" name="password2" class="forminput"><br><br>
                             </div>
                             <!-- Links zu Nutzungsbedingungen & Datenschutz stehen noch aus -->
                             <p><input type="checkbox" onclick="if(this.checked) showButton(); else hideButton();" 

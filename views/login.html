@@ -21,19 +21,19 @@
                 <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/login">Login</a></div>
                 <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/register">Register</a></div>
             </div>
-            <!-- Registrationsdialog ['name=""' stehen noch aus zur Übergabe an Datenbank]-->
+            <!-- Registrationsdialog -->
             <div class="flex-container">
                 <div style="padding: 25px 75px 75px 75px;">
                     <h1>Login</h1>
                     <p>Bitte melde dich mit deinen Nutzerdaten an.</p>
-                    <form action="" method="POST"> <!-- action="" fehlt noch! --> 
+                    <form action="login" method="POST"> 
                             <div>
                                 <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>
-                                <input type="text" name="" class="forminput"><br>
+                                <input type="text" name="loginname" class="forminput"><br>
                             </div>
                             <div style="margin-bottom: 35px;">
                                 <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
-                                <input type="password" name="" class="forminput"><br>
+                                <input type="password" name="password" class="forminput"><br>
                             </div>
                             <input type="submit" class="cta-button" value="LOGIN">
                     </form>

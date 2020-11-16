@@ -7,3 +7,5 @@ npm install body-parser --save
 npm install ejs --save
 
 npm install sqlite3 --save
+
+npm install bcrypt --save 
