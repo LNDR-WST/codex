@@ -17,6 +17,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap; /* Elemente staplen untereinander, wenn Platz zu gering. */ 
 }
   
   .flex-container > div {
@@ -35,6 +36,13 @@ body {
     border-bottom-width: 2px;
     padding-top: 0px;
     padding-bottom: 5px;
+  }
+
+  .flex-container .code {
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 150px;
   }
 
 /* Innere Div-Box zur Zentrierung des gesamten Inhalts */
@@ -75,29 +83,34 @@ body {
     color: #ffffff;
     background-color: #FF9000;
   }
+
+  .nav-button-top > a:visited {
+    text-decoration: none;
+    color: #000000;
+  }
   
   
 /* Parallax-Effekt Bildbereiche */
 .parallax-maxiteaser {
   background-image: url("/img/maxiteaser.jpg");
-  height: 400px;
+  min-height: 400px;
 
   /* Parallax-Effekt */
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 80%;
+  background-size: 100%;
 }
 
 .parallax-infobox {
   background-image: url("/img/image-bg2.jpg");
-  height: 350px;
+  min-height: 350px;
 
   /* Parallax-Effekt */
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 80%;
+  background-size: 100%;
 }
 
 /* Style der Headline 1 */
@@ -124,11 +137,35 @@ h3 {
   margin: 0px;
 }
 
+h4 {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 32px;
+  color: white;
+  background-color: #0A64A4;
+  margin: 0px;
+  padding: 15px 0px 0px 15px;
+}
+
 /* Style Paragraph */
 p {
   font-family: 'Poppins', sans-serif;
   font-size: 18px;
   font-weight: 400;
+}
+
+/* Beschreibungstexte der Code-Snippets */
+.code-desc {
+  background-color: #0A64A4;
+  color: white;
+  padding: 15px;
+  margin: 0;
+}
+
+/* <pre>-Tags mit exakter Formatierung */
+pre {
+  background-color: #b2b2b2b2;
+  padding: 10px;
+  margin: 0px;
 }
 
 /* Style für Menü-Buttons auf Profilseite */
@@ -147,6 +184,11 @@ p {
   text-decoration: underline;
   color: black;
 
+}
+
+.menu-button > a:visited {
+  text-decoration: none;
+  color: black;
 }
 
 /* Style Infotext Infobox Startseite */
@@ -187,6 +229,11 @@ p {
 }
 
 .footer > a:link {
+  text-decoration: none;
+  color: white;
+}
+
+.footer > a:visited {
   text-decoration: none;
   color: white;
 }

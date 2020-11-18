@@ -95,7 +95,7 @@ app.post('/newUser', function(req,res)
             const isValid = bcrypt.compareSync(param_password, hash);
             if (isValid==true)
             {
-                res.sendFile(__dirname + "/views/index.html");    // Hier verlinkung bei erfolgreichem Login
+                res.sendFile(__dirname + "/views/profile.html");    // Hier verlinkung bei erfolgreichem Login
             }
             else
             {
