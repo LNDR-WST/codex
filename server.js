@@ -58,11 +58,13 @@ app.post('/newUser', function(req,res)
         const param_loginname = req.body.loginname;
         const param_password1 = req.body.password1;
         const param_password2 = req.body.password2;
-        //hier brauchen wir eventuell noch einen Check ob die eingegebene Email "plausibel" ist.
+        //hier wird gechecked ob die Email "plausibel" ist.
+        const check = param_email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    
         db.all(`SELECT * FROM allusers WHERE loginname='${param_loginname}'`,
         function (err, rows)
-        {
-            if (rows.length == 0 && param_password1 == param_password2)  // Test ob User bereits existiert und ob Passwort wiederholung korrekt
+        {// Test ob User bereits existiert und ob Passwort wiederholung korrekt und Passwort mehr als 7 zeichen hat
+            if (rows.length == 0 && param_password1 == param_password2 && param_email.match && check != null && param_password1.length > 7)  
             {
                 const hash = bcrypt.hashSync(param_password1,10);
                 db.run(
