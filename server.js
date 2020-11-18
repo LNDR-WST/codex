@@ -15,7 +15,8 @@ const db = new sqlite3.Database(DATABASE);
 const bcrypt = require("bcrypt");
 
 // Server starten
-app.listen(3000, function(){
+app.listen(3000, function()
+{
     console.log("listening in port 3000");
 });
 
@@ -23,20 +24,29 @@ app.listen(3000, function(){
 app.use(express.static(__dirname + "/public"));
 
 // GET Requests
-app.get("/index", function(req,res){
+app.get("/index", function(req,res)
+{
     res.sendFile(__dirname + "/views/index.html");
 });
 
-app.get("/welcome", function(req, res) {
+app.get("/welcome", function(req, res)
+{
     res.sendFile(__dirname + "/views/welcome.html");
 });
 
-app.get("/register", function(req, res) {
+app.get("/register", function(req, res)
+{
     res.sendFile(__dirname + "/views/register.html");
 });
 
-app.get("/login", function(req, res) {
+app.get("/login", function(req, res)
+{
     res.sendFile(__dirname + "/views/login.html");
+});
+
+app.get("/profile", function(req, res)
+{
+    res.sendFile(__dirname + "/views/profile.html");
 });
 
 // POST Requests

@@ -131,6 +131,24 @@ p {
   font-weight: 400;
 }
 
+/* Style für Menü-Buttons auf Profilseite */
+.menu-button {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12.5px;
+  font-weight: bold;
+}
+
+.menu-button > a {
+  text-decoration: none;
+  color: black;
+}
+
+.menu-button > a:hover {
+  text-decoration: underline;
+  color: black;
+
+}
+
 /* Style Infotext Infobox Startseite */
 .infotext {
   color: white;

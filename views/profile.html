@@ -1,0 +1,132 @@
+<!-- Benutzerprofil/Code-Sammlung -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Einbinden von Google-Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Share+Tech+Mono&display=swap" rel="stylesheet"> 
+        
+        <!-- Laden des CSS-Stylesheets -->
+        <link rel="stylesheet" href="/stylesheet.css">
+        
+        <!-- Meta-Daten -->
+        <title>Codex - Login</title>
+    </head>
+    <body>
+        <div class="inner">
+            <!-- Navigation & Website-Header -->
+            <div class="flex-container" style="background-color: white;">
+                <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/login">Login</a></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/register">Register</a></div>
+            </div>
+            <!-- Flex-Container für Seiten-Menü und Inhalt -->
+            <div class="flex-container" style="justify-content: flex-start; align-items: flex-start;">
+                <div id="menu" class="flex-container" style="justify-content: flex-start; flex-direction: column; align-items: flex-start; position: fixed;">
+                    <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 10px;">
+                        <h3 style="text-align: center; background-color: #FF9000; font-size: 24px;">MENÜ</h3>
+                    </div>
+                    <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
+                        <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
+                        <p class="menu-button"><a href="/profile">[ My Snippets ]</b></a></p>
+                        <p class="menu-button"><a href="">[ Other Users ]</b></a></p>
+                        <p class="menu-button"><a href="">[ Favorites ]</b></a></p>
+                        <p class="menu-button"><a href="">[ Settings ]</b></a></p>
+                    </div>
+                    <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 15px;">
+                        <h3 style="text-align: center; background-color: #FF9000; font-size: 18px;">last visited</h3>
+                    </div>
+                    <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
+                        <p class="menu-button"><a href="">> user1235</b></a></p>
+                        <p class="menu-button"><a href="">> brother912</b></a></p>
+                        <p class="menu-button"><a href="">> nutzernam11 </b></a></p>
+                        <p class="menu-button"><a href="">> benutzer9s1</b></a></p>
+                        <p class="menu-button"><a href="">> benutzer</b></a></p>
+                    </div>
+                </div>
+                <div id="content" class="flex-container" style="justify-content: flex-start; flex-direction: column; align-items: flex-start; margin-left: 150px;">
+                    <h1>Hallo, myName123!</h1>
+                    <p>Willkommen in deinem persönlichen Bereich.
+                        Hier kannst du neue Code-Snippets anlegen, bestehende bearbeiten oder wieder entfernen.
+                        Über die Navigation links kommst du zu weiteren Bereichen, kannst Favoriten speichern und Code-Lösungen von anderen Nutzern entdecken. 
+                        <br>
+                        Viel Spaß!</p>
+                    <div>
+                        <h3>Überschrift 1</h3>
+                        <p style="background-color: #0A64A4; color: white;">Beschreibung von Code 1. Dieser Code ist vero eos et accusam et justo duo dolores et ea rebum. 
+                            Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                            
+                        <pre style="background-color: #b2b2b2b2;">
+                            var imgWidth=285, imgHeight=233;
+                            var xStart=Math.floor(imgWidth/2), yStart=Math.floor(imgHeight/2);
+                            var x=xStart, y=yStart;
+                            var clipWidth=(imgWidth-2*xStart), clipHeight=(imgHeight-2*yStart);
+                            var status;
+                      
+                            function show() {
+                              if(status==1) {
+                                document.getElementById("image").style.clip=
+                                    "rect("+y+" "+(x+clipWidth)+" "+(y+clipHeight)+" "+x+")";
+                      
+                                x-=1;
+                                clipWidth+=2;
+                                y-=1;
+                                clipHeight+=2;
+                        </pre>
+                    </div>
+                    <div>
+                        <h3>Überschrift 2</h3>
+                        <p>Beschreibung von Code 2. Dieser Code ist vero eos et accusam et justo duo dolores et ea rebum. 
+                            Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                        <pre>
+                            var imgWidth=285, imgHeight=233;
+                            var xStart=Math.floor(imgWidth/2), yStart=Math.floor(imgHeight/2);
+                            var x=xStart, y=yStart;
+                            var clipWidth=(imgWidth-2*xStart), clipHeight=(imgHeight-2*yStart);
+                            var status;
+                      
+                            function show() {
+                              if(status==1) {
+                                document.getElementById("image").style.clip=
+                                    "rect("+y+" "+(x+clipWidth)+" "+(y+clipHeight)+" "+x+")";
+                      
+                                x-=1;
+                                clipWidth+=2;
+                                y-=1;
+                                clipHeight+=2;
+                        </pre>
+                    </div>
+                    <div>
+                        <h3>Überschrift 2</h3>
+                        <p>Beschreibung von Code 2. Dieser Code ist vero eos et accusam et justo duo dolores et ea rebum. 
+                            Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                        <pre>
+                            var imgWidth=285, imgHeight=233;
+                            var xStart=Math.floor(imgWidth/2), yStart=Math.floor(imgHeight/2);
+                            var x=xStart, y=yStart;
+                            var clipWidth=(imgWidth-2*xStart), clipHeight=(imgHeight-2*yStart);
+                            var status;
+                      
+                            function show() {
+                              if(status==1) {
+                                document.getElementById("image").style.clip=
+                                    "rect("+y+" "+(x+clipWidth)+" "+(y+clipHeight)+" "+x+")";
+                      
+                                x-=1;
+                                clipWidth+=2;
+                                y-=1;
+                                clipHeight+=2;
+                        </pre>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->
+            <div class="flex-container" style="height: 50px; background-color: #FF9000; margin: 0px;">
+                <p class="footer">© 2020 CODEX &nbsp;
+                <a href="">Impressum</a>	| <a href="">Datenschutz</a>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
