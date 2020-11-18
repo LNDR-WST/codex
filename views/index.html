@@ -1,16 +1,40 @@
-<!-- HTML-Vorlage Standard-Tags -->
+<!-- HTML-Vorlage mit Navigation oben und Footer -->
 <!DOCTYPE html>
 <html>
     <head>
-        <title>index</title>
+        <!-- Einbinden von Google-Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Share+Tech+Mono&display=swap" rel="stylesheet"> 
+        
+        <!-- Laden des CSS-Stylesheets -->
+        <link rel="stylesheet" href="/stylesheet.css">
+        
+        <!-- Meta-Daten -->
+        <title>Codex - SEITENTITEL</title>
     </head>
     <body>
-        <h1>Index</h1>
-        <p>Gehe zu: <br>
-            <a href="/welcome">welcome</a> <br> 
-            <a href="/login">login</a> <br>
-            <a href="/register">register</a>
-
-        </p>
+        <div class="inner">
+            <!-- Navigation & Website-Header -->
+            <div class="flex-container" style="background-color: white;">
+                <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/login">Login</a></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/register">Register</a></div>
+            </div>
+            <!-- ### HIERUNTER NEUE INHALTE EINFÜGEN ### -->
+            <div style="margin-left: 25px;"> <!-- DIVs sind leere Container-Objekte, die "gestyled" werden können (z.B. Position ändern o.ä.) -->
+                <h1>Headline 1</h1>
+                <h2>Headline 2</h2>
+                <h3>Headline 3</h3>
+                <p>Textabsatz</p>
+                <a href="/welcome">Link</a>
+            </div>          
+            <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->
+            <div class="flex-container" style="height: 50px; background-color: #FF9000; margin: 0px;">
+                <p class="footer">© 2020 CODEX &nbsp;
+                <a href="">Impressum</a>	| <a href="">Datenschutz</a>
+                </p>
+            </div>
+        </div>
     </body>
 </html>
