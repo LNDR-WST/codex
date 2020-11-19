@@ -18,8 +18,8 @@
             <div class="flex-container" style="background-color: white;">
                 <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
                 <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/login">Login</a></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/register">Register</a></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/logout">Logout</a></div>
             </div>
             <!-- Flex-Container für Seiten-Menü und Inhalt -->
             <div class="flex-container" style="justify-content: flex-start; align-items: flex-start;">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div id="content" class="flex-container code">
-                        <h1 style="margin-left: 20px; margin-right: 20px;">Hallo, myName123!</h1>
+                        <h1 style="margin-left: 20px; margin-right: 20px;">Hallo, <%= username %>!</h1>
                         <p style="margin-left: 20px; margin-right: 20px;">Willkommen in deinem persönlichen Bereich.
                             Hier kannst du neue Code-Snippets anlegen, bestehende bearbeiten oder wieder entfernen.
                             Über die Navigation links kommst du zu weiteren Bereichen, kannst Favoriten speichern und Code-Lösungen von anderen Nutzern entdecken. 

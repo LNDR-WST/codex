@@ -44,9 +44,14 @@ app.get("/login", function(req, res)
     res.sendFile(__dirname + "/views/login.html");
 });
 
+app.get("/logout", function(req, res)
+{
+    res.sendFile(__dirname + "/views/logout.html");
+});
+
 app.get("/profile", function(req, res)
 {
-    res.sendFile(__dirname + "/views/profile.html");
+    res.render("profile", {username: req.body.loginname }); /* Username über Sessions/Cookie ziehen? */
 });
 
 // POST Requests
@@ -97,7 +102,7 @@ app.post('/newUser', function(req,res)
             const isValid = bcrypt.compareSync(param_password, hash);
             if (isValid==true)
             {
-                res.sendFile(__dirname + "/views/profile.html");    // Hier verlinkung bei erfolgreichem Login
+                res.render("profile", {username: param_loginname});    // Hier Verlinkung bei erfolgreichem Login; ggf. mehr Parameter übergeben [tbd]
             }
             else
             {
