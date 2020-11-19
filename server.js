@@ -23,6 +23,12 @@ app.listen(3000, function()
 // public freigabe
 app.use(express.static(__dirname + "/public"));
 
+// Freigabe der Ordner für CodeMirror-Editor
+app.use(express.static(__dirname + "/lib"));
+app.use(express.static(__dirname + "/mode"));
+app.use(express.static(__dirname + "/theme"));
+app.use(express.static(__dirname + "/addon"));
+
 // GET Requests
 app.get("/index", function(req,res)
 {
