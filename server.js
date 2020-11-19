@@ -69,7 +69,7 @@ app.post('/newUser', function(req,res)
         db.all(`SELECT * FROM allusers WHERE loginname='${param_loginname}'`,
         function (err, rows)
         {// Test ob User bereits existiert und ob Passwort wiederholung korrekt und Passwort mehr als 7 zeichen hat
-            if (rows.length == 0 && param_password1 == param_password2 && param_email.match && check != null && param_password1.length > 7)  
+            if (rows.length == 0 && param_password1 == param_password2 &&  check != null && param_password1.length > 7)  
             {
                 const hash = bcrypt.hashSync(param_password1,10);
                 db.run(
