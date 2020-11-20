@@ -116,8 +116,8 @@ app.post('/newUser', function(req,res)
                 codedb.all(`SELECT code FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
-                    const param_usercode = rows[0].code; // Hier später übergabe von Array mit Objekten anstelle von einzel String
-                    res.render("profile", {username: param_loginname, usercode: param_usercode});  
+                    const param_usercode = rows; // Hier später übergabe von Array mit Objekten anstelle von einzel String
+                    res.render("profile", {username: param_loginname, codelist: param_usercode});  
                 })
 
             }
