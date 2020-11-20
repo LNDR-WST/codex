@@ -9,3 +9,7 @@ npm install ejs --save
 npm install sqlite3 --save
 
 npm install bcrypt --save 
+
+npm install cookie-parser --save
+
+npm install express-session --save

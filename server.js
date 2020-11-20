@@ -1,4 +1,4 @@
-// Initialisierung von Express , Body-Parser , EJS , sqlite Datenbank, bcrypt
+// Initialisierung von Express , Body-Parser , EJS , sqlite Datenbank, bcrypt, cookie-parser, express-session
 const express = require("express");
 const app = express();
 
@@ -16,6 +16,16 @@ const codedb = new sqlite3.Database(CODEBASE);
 
 
 const bcrypt = require("bcrypt");
+
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
+const session = require('express-session');
+app.use(session({
+    secret: 'example',
+    saveUninitialized: false,
+    resave:false
+}));
 
 // Server starten
 app.listen(3000, function()
@@ -102,6 +112,9 @@ app.post('/newUser', function(req,res)
 {
     const param_loginname = req.body.loginname;
     const param_password = req.body.password;
+    // login name wird benutzt für sessionValue
+    const param_sessionValue = req.body.loginname;
+    req.session.sessionValue = param_sessionValue;
     db.all(`SELECT password FROM allusers WHERE loginname ='${param_loginname}'`,
     function(err,rows)
     {
