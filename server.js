@@ -9,8 +9,11 @@ app.engine("ejs", require("ejs").__express);
 app.set("view engine", "ejs");
 
 const DATABASE = "users.db"; // hier wird Datenbank Name festgelegt
+const CODEBASE = "code.db";
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database(DATABASE);
+const codedb = new sqlite3.Database(CODEBASE);
+
 
 const bcrypt = require("bcrypt");
 
@@ -54,11 +57,11 @@ app.get("/logout", function(req, res)
 {
     res.sendFile(__dirname + "/views/logout.html");
 });
-
+/*
 app.get("/profile", function(req, res)
 {
     res.render("profile", {username: req.body.loginname }); /* Username über Sessions/Cookie ziehen? */
-});
+//});
 
 // POST Requests
 
@@ -108,7 +111,16 @@ app.post('/newUser', function(req,res)
             const isValid = bcrypt.compareSync(param_password, hash);
             if (isValid==true)
             {
-                res.render("profile", {username: param_loginname});    // Hier Verlinkung bei erfolgreichem Login; ggf. mehr Parameter übergeben [tbd]
+                //res.redirect("/profile")   Hier Verlinkung bei erfolgreichem Login; ggf. mehr Parameter übergeben [tbd]
+
+                codedb.all(`SELECT code FROM allcode WHERE loginname ='${param_loginname}'`,
+                function(err,rows)
+                {
+                    const param_usercode = rows[0].code; // Hier später übergabe von Array mit Objekten anstelle von einzel String
+                    console.log(param_usercode);
+                    res.render("profile", {username: param_loginname, usercode: param_usercode});  
+                })
+
             }
             else
             {
@@ -120,3 +132,4 @@ app.post('/newUser', function(req,res)
         }
     });
 });
+

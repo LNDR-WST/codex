@@ -68,21 +68,11 @@
     ## TODO: Beispieltext (Code) später via EJS aus Datenbank einbinden. Evtl. dann je Eingabefeld einen Bearbeiten-Button; beim Speichern wird die Änderung in die Datenbank geschrieben. 
              Wird ein neues Editorfeld für ein Code-Snippets benötigt, ist das ggf. über einen '+'-Button lösbar (fügt neuen Editor ein). Ist noch zu besprechen.-->
 <form><textarea id="code" name="code">
-var imgWidth=285, imgHeight=233;
-var xStart=Math.floor(imgWidth/2), yStart=Math.floor(imgHeight/2);
-var x=xStart, y=yStart;
-var clipWidth=(imgWidth-2*xStart), clipHeight=(imgHeight-2*yStart);
-var status;
 
-function show() {
-if(status==1) {
-    document.getElementById("image").style.clip=
-        "rect("+y+" "+(x+clipWidth)+" "+(y+clipHeight)+" "+x+")";
 
-    x-=1;
-    clipWidth+=2;
-    y-=1;
-    clipHeight+=2;
+    <%= usercode %> 
+
+ 
 </textarea></form>
 </div>
                 </div>
