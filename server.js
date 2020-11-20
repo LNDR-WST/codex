@@ -117,7 +117,6 @@ app.post('/newUser', function(req,res)
                 function(err,rows)
                 {
                     const param_usercode = rows[0].code; // Hier später übergabe von Array mit Objekten anstelle von einzel String
-                    console.log(param_usercode);
                     res.render("profile", {username: param_loginname, usercode: param_usercode});  
                 })
 
