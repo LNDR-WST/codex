@@ -12,6 +12,9 @@
         <!-- Laden der Formular-JS-Funktionen -->
         <script src="/js/form.js"></script>
         
+        <!-- Einbinden Javascript für Formular -->
+        <script src="/js/form.js"></script>
+        
         <!-- Meta-Daten -->
         <title>Codex - Registrierung</title>
     </head>
@@ -38,7 +41,8 @@
                             </div>
                             <div>
                                 <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>
-                                <input type="text" name="loginname" class="forminput"><br>
+                                <input type="text" name="loginname" id="loginname" class="forminput" placeholder="Dein gewünschter Benutzername" onblur="checkName()" required><br>
+                                <div class="error-msg loginname" style="display:none;">Name bereits vergeben.</div>
                             </div>
                             <div>
                                 <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
@@ -52,7 +56,7 @@
                             </div>
                             <!-- Links zu Nutzungsbedingungen & Datenschutz stehen noch aus -->
                             <p><input type="checkbox" onclick="if(this.checked) showButton(); else hideButton();" 
-                            name="" style="border:none; transform:scale(2); margin-right: 10px;">
+                            name="" style="border:none; transform:scale(2); margin-right: 10px;" required>
                             Ich habe die <a href="" target="_blank">allgemeinen Nutzungsbedingungen</a> sowie die <a href="" target="_blank">Hinweise zum Datenschutz</a> zur Kenntnis genommen 
                             und akzeptiere diese mit meiner Registrierung.</p><br>
                         <div id="bHidden" style="display: none;"><input type="submit" class="cta-button" value="REGISTRIERUNG&nbsp;ABSCHLIESSEN"></div>
