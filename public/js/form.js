@@ -51,7 +51,7 @@ function checkMail() {
 
 // Überprüft, ob die Passwortanforderungen erfüllt sind
 function checkPass() {
-    var password1 = document.getElementById("password1");
+    var password1 = document.getElementByID("password1");
     if (password1.length > 7) {
         password1.setAttribute('style','border:solid; border-color:#33cc33');
         document.querySelector('.msg.password1').setAttribute('style','display:none');
