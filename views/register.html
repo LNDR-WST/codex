@@ -34,22 +34,22 @@
                             <div>
                                 <label for="email" class="formlabel" style="margin-right: 95px;">E-Mailadresse:</label>
                                 <input type="text" name="email" id="email" class="forminput" placeholder="Deine E-Mailadresse" onblur="checkMail()" required><br>
-                                <div class="msg email" style="display:none;">Bitte Emailadresse überprüfen.</div>
+                                <div class="error-msg email" style="display:none;">Bitte Emailadresse überprüfen.</div>
                             </div>
                             <div>
                                 <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>
                                 <input type="text" name="loginname" id="loginname" class="forminput" placeholder="Dein gewünschter Benutzername" onblur="checkName()" required><br>
-                                <div class="msg loginname" style="display:none;">Name bereits vergeben.</div>
+                                <div class="error-msg loginname" style="display:none;">Name bereits vergeben.</div>
                             </div>
                             <div>
                                 <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
                                 <input type="password" name="password1" id="password1" class="forminput" placeholder="mind. 8 Zeichen" onblur="checkPass()" required><br>
-                                <div class="msg password1" style="display:none;">Passwort zu kurz.</div>
+                                <div class="error-msg password1" style="display:none;">Passwort ist zu kurz.</div>
                             </div>
                             <div>
                                 <label for="pass_whd" class="formlabel" style="margin-right: 4px;">Passwort wiederholen:</label>
                                 <input type="password" name="password2" id="password2" class="forminput" onblur="checkMatch()" required><br>
-                                <div class="msg password2" style="display:none;">Passwörter stimmen nicht überein.</div>
+                                <div class="error-msg password2" style="display:none;">Passwörter stimmen nicht überein.</div>
                             </div>
                             <!-- Links zu Nutzungsbedingungen & Datenschutz stehen noch aus -->
                             <p><input type="checkbox" onclick="if(this.checked) showButton(); else hideButton();" 

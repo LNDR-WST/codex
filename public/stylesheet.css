@@ -223,10 +223,10 @@ pre {
 
 /* Style für Error-Message Registrierung */
 
-.msg {
+.error-msg {
   font-family: 'Share Tech Mono', monospace;
   color: firebrick;
-  width: 90%;
+  width: 100%;
   padding: 4px;
   font-size: 0.9em;
 }

@@ -32,10 +32,10 @@ function checkMail() {
     var email = document.getElementById("email");
     if (email.value.match(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/)) {
         email.setAttribute('style','border:solid; border-color:#33cc33');
-        document.querySelector('.msg.email').setAttribute('style','display:none');
+        document.querySelector('.error-msg.email').setAttribute('style','display:none');
     } else {
         email.setAttribute('style','border:solid; border-color:red');
-        document.querySelector('.msg.email').setAttribute('style','display:block');
+        document.querySelector('.error-msg.email').setAttribute('style','display:block');
     }
 }
 
@@ -48,17 +48,17 @@ function checkMail() {
 
 */
 
-
 // Überprüft, ob die Passwortanforderungen erfüllt sind
 function checkPass() {
-    var password1 = document.getElementByID("password1");
+    /* var pwd = document.getElementById('password1'); */
+    var password1 = document.getElementById("password1");
     if (password1.length > 7) {
         password1.setAttribute('style','border:solid; border-color:#33cc33');
-        document.querySelector('.msg.password1').setAttribute('style','display:none');
+        document.querySelector('.error-msg.password1').setAttribute('style','display:none');
     } else {
         password1.setAttribute('style','border:solid; border-color:red');
-        document.querySelector('.msg.password1').setAttribute('style','display:block');
-    }
+        document.querySelector('.error-msg.password1').setAttribute('style','display:block');
+    } 
 }
 
 // Überprüft, ob beide Passwortfelder identisch sind
@@ -67,9 +67,9 @@ function checkMatch() {
     var password2 = document.getElementById("password2");
     if (password2.value == password1.value) {
         password2.setAttribute('style','border:solid; border-color:#33cc33')
-        document.querySelector('.msg.password2').setAttribute('style','display:none');
+        document.querySelector('.error-msg.password2').setAttribute('style','display:none');
     } else {
         password2.setAttribute('style','border:solid; border-color:red')
-        document.querySelector('.msg.password2').setAttribute('style','display:block');
+        document.querySelector('.error-msg.password2').setAttribute('style','display:block');
     }
 }
