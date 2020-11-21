@@ -212,12 +212,23 @@ pre {
 .forminput {
   font-family: 'Share Tech Mono', monospace;
   font-size: 16px;
-  border:none;
+  border:solid;
+  border-color: #FFFFFF;
   background-color: #b4b4b4;
   width:355px;
   height:26px;
-  padding: px;
+  padding-left: 5px;
   margin: 2px;
+}
+
+/* Style für Error-Message Registrierung */
+
+.msg {
+  font-family: 'Share Tech Mono', monospace;
+  color: firebrick;
+  width: 90%;
+  padding: 4px;
+  font-size: 0.9em;
 }
 
 /* Style Footer */

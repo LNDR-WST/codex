@@ -9,6 +9,9 @@
         <!-- Laden des CSS-Stylesheets -->
         <link rel="stylesheet" href="/stylesheet.css">
         
+        <!-- Einbinden Javascript für Formular -->
+        <script src="/js/form.js"></script>
+        
         <!-- Meta-Daten -->
         <title>Codex - Registrierung</title>
     </head>
@@ -30,43 +33,31 @@
                     <form action="newUser" method="POST">
                             <div>
                                 <label for="email" class="formlabel" style="margin-right: 95px;">E-Mailadresse:</label>
-                                <input type="text" name="email" class="forminput"><br>
+                                <input type="text" name="email" id="email" class="forminput" placeholder="Deine E-Mailadresse" onblur="checkMail()" required><br>
+                                <div class="msg email" style="display:none;">Bitte Emailadresse überprüfen.</div>
                             </div>
                             <div>
                                 <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>
-                                <input type="text" name="loginname" class="forminput"><br>
+                                <input type="text" name="loginname" id="loginname" class="forminput" placeholder="Dein gewünschter Benutzername" onblur="checkName()" required><br>
+                                <div class="msg loginname" style="display:none;">Name bereits vergeben.</div>
                             </div>
                             <div>
                                 <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
-                                <input type="password" name="password1" class="forminput"><br>
+                                <input type="password" name="password1" id="password1" class="forminput" placeholder="mind. 8 Zeichen" onblur="checkPass()" required><br>
+                                <div class="msg password1" style="display:none;">Passwort zu kurz.</div>
                             </div>
                             <div>
                                 <label for="pass_whd" class="formlabel" style="margin-right: 4px;">Passwort wiederholen:</label>
-                                <input type="password" name="password2" class="forminput"><br><br>
+                                <input type="password" name="password2" id="password2" class="forminput" onblur="checkMatch()" required><br>
+                                <div class="msg password2" style="display:none;">Passwörter stimmen nicht überein.</div>
                             </div>
                             <!-- Links zu Nutzungsbedingungen & Datenschutz stehen noch aus -->
                             <p><input type="checkbox" onclick="if(this.checked) showButton(); else hideButton();" 
-                            name="" style="border:none; transform:scale(2); margin-right: 10px;">
+                            name="" style="border:none; transform:scale(2); margin-right: 10px;" required>
                             Ich habe die <a href="" target="_blank">allgemeinen Nutzungsbedingungen</a> sowie die <a href="" target="_blank">Hinweise zum Datenschutz</a> zur Kenntnis genommen 
                             und akzeptiere diese mit meiner Registrierung.</p><br>
                         <div id="bHidden" style="display: none;"><input type="submit" class="cta-button" value="REGISTRIERUNG&nbsp;ABSCHLIESSEN"></div>
                     </form>
-                    <!-- JS-Script, um den 'Submit'-Button nur anzuzeigen, wenn die Checkbox aktiviert wurde. 
-                        leicht modifiziert von: https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp -->
-                    <script>
-                        function showButton() {
-                          var button = document.getElementById("bHidden");
-                          if (button.style.display === "none") {
-                            button.style.display = "flex";
-                          }
-                        }
-                        function hideButton() {
-                          var button = document.getElementById("bHidden");
-                          if (button.style.display === "flex") {
-                            button.style.display = "none";
-                          }
-                        }
-                    </script>
                 </div>
             </div>
             <!-- Info-Box -->
