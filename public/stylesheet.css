@@ -212,12 +212,19 @@ pre {
 .forminput {
   font-family: 'Share Tech Mono', monospace;
   font-size: 16px;
-  border:none;
+  border: solid;
+  border-color: #b4b4b4;
   background-color: #b4b4b4;
   width:355px;
   height:26px;
   padding: px;
   margin: 2px;
+}
+
+.error-msg {
+  font-family: 'Share Tech Mono', monospace;
+  color: firebrick;
+  display: none;
 }
 
 /* Style Footer */
