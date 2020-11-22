@@ -170,8 +170,8 @@ app.post('/newUser', function(req,res)
                 codedb.all(`SELECT code FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
-                    const param_usercode = rows; // Hier später übergabe von Array mit Objekten anstelle von einzel String
-                    res.render("profile", {username: param_loginname, codelist: param_usercode});  
+                    const param_usercode = rows;
+                    res.render("profile", {username: param_loginname, codelist: param_usercode});
                 })
 
             }
@@ -186,3 +186,12 @@ app.post('/newUser', function(req,res)
     });
 });
 
+// Code-Snippet löschen
+app.post('/onDeleteCode/:i', function(req, res) {
+    const id = req.params['i'];
+    const sql = `DELETE FROM allcode WHERE id=${id}`;
+    console.log(sql);
+    codedb.run(sql, function(err) {
+        res.redirect('/profile');
+    });
+});

@@ -36,7 +36,7 @@
                     <form action="newUser" method="POST">
                             <div>
                                 <label for="email" class="formlabel" style="margin-right: 95px;">E-Mailadresse:</label>
-                                <input type="text" id="email" name="email" class="forminput" onblur="checkEmail()">
+                                <input type="text" id="email" name="email" class="forminput" onblur="checkEmail()" required><br>
                                 <div class="error-msg email">Bitte E-Mailadresse überprüfen.</div>
                             </div>
                             <div>
@@ -46,12 +46,12 @@
                             </div>
                             <div>
                                 <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
-                                <input type="password" id="password1" name="password1" class="forminput" onblur="checkPass()">
+                                <input type="password" id="password1" name="password1" class="forminput" onblur="checkPass()" required><br>
                                 <div class="error-msg password1">Passwort ist zu kurz.</div>
                             </div>
                             <div>
                                 <label for="pass_whd" class="formlabel" style="margin-right: 4px;">Passwort wiederholen:</label>
-                                <input type="password" id="password2" name="password2" class="forminput" onblur="checkMatch()">
+                                <input type="password" id="password2" name="password2" class="forminput" onblur="checkMatch()" required><br>
                                 <div class="error-msg password2">Passwörter stimmen nicht überein.</div>
                             </div>
                             <!-- Links zu Nutzungsbedingungen & Datenschutz stehen noch aus -->
