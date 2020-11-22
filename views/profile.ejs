@@ -60,33 +60,33 @@
                             <br><br>
                             Viel Spaß!</p>
                             <div style="align-self: flex-end;"><a href="#" class="cta-button">BEARBEITEN</a></div>
-<div>
- <!-- Hier beginnt der for Loop zum erstellen der Editorfelder -->   
-    <% for(var i = 0; i < codelist.length; i++){ %>
-    <h4>Überschrift <%= i+1 %></h3>
-    <p class="code-desc">Beschreibung von Code 1. Dieser Code ist vero eos et accusam et justo duo dolores et ea rebum. 
-        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>   
-<!-- Editor-Feld mit Beispieltext. Code muss ganz links stehen, sonst werden Einrückungen der EJS-Datei auch im Editor berücksichtigt.
-    ## TODO: Beispieltext (Code) später via EJS aus Datenbank einbinden. Evtl. dann je Eingabefeld einen Bearbeiten-Button; beim Speichern wird die Änderung in die Datenbank geschrieben. 
-             Wird ein neues Editorfeld für ein Code-Snippets benötigt, ist das ggf. über einen '+'-Button lösbar (fügt neuen Editor ein). Ist noch zu besprechen.-->
+                        <div>
+                        <!-- Hier beginnt der for Loop zum erstellen der Editorfelder -->   
+                            <% for(var i = 0; i < codelist.length; i++){ %>
+                                <h4>Überschrift <%= i+1 %></h4>
+                            <p class="code-desc">Beschreibung von Code 1. Dieser Code ist vero eos et accusam et justo duo dolores et ea rebum. 
+                                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>   
+                        <!-- Editor-Feld mit Beispieltext. Code muss ganz links stehen, sonst werden Einrückungen der EJS-Datei auch im Editor berücksichtigt.
+                            ## TODO: Beispieltext (Code) später via EJS aus Datenbank einbinden. Evtl. dann je Eingabefeld einen Bearbeiten-Button; beim Speichern wird die Änderung in die Datenbank geschrieben. 
+                                    Wird ein neues Editorfeld für ein Code-Snippets benötigt, ist das ggf. über einen '+'-Button lösbar (fügt neuen Editor ein). Ist noch zu besprechen.-->
 
-             <form><textarea id= <%= i %> name="code">
-<%= codelist[i].code %> 
-                </textarea>
-            </form>
-            <!-- CodeMirror-Script sucht nach Elementen mit id 'codeid' und aktiviert Editor -->
-<script> 
-    var codeid =  <%= i %>;
-    var editor = CodeMirror.fromTextArea(document.getElementById(codeid), {
-        lineNumbers: true,      // Boolean: aktiviert Zeilennummern
-        theme: "ayu-mirage",    // Theme-Auswahl für Editor
-        styleActiveLine: true,  // Aktive Zeile wird markiert
-    });
-    
-</script>
+                                    <form style="margin-bottom: 20px;"><textarea id= <%= i %> name="code">
+                        <%= codelist[i].code %> 
+                                        </textarea>
+                                    </form>
+                                    <!-- CodeMirror-Script sucht nach Elementen mit id 'codeid' und aktiviert Editor -->
+                            <script> 
+                                var codeid =  <%= i %>; // wird von VSC als Problem identifiziert, da VSC kein EJS unterstützt (https://github.com/Microsoft/vscode/issues/51118)
+                                var editor = CodeMirror.fromTextArea(document.getElementById(codeid), {
+                                    lineNumbers: true,      // Boolean: aktiviert Zeilennummern
+                                    theme: "ayu-mirage",    // Theme-Auswahl für Editor
+                                    styleActiveLine: true,  // Aktive Zeile wird markiert
+                                });
+                                
+                            </script>
 
-<% } %>
-</div>
+                        <% } %>
+                        </div>
                 </div>
             </div>
             <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->

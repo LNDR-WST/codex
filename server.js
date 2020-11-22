@@ -1,4 +1,10 @@
-// Initialisierung von Express , Body-Parser , EJS , sqlite Datenbank, bcrypt, cookie-parser, express-session
+/*
+###############################################
+####       Initialisierung Extensions      ####
+###############################################
+*/
+
+// Initialisierung von Express, Body-Parser, EJS, sqlite Datenbank, bcrypt, cookie-parser, express-session
 const express = require("express");
 const app = express();
 
@@ -22,18 +28,27 @@ app.use(cookieParser());
 
 const session = require('express-session');
 app.use(session({
-    secret: 'example',
+    secret: 'thisisoursecretsessioncode',
     saveUninitialized: false,
     resave:false
 }));
 
-// Server starten
+/*
+###############################################
+####              Server-Start             ####
+###############################################
+*/
 app.listen(3000, function()
 {
     console.log("listening in port 3000");
 });
 
-// public freigabe
+/*
+###############################################
+####            Ordner-Freigaben           ####
+###############################################
+*/
+// Freigabe Public
 app.use(express.static(__dirname + "/public"));
 
 // Freigabe der Ordner für CodeMirror-Editor
@@ -42,7 +57,11 @@ app.use(express.static(__dirname + "/mode"));
 app.use(express.static(__dirname + "/theme"));
 app.use(express.static(__dirname + "/addon"));
 
-// GET Requests
+/*
+###############################################
+####              GET-Requests             ####
+###############################################
+*/
 app.get("/index", function(req,res)
 {
     res.sendFile(__dirname + "/views/index.html");
@@ -50,7 +69,7 @@ app.get("/index", function(req,res)
 
 app.get("/welcome", function(req, res)
 {
-    res.sendFile(__dirname + "/views/welcome.html");
+    res.render("welcome", {session: req.session.sessionValue});
 });
 
 app.get("/register", function(req, res)
@@ -58,22 +77,46 @@ app.get("/register", function(req, res)
     res.sendFile(__dirname + "/views/register.html");
 });
 
+/* Login-Seite wird nur aufgerufen, wenn keine Session aktiv ist.
+   ansonsten wird direkt aufs Profil umgeleitet. */
 app.get("/login", function(req, res)
 {
-    res.sendFile(__dirname + "/views/login.html");
+    console.log(req.session);
+    if (!req.session.sessionValue) {
+        res.sendFile(__dirname + "/views/login.html");
+    } else {
+        res.redirect("/profile");
+    }
 });
 
 app.get("/logout", function(req, res)
 {
+    req.session.destroy(); // Session wird gelöscht
     res.sendFile(__dirname + "/views/logout.html");
 });
-/*
+
+// Profil-Aufruf ist geschützt: Nur bei gesetzter sessionValue (Username) ist Aufruf möglich!
 app.get("/profile", function(req, res)
 {
-    res.render("profile", {username: req.body.loginname }); /* Username über Sessions/Cookie ziehen? */
-//});
+    console.log(req.session);
+    if (!req.session.sessionValue) {
+        res.redirect("/login");
+    } else {
+        const sessionValueName = req.session.sessionValue;
+        codedb.all(`SELECT code FROM allcode WHERE loginname ='${sessionValueName}'`,
+                function(err,rows)
+                {
+                    const param_usercode = rows; // Hier später Übergabe von Array mit Objekten anstelle von einzel String
+                    res.render("profile", {username: sessionValueName, codelist: param_usercode});  
+                })
+    }
+});
 
-// POST Requests
+/*
+###############################################
+####             POST-Requests             ####
+###############################################
+*/
 
 // Registrierung
 app.post('/newUser', function(req,res)
@@ -124,8 +167,6 @@ app.post('/newUser', function(req,res)
             const isValid = bcrypt.compareSync(param_password, hash);
             if (isValid==true)
             {
-                //res.redirect("/profile")   Hier Verlinkung bei erfolgreichem Login; ggf. mehr Parameter übergeben [tbd]
-
                 codedb.all(`SELECT code FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
