@@ -203,9 +203,7 @@ app.post('/onDeleteCode/:i', function(req, res) {
 app.post('/addCode', function(req,res)
 {
     const param_loginname = req.session.sessionValue
-console.log(param_loginname);
-    const sql = `INSERT INTO allcode (code,loginname) VALUES ('${param_loginname}','${param_loginname}')`;
-
+    const sql = `INSERT INTO allcode (code,loginname) VALUES ('Neues Dokument','${param_loginname}')`;
     codedb.run(sql, function(err)
     {
         res.redirect('/profile');
