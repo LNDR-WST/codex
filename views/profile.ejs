@@ -91,8 +91,6 @@
     </script>
     <div class="flex-container" style="justify-content: flex-end; margin-bottom: 20px;"><form action="/onDeleteCode/<%= codelist[i].id %>" method="POST" id=delete<%= codelist[i].id %>><input type="submit" class="cta-button" onclick="confirmDelete(bHidden<%= codelist[i].id %>)" value="DELETE"></form>
     <button class="cta-button" id=bHidden<%= codelist[i].id %> style="display: none;" onclick="post('/onChangeCode/', {code: `${editor<%= codelist[i].id %>.getValue()}`, id: <%= codelist[i].id %>})">SAVE CHANGES</button></div>
-    <!-- <div style="align-self: flex-end; margin-bottom: 20px;"><button class="cta-button" onclick="post('/onChangeCode/', {id: <%= codelist[i].id %>, code: `${editor<%= codelist[i].id %>.getValue()}`})">SAVE CHANGES</button></div>
-    <div style="align-self: flex-end; margin-bottom: 20px;"><button class="cta-button" onclick="console.log(editor<%= codelist[i].id %>.getValue())">SAVE CHANGES</button></div> -->
 <% } %>
 </div>
                         <!-- Add Button. Position muss/kann noch angepasst werden -->

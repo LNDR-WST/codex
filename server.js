@@ -156,9 +156,6 @@ app.post('/login', function(req,res)
 {
     const param_loginname = req.body.loginname;
     const param_password = req.body.password;
-    // login name wird benutzt für sessionValue
-    const param_sessionValue = req.body.loginname;
-    req.session.sessionValue = param_sessionValue;
     db.all(`SELECT password FROM allusers WHERE loginname ='${param_loginname}'`,
     function(err,rows)
     {
@@ -168,6 +165,7 @@ app.post('/login', function(req,res)
             const isValid = bcrypt.compareSync(param_password, hash);
             if (isValid==true)
             {
+                req.session.sessionValue = param_loginname;
                 codedb.all(`SELECT id, code FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
@@ -179,11 +177,11 @@ app.post('/login', function(req,res)
             }
             else
             {
-                res.redirect("/login");  // Hier verlinkung bei nicht erfolgreichem Login [passwort falsch]
+                res.redirect("/welcome");  // Hier verlinkung bei nicht erfolgreichem Login [passwort falsch]
             };
         }
         else{
-            res.redirect("/login");   // Hier verlinkung bei nicht erfolgreichem Login [User existiert nicht]
+            res.redirect("/welcome");   // Hier verlinkung bei nicht erfolgreichem Login [User existiert nicht]
         }
     });
 });
