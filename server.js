@@ -151,8 +151,8 @@ app.post('/newUser', function(req,res)
         });
     });
 
-    // Login
-    app.post('/login', function(req,res)
+// Login
+app.post('/login', function(req,res)
 {
     const param_loginname = req.body.loginname;
     const param_password = req.body.password;
@@ -189,8 +189,8 @@ app.post('/newUser', function(req,res)
 });
 
 // Code-Snippet löschen
-app.post('/onDeleteCode/:i', function(req, res) {
-    const id = req.params['i'];
+app.post('/onDeleteCode/:id', function(req, res) {
+    const id = req.params['id'];
     const sql = `DELETE FROM allcode WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
@@ -209,3 +209,14 @@ app.post('/addCode', function(req,res)
         res.redirect('/profile');
     })
 })
+// Code-Snippet ändern
+app.post('/onChangeCode/', function(req, res) {
+    const id = req.body.id;
+    const code = req.body.code;
+    const sql = `UPDATE allcode SET code='${code}' WHERE id=${id}`;
+    console.log(sql);
+    codedb.run(sql, function(err) {
+        console.log("Code-Snippet geändert") // Message zum Debugging
+        res.redirect('/profile')
+    });
+});
