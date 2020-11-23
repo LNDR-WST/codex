@@ -162,6 +162,41 @@ p {
   margin: 0;
 }
 
+/* textarea {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 24px;
+  color: white;
+  background-color: #0A64A4;
+  resize: none;
+  outline: none;
+} */
+
+/* Style für Textarea (Code-Snippet-Description) */
+
+  .container {
+    max-width: 770px;
+    margin: 0px auto;
+    margin-top: 20px;
+  }
+  .description {
+    float: left;
+    width: 100%;
+    height: auto;
+  }
+
+  .textinput {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 16px;
+    border: solid;
+    border-color: #b4b4b4;
+    background-color: #b4b4b4;
+    float: left;
+    width: 100%;
+    min-height: 75px;
+    outline: none;
+    resize: none;
+  }
+
 /* <pre>-Tags mit exakter Formatierung */
 pre {
   background-color: #b2b2b2b2;

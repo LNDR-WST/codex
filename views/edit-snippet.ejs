@@ -1,0 +1,101 @@
+<!-- Benutzerprofil/Code-Sammlung -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Einbinden von Google-Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Share+Tech+Mono&display=swap" rel="stylesheet"> 
+        
+        <!-- Laden des CSS-Stylesheets -->
+        <link rel="stylesheet" href="/stylesheet.css">
+        
+        <!-- Laden der CodeMirror-Dateien -->
+        <script src="/editCode/codemirror.js"></script>
+		<link rel="stylesheet" href="/editCode/codemirror.css">
+		<link rel="stylesheet" href="/editCode/ayu-mirage.css">
+        <script src="/editCode/javascript/javascript.js"></script>
+        <script src="/editCode/selection/active-line.js"></script>
+
+        <!-- Laden von Formular-Script -->
+        <script src="/js/form.js"></script>
+
+        <!-- Meta-Daten -->
+        <title>Codex - Login</title>
+    </head>
+    <body>
+        <div class="inner">
+            <!-- Navigation & Website-Header -->
+            <div class="flex-container" style="background-color: white;">
+                <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/logout">Logout</a></div>
+            </div>
+            <!-- Flex-Container für Seiten-Menü und Inhalt -->
+            <div class="flex-container" style="justify-content: flex-start; align-items: flex-start;">
+                <div id="menu" class="flex-container" style="justify-content: flex-start; flex-direction: column; align-items: flex-start; position: fixed;">
+                    <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 10px;">
+                        <h3 style="text-align: center; background-color: #FF9000; font-size: 24px;">MENÜ</h3>
+                    </div>
+                    <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
+                        <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
+                        <p class="menu-button"><a href="/profile">[ My Snippets ]</b></a></p>
+                        <p class="menu-button"><a href="">[ Other Users ]</b></a></p>
+                        <p class="menu-button"><a href="">[ Favorites ]</b></a></p>
+                        <p class="menu-button"><a href="">[ Settings ]</b></a></p>
+                    </div>
+                </div>
+                <div id="content" class="flex-container code" style="width: 720px;">
+                        <h1 style="margin: 0px 20px 20px 20px;">Code-Snippet bearbeiten:</h1>
+                        <form action="/onChangeCode/" method="POST" style="margin: 0px 20px 20px 20px; width: 100%;"> 
+                            <div>
+                                <label for="headline" class="formlabel"><b>Überschrift:</b></label><br>
+                                <input type="hidden" name="id" value=<%= snippetId %> >
+                                <input type="text" id="head" name="head" class="forminput" value="<%= snippetHead %>"><br><br>
+                            </div>
+                            <div style="margin-bottom: 35px;">
+                                <label for="description" class="formlabel"><b>Beschreibung:</b></label>
+                                <div class="container" style="margin: 0px;">
+                                    <div class="description">
+                                        <textarea id="desc" name="desc" class="textinput"><%= snippetDesc %></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Nachfolgendes <textarea> mit 'id="unnecessary"' hat keine richtige Funktion. Ohne die Area verschwindet CodeMirror aber seltsamerweise -->
+                            <textarea id="unnecessary" style="border:none; margin: 0px; height: 0px; resize: none;"></textarea>
+                            <textarea id=snippetIdent name="code"><%= snippetCode %></textarea>
+                            
+                            <!-- Versteckte Input-Felder erzeugen, die geänderte Werte annehmen -->
+                            <script>
+                                function createHiddenInput() {
+                                    /* var hiddenId = document.createElement('input'); */
+                                    var hiddenCode = document.createElement('input');
+                                    /* hiddenId.setAttribute('type', 'hidden'); */
+                                    hiddenHead.setAttribute('type', 'hidden');
+                                    /* hiddenId.setAttribute('name', 'id'); */
+                                    hiddenHead.setAttribute('name', 'head');
+                                    /* hiddenId.setAttribute('value', '<%= snippetId %>'); */
+                                    hiddenCode.setAttribute('value', `${editor2.getValue()}`);
+                                }
+                            </script>
+                            <button class="cta-button" onclick="createHiddenInput()">SPEICHERN</button>
+                        </form>
+                    <script> 
+                        var idCode = "snippetIdent";
+                        var editor2 = CodeMirror.fromTextArea(document.getElementById(idCode), {
+                            lineNumbers: true, theme: "ayu-mirage", styleActiveLine: true});
+                        editor2.on("change", function(editorChange) {
+                            console.log(editorChange.getValue());
+                        });
+                    </script>
+                </div>
+            </div>
+            <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->
+            <div class="flex-container" style="height: 50px; background-color: #FF9000; margin: 0px;">
+                <p class="footer">© 2020 CODEX &nbsp;
+                <a href="">Impressum</a>	| <a href="">Datenschutz</a>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

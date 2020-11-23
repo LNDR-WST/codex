@@ -52,10 +52,10 @@ app.listen(3000, function()
 app.use(express.static(__dirname + "/public"));
 
 // Freigabe der Ordner für CodeMirror-Editor
-app.use(express.static(__dirname + "/lib"));
-app.use(express.static(__dirname + "/mode"));
-app.use(express.static(__dirname + "/theme"));
-app.use(express.static(__dirname + "/addon"));
+app.use('/editCode', express.static(__dirname + "/lib"));
+app.use('/editCode', express.static(__dirname + "/mode"));
+app.use('/editCode', express.static(__dirname + "/theme"));
+app.use('/editCode', express.static(__dirname + "/addon"));
 
 /*
 ###############################################
@@ -103,14 +103,23 @@ app.get("/profile", function(req, res)
         res.redirect("/login");
     } else {
         const sessionValueName = req.session.sessionValue;
-        codedb.all(`SELECT id, code FROM allcode WHERE loginname ='${sessionValueName}'`,
+        codedb.all(`SELECT id, headline, description, code FROM allcode WHERE loginname ='${sessionValueName}'`,
                 function(err,rows)
                 {
-                    const param_idAndUsercode = rows;
-                    const paramsNeeded = {username: sessionValueName, codelist: param_idAndUsercode};
-                    res.render("profile", paramsNeeded);
+                    const param_userCodeInfo = rows;
+                    res.render("profile", {username: sessionValueName, codelist: param_userCodeInfo});
                 })
     }
+});
+
+app.get("/edit", function(req, res)
+{
+    if (!req.session.sessionValue) {
+        res.redirect("/login");
+    } else {
+        res.render("edit-snippet", {snippetId: null, snippetCode: null, snippetHead: null, snippetDesc: null});
+    }
+    
 });
 
 /*
@@ -166,12 +175,11 @@ app.post('/login', function(req,res)
             if (isValid==true)
             {
                 req.session.sessionValue = param_loginname;
-                codedb.all(`SELECT id, code FROM allcode WHERE loginname ='${param_loginname}'`,
+                codedb.all(`SELECT id, headline, description, code FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
-                    const param_idAndUsercode = rows;
-                    const paramsNeeded = {username: param_loginname, codelist: param_idAndUsercode};
-                    res.render("profile", paramsNeeded);
+                    const param_userCodeInfo = rows;
+                    res.render("profile", {username: param_loginname, codelist: param_userCodeInfo});
                 })
 
             }
@@ -197,24 +205,35 @@ app.post('/onDeleteCode/:id', function(req, res) {
 });
 
 // Code-Snippet hinzufügen
-
 app.post('/addCode', function(req,res)
 {
     const param_loginname = req.session.sessionValue
-    const sql = `INSERT INTO allcode (code,loginname) VALUES ('Neues Dokument','${param_loginname}')`;
+    const sql = `INSERT INTO allcode (code, headline, description, loginname) VALUES ('Neues Dokument', 'Überschrift','Kurze Beschreibung deines Codes','${param_loginname}')`;
     codedb.run(sql, function(err)
     {
         res.redirect('/profile');
     })
 })
+
 // Code-Snippet ändern
 app.post('/onChangeCode/', function(req, res) {
     const id = req.body.id;
+    const head = req.body.head;
+    const desc = req.body.desc;
     const code = req.body.code;
-    const sql = `UPDATE allcode SET code='${code}' WHERE id=${id}`;
+    const sql = `UPDATE allcode SET code='${code}', headline='${head}', description='${desc}' WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
         console.log("Code-Snippet geändert") // Message zum Debugging
-        res.redirect('/profile')
+        res.redirect(`/profile#code-heading${id}`) // Springt direkt zum geänderten Element
     });
+});
+
+// Edit-Page von Code-Snippet aufrufen
+app.post('/editCode/', function(req, res) {
+    const param_id = req.body.id;
+    const param_head = req.body.headline;
+    const param_desc = req.body.description;
+    const param_code = req.body.code;
+    res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc})
 });

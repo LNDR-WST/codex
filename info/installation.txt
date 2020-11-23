@@ -13,3 +13,5 @@ npm install bcrypt --save
 npm install cookie-parser --save
 
 npm install express-session --save
+
+npm install codemirror --save // Zur Sicherheit (sollte eigentlich nicht erforderlich sein)
