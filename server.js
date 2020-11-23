@@ -198,6 +198,17 @@ app.post('/onDeleteCode/:id', function(req, res) {
     });
 });
 
+// Code-Snippet hinzufügen
+
+app.post('/addCode', function(req,res)
+{
+    const param_loginname = req.session.sessionValue
+    const sql = `INSERT INTO allcode (code,loginname) VALUES ('Neues Dokument','${param_loginname}')`;
+    codedb.run(sql, function(err)
+    {
+        res.redirect('/profile');
+    })
+})
 // Code-Snippet ändern
 app.post('/onChangeCode/', function(req, res) {
     const id = req.body.id;
