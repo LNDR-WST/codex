@@ -103,11 +103,12 @@ app.get("/profile", function(req, res)
         res.redirect("/login");
     } else {
         const sessionValueName = req.session.sessionValue;
-        codedb.all(`SELECT code FROM allcode WHERE loginname ='${sessionValueName}'`,
+        codedb.all(`SELECT id, code FROM allcode WHERE loginname ='${sessionValueName}'`,
                 function(err,rows)
                 {
-                    const param_usercode = rows; // Hier später Übergabe von Array mit Objekten anstelle von einzel String
-                    res.render("profile", {username: sessionValueName, codelist: param_usercode});  
+                    const param_idAndUsercode = rows;
+                    const paramsNeeded = {username: sessionValueName, codelist: param_idAndUsercode};
+                    res.render("profile", paramsNeeded);
                 })
     }
 });
@@ -167,11 +168,12 @@ app.post('/newUser', function(req,res)
             const isValid = bcrypt.compareSync(param_password, hash);
             if (isValid==true)
             {
-                codedb.all(`SELECT code FROM allcode WHERE loginname ='${param_loginname}'`,
+                codedb.all(`SELECT id, code FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
-                    const param_usercode = rows;
-                    res.render("profile", {username: param_loginname, codelist: param_usercode});
+                    const param_idAndUsercode = rows;
+                    const paramsNeeded = {username: param_loginname, codelist: param_idAndUsercode};
+                    res.render("profile", paramsNeeded);
                 })
 
             }

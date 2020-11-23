@@ -8,9 +8,6 @@
         
         <!-- Laden des CSS-Stylesheets -->
         <link rel="stylesheet" href="/stylesheet.css">
-
-        <!-- Laden der Snippet-Updatefunktionen -->
-        <script src="/js/updatesnippet.js"></script>
         
         <!-- Laden der CodeMirror-Dateien -->
         <script src="codemirror.js"></script>
@@ -72,20 +69,20 @@
                             ## TODO: Beispieltext (Code) später via EJS aus Datenbank einbinden. Evtl. dann je Eingabefeld einen Bearbeiten-Button; beim Speichern wird die Änderung in die Datenbank geschrieben. 
                                     Wird ein neues Editorfeld für ein Code-Snippets benötigt, ist das ggf. über einen '+'-Button lösbar (fügt neuen Editor ein). Ist noch zu besprechen.-->
 
-                                    <form style="margin-bottom: 10px;"><textarea id= <%= i %> name="code">
+                                    <form style="margin-bottom: 10px;"><textarea id= snippet<%= codelist[i].id %> name="code">
                         <%= codelist[i].code %>
                                         </textarea>
                                     </form>
                                     <!-- CodeMirror-Script sucht nach Elementen mit id 'codeid' und aktiviert Editor -->
                             <script> 
-                                var codeid =  <%= i %>; // wird von VSC als Problem identifiziert, da VSC kein EJS unterstützt (https://github.com/Microsoft/vscode/issues/51118)
+                                var codeid = "snippet" + <%= codelist[i].id %>; // wird von VSC als Problem identifiziert, da VSC kein EJS unterstützt (https://github.com/Microsoft/vscode/issues/51118)
                                 var editor = CodeMirror.fromTextArea(document.getElementById(codeid), {
                                     lineNumbers: true,      // Boolean: aktiviert Zeilennummern
                                     theme: "ayu-mirage",    // Theme-Auswahl für Editor
                                     styleActiveLine: true,  // Aktive Zeile wird markiert
                                 });
                             </script>
-                            <div style="align-self: flex-end; margin-bottom: 20px;"><form action="/onDeleteCode/<%=i%>" method="POST"> <button class="cta-button">DELETE</button></form></div>
+                            <div style="align-self: flex-end; margin-bottom: 20px;"><form action="/onDeleteCode/<%= codelist[i].id %>" method="POST"> <button class="cta-button">DELETE</button></form></div>
                         <% } %>
                         </div>
                 </div>
