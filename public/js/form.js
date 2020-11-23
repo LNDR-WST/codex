@@ -1,4 +1,5 @@
-/* Datei, um JS-Funktionen für Login- & Registrierungsformular auszulagern */
+/* JS-Funktionen für Login- & Registrierungsformular */
+/* JS-Funktion um POST-Requests über Javascript abzuwickeln */
 
 
 /* Registrierung: Button zeigen, wenn Nutzungsbedingungen akzeptiert */
@@ -18,6 +19,17 @@ function showButton() {
       button.style.display = "none";
     }
   }
+
+  
+/* Profil: Save-Button anzeigen, wenn Änderungen gemacht wurden. */
+/* modifiziert von: https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp */
+  function showButtonSave(id) {
+    var button = document.getElementById(`bHidden${id}`);
+    if (button.style.display === "none") {
+      button.style.display = "flex";
+    }
+  }
+
 
 /* Formularfehleingaben sofort abfangen */
 /* Code-Inspiration von https://www.mediaevent.de/javascript/formulare.html */
@@ -58,3 +70,41 @@ function showButton() {
           document.querySelector('.error-msg.password2').setAttribute('style','display:block');
       }
   }
+
+
+// Dynamisch <input>-Felder für ein Formular zum Submit erstellen
+// Quelle: https://stackoverflow.com/questions/133925/javascript-post-request-like-a-form-submit
+ /**
+ * sends a request to the specified url from a form. this will change the window location.
+ * @param {string} path the path to send the post request to
+ * @param {object} params the paramiters to add to the url
+ * @param {string} [method=post] the method to use on the form
+ */
+
+function post(path, params, method='post') {
+
+  // The rest of this code assumes you are not using a library.
+  // It can be made less wordy if you use one.
+  const form = document.createElement('form');
+  form.method = method;
+  form.action = path;
+
+  for (const key in params) {
+    if (params.hasOwnProperty(key)) {
+      const hiddenField = document.createElement('input');
+      hiddenField.type = 'hidden';
+      hiddenField.name = key;
+      hiddenField.value = params[key];
+
+      form.appendChild(hiddenField);
+    }
+  }
+
+  document.body.appendChild(form);
+  form.submit();
+}
+
+// Alert-Box: Löschen bestätigen
+function confirmDelete(){
+  confirm("Wirklich löschen?");
+}

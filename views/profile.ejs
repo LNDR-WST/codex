@@ -16,6 +16,9 @@
         <script src="/javascript/javascript.js"></script>
         <script src="/selection/active-line.js"></script>
 
+        <!-- Laden von Formular-Script -->
+        <script src="/js/form.js"></script>
+
         <!-- Meta-Daten -->
         <title>Codex - Login</title>
     </head>
@@ -59,32 +62,39 @@
                             Über die Navigation links kommst du zu weiteren Bereichen, kannst Favoriten speichern und Code-Lösungen von anderen Nutzern entdecken. 
                             <br><br>
                             Viel Spaß!</p>
-                        <div>
-                        <!-- Hier beginnt der for Loop zum erstellen der Editorfelder -->   
-                            <% for(var i = 0; i < codelist.length; i++){ %>
-                                <h4 id="code-heading">Überschrift <%= i+1 %></h4>
-                            <p class="code-desc" id="code-desc">Beschreibung von Code 1. Dieser Code ist vero eos et accusam et justo duo dolores et ea rebum. 
-                                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>   
-                        <!-- Editor-Feld mit Beispieltext. Code muss ganz links stehen, sonst werden Einrückungen der EJS-Datei auch im Editor berücksichtigt.
-                            ## TODO: Beispieltext (Code) später via EJS aus Datenbank einbinden. Evtl. dann je Eingabefeld einen Bearbeiten-Button; beim Speichern wird die Änderung in die Datenbank geschrieben. 
-                                    Wird ein neues Editorfeld für ein Code-Snippets benötigt, ist das ggf. über einen '+'-Button lösbar (fügt neuen Editor ein). Ist noch zu besprechen.-->
+<div>
+<!-- Hier beginnt der for Loop zum erstellen der Editorfelder -->   
+    <% for(var i = 0; i < codelist.length; i++){ %>
+        <h4 id="code-heading">Überschrift <%= i+1 %></h4>
+    <p class="code-desc" id="code-desc">Beschreibung von Code 1. Dieser Code ist vero eos et accusam et justo duo dolores et ea rebum. 
+        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>   
+<!-- Editor-Feld mit Beispieltext. Code muss ganz links stehen, sonst werden Einrückungen der EJS-Datei auch im Editor berücksichtigt.
+    ## TODO: Beispieltext (Code) später via EJS aus Datenbank einbinden. Evtl. dann je Eingabefeld einen Bearbeiten-Button; beim Speichern wird die Änderung in die Datenbank geschrieben. 
+            Wird ein neues Editorfeld für ein Code-Snippets benötigt, ist das ggf. über einen '+'-Button lösbar (fügt neuen Editor ein). Ist noch zu besprechen.-->
 
-                                    <form style="margin-bottom: 10px;"><textarea id= snippet<%= codelist[i].id %> name="code">
-                        <%= codelist[i].code %>
-                                        </textarea>
-                                    </form>
-                                    <!-- CodeMirror-Script sucht nach Elementen mit id 'codeid' und aktiviert Editor -->
-                            <script> 
-                                var codeid = "snippet" + <%= codelist[i].id %>; // wird von VSC als Problem identifiziert, da VSC kein EJS unterstützt (https://github.com/Microsoft/vscode/issues/51118)
-                                var editor = CodeMirror.fromTextArea(document.getElementById(codeid), {
-                                    lineNumbers: true,      // Boolean: aktiviert Zeilennummern
-                                    theme: "ayu-mirage",    // Theme-Auswahl für Editor
-                                    styleActiveLine: true,  // Aktive Zeile wird markiert
-                                });
-                            </script>
-                            <div style="align-self: flex-end; margin-bottom: 20px;"><form action="/onDeleteCode/<%= codelist[i].id %>" method="POST"> <button class="cta-button">DELETE</button></form></div>
-                        <% } %>
-                        </div>
+    <form style="margin-bottom: 10px;"><textarea id=<%= `snippet${codelist[i].id}` %> name="code">
+<%= codelist[i].code %>
+                </textarea>
+            </form>
+            <!-- CodeMirror-Script sucht nach Elementen mit id 'codeid' und aktiviert Editor -->
+    <script> 
+        var codeid = "snippet" + <%= codelist[i].id %>; // wird von VSC als Problem identifiziert, da VSC kein EJS unterstützt (https://github.com/Microsoft/vscode/issues/51118)
+        var editor<%= codelist[i].id %> = CodeMirror.fromTextArea(document.getElementById(codeid), {
+            lineNumbers: true,      // Boolean: aktiviert Zeilennummern
+            theme: "ayu-mirage",    // Theme-Auswahl für Editor
+            styleActiveLine: true,  // Aktive Zeile wird markiert
+        });
+        editor<%= codelist[i].id %>.on("change", function(editorChange) {       // Bei Änderungen feuert das Change-Event und führt die nachfolgende Funktion aus
+            console.log(editorChange.getValue());    // gibt in der Browser-Konsole den veränderten Text aus (zum Test)
+            showButtonSave(<%= codelist[i].id %>); // Ruft Funktion auf, um Buttons mit 'id=bHidden' anzuzeigen (Für 'Save Changes')
+        });
+    </script>
+    <div class="flex-container" style="justify-content: flex-end; margin-bottom: 20px;"><form action="/onDeleteCode/<%= codelist[i].id %>" method="POST" id=delete<%= codelist[i].id %>><input type="submit" class="cta-button" onclick="confirmDelete(bHidden<%= codelist[i].id %>)" value="DELETE"></form>
+    <button class="cta-button" id=bHidden<%= codelist[i].id %> style="display: none;" onclick="post('/onChangeCode/', {code: `${editor<%= codelist[i].id %>.getValue()}`, id: <%= codelist[i].id %>})">SAVE CHANGES</button></div>
+    <!-- <div style="align-self: flex-end; margin-bottom: 20px;"><button class="cta-button" onclick="post('/onChangeCode/', {id: <%= codelist[i].id %>, code: `${editor<%= codelist[i].id %>.getValue()}`})">SAVE CHANGES</button></div>
+    <div style="align-self: flex-end; margin-bottom: 20px;"><button class="cta-button" onclick="console.log(editor<%= codelist[i].id %>.getValue())">SAVE CHANGES</button></div> -->
+<% } %>
+</div>
                 </div>
             </div>
             <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->
