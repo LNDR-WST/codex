@@ -183,7 +183,7 @@ app.post('/newUser', function(req,res)
             {
                 const hash = bcrypt.hashSync(param_password1,10);
                 db.run(
-                    `INSERT INTO allusers(email,loginname, password) VALUES('${param_email}','${param_loginname}', '${hash}')`,
+                    `INSERT INTO allusers(time, email, loginname, password, role, favorites, status) VALUES(datetime('now'),'${param_email}','${param_loginname}', '${hash}','user','/${param_loginname}',1)`, 
                 function(err)
                 {
                     // Hier verlinkung zur Seite bei erfolgreicher Registrierung 
