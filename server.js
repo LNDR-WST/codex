@@ -112,12 +112,45 @@ app.get("/profile", function(req, res)
     }
 });
 
+// Editier-Ansicht für Code-Snippets
 app.get("/edit", function(req, res)
 {
     if (!req.session.sessionValue) {
         res.redirect("/login");
     } else {
         res.render("edit-snippet", {snippetId: null, snippetCode: null, snippetHead: null, snippetDesc: null});
+    } 
+});
+
+// Favoriten-Seite
+app.get("/favorites", function(req, res)
+{
+    if (!req.session.sessionValue) {
+        res.redirect("/login");
+    } else {
+        res.render("favorites") // ToDo: hier ggf. zusätzliche Parameter übergeben: {param_x: x, param_y: y, param_z: z});
+    }
+    
+});
+
+// Benutzerübersicht/-verwaltung
+app.get("/userlist", function(req, res)
+{
+    if (!req.session.sessionValue) {
+        res.redirect("/login");
+    } else {
+        res.render("userlist") // ToDo: hier ggf. zusätzliche Parameter übergeben: {param_x: x, param_y: y, param_z: z});
+    }
+    
+});
+
+// Settings-Seite
+app.get("/settings", function(req, res)
+{
+    if (!req.session.sessionValue) {
+        res.redirect("/login");
+    } else {
+        res.render("settings") // ToDo: hier ggf. zusätzliche Parameter übergeben: {param_x: x, param_y: y, param_z: z});
     }
     
 });
