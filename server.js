@@ -155,6 +155,11 @@ app.get("/settings", function(req, res)
     
 });
 
+app.get("/impressum", function(req, res)
+{
+    res.render("impressum", {session: req.session.sessionValue});
+});
+
 /*
 ###############################################
 ####             POST-Requests             ####
@@ -218,11 +223,11 @@ app.post('/login', function(req,res)
             }
             else
             {
-                res.redirect("/welcome");  // Hier verlinkung bei nicht erfolgreichem Login [passwort falsch]
+                res.send("Passwort falsch");  // Hier verlinkung bei nicht erfolgreichem Login [passwort falsch]
             };
         }
         else{
-            res.redirect("/welcome");   // Hier verlinkung bei nicht erfolgreichem Login [User existiert nicht]
+            res.send("Benutzername existiert nicht");   // Hier verlinkung bei nicht erfolgreichem Login [User existiert nicht]
         }
     });
 });
