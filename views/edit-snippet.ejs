@@ -67,7 +67,7 @@
                             </div>
                             <!-- Nachfolgendes <textarea> mit 'id="unnecessary"' hat keine richtige Funktion. Ohne die Area verschwindet CodeMirror aber seltsamerweise -->
                             <textarea id="unnecessary" style="border:none; margin: 0px; height: 0px; resize: none;"></textarea>
-                            <textarea id=snippetIdent name="code"><%= snippetCode %></textarea>
+                            <textarea id=snippetIdent name="code"><%= snippetCode %></textarea><br>
                             <input type="hidden" id="edited" name="edited" value="<%= timestamp %>">
                             
                             <!-- Versteckte Input-Felder erzeugen, die geänderte Werte annehmen -->
@@ -77,7 +77,8 @@
                                     hiddenCode.setAttribute('value', `${editor2.getValue()}`);
                                 }
                             </script>
-                            <button class="cta-button" onclick="createHiddenInput()">SPEICHERN</button>
+                            <button class="cta-button" onclick="createHiddenInput()" style="width: 135px;">SPEICHERN</button>
+                            <a href="/profile" class="cta-button" style="width: 135px;">ABBRECHEN</a>
                         </form>
                     <script> 
                         var idCode = "snippetIdent";
