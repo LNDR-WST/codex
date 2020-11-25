@@ -300,3 +300,23 @@ margin-right: 10px;
   background-color: white;
   color: #FF9000;
 }
+
+/* Button-Style inverted */
+.button-invert {
+  background-color:white;
+  color: #FF9000;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-style: solid;
+  border-color: #FF9000;
+  margin-right: 10px;
+  }
+  
+  /* Button-Style hover inverted */
+  .button-invert:hover{
+    background-color:  #FF9000;
+    color: white;
+  }

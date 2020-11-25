@@ -1,4 +1,4 @@
-<!-- Editier-Ansicht Code-Snippet -->
+<!-- Benutzerprofil/Code-Sammlung -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,7 +24,7 @@
         <script src="/js/form.js"></script>
 
         <!-- Meta-Daten -->
-        <title>Codex - Login</title>
+        <title>Codex - Dein Profil</title>
     </head>
     <body>
         <div class="inner">
@@ -44,9 +44,9 @@
                     <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
                         <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
                         <p class="menu-button"><a href="/profile">[ My Snippets ]</b></a></p>
-                        <p class="menu-button"><a href="">[ Other Users ]</b></a></p>
-                        <p class="menu-button"><a href="">[ Favorites ]</b></a></p>
-                        <p class="menu-button"><a href="">[ Settings ]</b></a></p>
+                        <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
+                        <p class="menu-button"><a href="/favorites">[ Favorites ]</b></a></p>
+                        <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
                     </div>
                     <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 15px;">
                         <h3 style="text-align: center; background-color: #FF9000; font-size: 18px;">last visited</h3>
@@ -91,13 +91,13 @@
         });
     </script>
     <div class="flex-container" style="justify-content: flex-end; margin-bottom: 20px;">
-        <form action="/onDeleteCode/<%= codelist[i].id %>" method="POST" id=delete<%= codelist[i].id %>><input type="submit" class="cta-button" onclick="confirmDelete()" value="DELETE"></form>
-        <button class="cta-button" onclick="post('/editCode/', {code: `${editor<%= codelist[i].id %>.getValue()}`, id: <%= codelist[i].id %>, headline: `<%= codelist[i].headline %>`, description: `<%= codelist[i].description %>` })">EDIT</button>
+        <form action="/onDeleteCode/<%= codelist[i].id %>" method="POST" id=delete<%= codelist[i].id %>><input type="submit" class="cta-button" style="width: 100px;" onclick="confirmDelete()" value="DELETE"></form>
+        <button class="cta-button" style="width: 100px;" onclick="post('/editCode/', {code: `${editor<%= codelist[i].id %>.getValue()}`, id: <%= codelist[i].id %>, headline: `<%= codelist[i].headline %>`, description: `<%= codelist[i].description %>` })">EDIT</button>
     </div>
 <% } %>
 </div>
                         <!-- Add Button. Position muss/kann noch angepasst werden -->
-                        <div style="align-self: flex-end; margin-bottom: 20px;"><form action="/addCode" method="POST"> <button class="cta-button">ADD</button></form></div>
+                        <div style="align-self: flex-end; margin-bottom: 20px;"><form action="/addCode" method="POST"> <button class="button-invert" style="width: 210px;">ADD&nbsp;SNIPPET</button></form></div>
                 </div>
             </div>
             <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->

@@ -1,4 +1,4 @@
-<!-- Editier-Ansicht Code-Snippets -->
+<!-- Übersicht anderer Benutzer -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,7 +24,7 @@
         <script src="/js/form.js"></script>
 
         <!-- Meta-Daten -->
-        <title>Codex - Login</title>
+        <title>Codex - Benutzerliste</title>
     </head>
     <body>
         <div class="inner">
@@ -48,50 +48,23 @@
                         <p class="menu-button"><a href="/favorites">[ Favorites ]</b></a></p>
                         <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
                     </div>
+                    <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 15px;">
+                        <h3 style="text-align: center; background-color: #FF9000; font-size: 18px;">last visited</h3>
+                    </div>
+                    <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
+                        <p class="menu-button"><a href="">> user1235</b></a></p>
+                        <p class="menu-button"><a href="">> brother912</b></a></p>
+                        <p class="menu-button"><a href="">> nutzernam11 </b></a></p>
+                        <p class="menu-button"><a href="">> benutzer9s1</b></a></p>
+                        <p class="menu-button"><a href="">> benutzer</b></a></p>
+                    </div>
                 </div>
-                <div id="content" class="flex-container code" style="width: 720px;">
-                        <h1 style="margin: 0px 20px 20px 20px;">Code-Snippet bearbeiten:</h1>
-                        <form action="/onChangeCode/" method="POST" style="margin: 0px 20px 20px 20px; width: 100%;"> 
-                            <div>
-                                <label for="headline" class="formlabel"><b>Überschrift:</b></label><br>
-                                <input type="hidden" name="id" value=<%= snippetId %> >
-                                <input type="text" id="head" name="head" class="forminput" value="<%= snippetHead %>"><br><br>
-                            </div>
-                            <div style="margin-bottom: 35px;">
-                                <label for="description" class="formlabel"><b>Beschreibung:</b></label>
-                                <div class="container" style="margin: 0px;">
-                                    <div class="description">
-                                        <textarea id="desc" name="desc" class="textinput"><%= snippetDesc %></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Nachfolgendes <textarea> mit 'id="unnecessary"' hat keine richtige Funktion. Ohne die Area verschwindet CodeMirror aber seltsamerweise -->
-                            <textarea id="unnecessary" style="border:none; margin: 0px; height: 0px; resize: none;"></textarea>
-                            <textarea id=snippetIdent name="code"><%= snippetCode %></textarea>
-                            
-                            <!-- Versteckte Input-Felder erzeugen, die geänderte Werte annehmen -->
-                            <script>
-                                function createHiddenInput() {
-                                    /* var hiddenId = document.createElement('input'); */
-                                    var hiddenCode = document.createElement('input');
-                                    /* hiddenId.setAttribute('type', 'hidden'); */
-                                    hiddenHead.setAttribute('type', 'hidden');
-                                    /* hiddenId.setAttribute('name', 'id'); */
-                                    hiddenHead.setAttribute('name', 'head');
-                                    /* hiddenId.setAttribute('value', '<%= snippetId %>'); */
-                                    hiddenCode.setAttribute('value', `${editor2.getValue()}`);
-                                }
-                            </script>
-                            <button class="cta-button" onclick="createHiddenInput()">SPEICHERN</button>
-                        </form>
-                    <script> 
-                        var idCode = "snippetIdent";
-                        var editor2 = CodeMirror.fromTextArea(document.getElementById(idCode), {
-                            lineNumbers: true, theme: "ayu-mirage", styleActiveLine: true});
-                        editor2.on("change", function(editorChange) {
-                            console.log(editorChange.getValue());
-                        });
-                    </script>
+                <div id="content" class="flex-container code">
+                        <h1 style="margin-left: 20px; margin-right: 20px;">Benutzerübersicht</h1>
+                        <p style="margin-left: 20px; margin-right: 20px;">Hier findest du eine Übersicht über andere Benutzer.</p>
+                <div style="min-height: 700px;">
+                    <!-- INHALT HIER -->
+                </div>
                 </div>
             </div>
             <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->
