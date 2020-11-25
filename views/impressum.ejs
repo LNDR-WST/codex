@@ -1,4 +1,4 @@
-<!-- Logout Confirmation -->
+<!-- Login -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,8 +14,7 @@
         <link rel="stylesheet" href="/stylesheet.css">
         
         <!-- Meta-Daten -->
-        <title>Codex - Logout</title>
-        <meta http-equiv="refresh" content="3; URL=/welcome">
+        <title>Codex - Login</title>
     </head>
     <body>
         <div class="inner">
@@ -23,15 +22,37 @@
             <div class="flex-container" style="background-color: white;">
                 <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
                 <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
+                <!-- hier wird unterschieden zwischen angemeldetem und anonymem Benutzer-->
+                <% if (session == null) { %> <!-- ist die Session = null wird die normale Navi angezeigt -->
                 <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/login">Login</a></div>
                 <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/register">Register</a></div>
+                <% } else { %>               <!-- ist die Session != null wird der angemeldete Zustand der Session angezeigt -->
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/profile">My Snippets</a></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/logout">Logout</a></div>
+                <% } %>
             </div>
             <!-- Registrationsdialog -->
-            <div class="flex-container">
+            <div class="flex-container" style="justify-content: flex-start;">
                 <div style="padding: 25px 75px 75px 75px;">
-                    <h1>Erfolgreich abgemeldet...!</h1>
-                    <p><b>Bitte warte einen kleinen Moment. Du wirst in 3 Sekunden weitergeleitet...</b><br>
-                          Sollte die Weiterleitung nicht funktionieren, <a href="/welcome">klicke bitte hier.</a></p>
+                    <div id="impressum">
+                        <h1>Impressum</h1>
+                        <p><b style="font-size: 22px;">Codex</b><br>
+                            <span style="font-family: monospace;">Mehmet Budak Matr.-Nr. 2556262<br>
+                            Christopher Spiller</strong> Matr.-Nr. 2439062<br>
+                            Moritz Uhlig</strong> Matr.-Nr. 2555830<br>
+                            Leander Wernst</strong> Matr.-Nr. 2555900<br>
+                            Projektarbeit Angewandte Programmierung (Prof. Dr. Andreas Plaß)<br></span>
+                        </p>
+
+                    </div>
+                    <div id="impressum">
+                        <h1>Nutzungsbedingungen</h1>
+                        <p></p>
+                    </div>
+                    <div id="impressum">
+                        <h1>Datenschutz</h1>
+                        <p></p>
+                    </div>
                 </div>
             </div>
             <!-- Info-Box -->
@@ -60,7 +81,7 @@
             <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->
             <div class="flex-container" style="height: 50px; background-color: #FF9000; margin: 0px;">
                 <p class="footer">© 2020 CODEX &nbsp;
-                    <a href="/impressum">Impressum | Datenschutz</a>
+                <a href="/impressum">Impressum | Datenschutz</a>
                 </p>
             </div>
         </div>

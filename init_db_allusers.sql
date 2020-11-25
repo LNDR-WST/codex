@@ -11,5 +11,5 @@ CREATE TABLE allusers(
 );
 
 INSERT INTO allusers (time, email, loginname, password ,role ,favorites ,status) 
-VALUES (CURRENT_TIME,'admin@admin.de' , 'admin','admin','admin','/admin',1);
+VALUES (datetime('now'),'admin@admin.de' , 'admin','$2b$10$1qd0/8ogWCeGYGle2.sw7.rr851zjo7HgDIMSi.0Eq7pMin8xEF4.','admin','/admin',1);
 
