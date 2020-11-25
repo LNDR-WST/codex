@@ -93,6 +93,17 @@
     <div class="flex-container" style="justify-content: flex-end; margin-bottom: 20px;">
         <form action="/onDeleteCode/<%= codelist[i].id %>" method="POST" id=delete<%= codelist[i].id %>><input type="submit" class="cta-button" style="width: 100px;" onclick="confirmDelete()" value="DELETE"></form>
         <button class="cta-button" style="width: 100px;" onclick="post('/editCode/', {code: `${editor<%= codelist[i].id %>.getValue()}`, id: <%= codelist[i].id %>, headline: `<%= codelist[i].headline %>`, description: `<%= codelist[i].description %>` })">EDIT</button>
+        <!-- DELETE-Button: Script fängt POST-Methode ab und prüft, ob bestätigt wird oder nicht. Erst nach Bestätigung wird gelöscht. -->
+        <script>
+            function confirmDelete(){
+                document.getElementById('delete<%= codelist[i].id %>').onsubmit = function (evt) { 	
+                    var confirmDel = confirm("Wirklich löschen?");
+                    if (confirmDel == false) {
+                        evt.preventDefault();
+                    }
+                }
+            }
+        </script>
     </div>
 <% } %>
 </div>

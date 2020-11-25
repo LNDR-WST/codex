@@ -103,8 +103,3 @@ function post(path, params, method='post') {
   document.body.appendChild(form);
   form.submit();
 }
-
-// Alert-Box: Löschen bestätigen
-function confirmDelete(){
-  confirm("Wirklich löschen?");
-}
