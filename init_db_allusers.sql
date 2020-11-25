@@ -7,5 +7,5 @@ CREATE TABLE allusers(
     password TEXT NOT NULL,
     role TEXT NOT NULL,
     favorites TEXT NOT NULL,
-    status INTEGERNOT NULL
+    status INTEGER NOT NULL
 );
