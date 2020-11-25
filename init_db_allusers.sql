@@ -9,3 +9,7 @@ CREATE TABLE allusers(
     favorites TEXT NOT NULL,
     status INTEGER NOT NULL
 );
+
+INSERT INTO allusers (time, email, loginname, password ,role ,favorites ,status) 
+VALUES (CURRENT_TIME,'admin@admin.de' , 'admin','admin','admin','/admin',1);
+
