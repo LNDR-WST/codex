@@ -178,14 +178,20 @@ li {
   margin: 0;
 }
 
-/* textarea {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 24px;
-  color: white;
-  background-color: #0A64A4;
-  resize: none;
-  outline: none;
-} */
+/* Style für Container für Code-Überschrift & "last edited" */ 
+.code-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  background-color: #0A64A4
+} 
+  .code-head > p {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: white;
+    margin: 0px 10px 0px 0px;
+  }
 
 /* Style für Textarea (Code-Snippet-Description) */
 

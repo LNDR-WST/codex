@@ -103,3 +103,25 @@ function post(path, params, method='post') {
   document.body.appendChild(form);
   form.submit();
 }
+
+// Jetzigen Zeitpunkt erhalten YYYY-MM-DD HH:MM:SS
+
+  // Mini-Funktion, um 0 darzustellen, falls Zeitangabe < 10 
+  function displayZero(time) {
+    if (time < 10) {
+      time = "0" + time;
+    }
+    return time;
+  }
+
+  function timeStamp() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = displayZero(now.getMonth()+1);
+    const day = displayZero(now.getDate());
+    const hours = displayZero(now.getHours());
+    const minutes = displayZero(now.getMinutes());
+    const seconds = displayZero(now.getSeconds());
+    const timestamp = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return timestamp;
+  }

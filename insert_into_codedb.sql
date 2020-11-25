@@ -1,4 +1,4 @@
-INSERT INTO allcode (headline, description, code, loginname) VALUES ('Überschrift 1', 
+INSERT INTO allcode (headline, description, code, loginname, format, edited) VALUES ('Überschrift 1', 
 'Dieser Code ist vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
 'var imgWidth=285, imgHeight=233;
 var xStart=Math.floor(imgWidth/2), yStart=Math.floor(imgHeight/2);
@@ -14,9 +14,11 @@ if(status==1) {
     clipWidth+=2;
     y-=1;
     clipHeight+=2;',
-    'admin');
+    'admin',
+    'javascript',
+    datetime('now'));
 
-INSERT INTO allcode (headline, description, code, loginname) VALUES ('Überschrift 2', 
+INSERT INTO allcode (headline, description, code, loginname, format, edited) VALUES ('Überschrift 2', 
 'Dieser Code ist vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
 'var imgWidth=285, imgHeight=233;
 var xStart=Math.floor(imgWidth/2), yStart=Math.floor(imgHeight/2);
@@ -32,9 +34,11 @@ if(status==1) {
     clipWidth+=2;
     y-=1;
     clipHeight+=2;',
-    'admin');
+    'admin',
+    'javascript',
+    datetime('now'));
 
- INSERT INTO allcode (headline, description, code, loginname) VALUES ('Überschrift 3', 
+ INSERT INTO allcode (headline, description, code, loginname, format, edited) VALUES ('Überschrift 3', 
 'Dieser Code ist vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
 'var imgWidth=285, imgHeight=233;
 var xStart=Math.floor(imgWidth/2), yStart=Math.floor(imgHeight/2);
@@ -50,9 +54,11 @@ if(status==1) {
     clipWidth+=2;
     y-=1;
     clipHeight+=2;',
-    'admin');
+    'admin',
+    'javascript',
+    datetime('now'));
 
-INSERT INTO allcode (headline, description, code, loginname) VALUES ('Überschrift 4', 
+INSERT INTO allcode (headline, description, code, loginname, format, edited) VALUES ('Überschrift 4', 
 'Dieser Code ist vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
 'var imgWidth=285, imgHeight=233;
 var xStart=Math.floor(imgWidth/2), yStart=Math.floor(imgHeight/2);
@@ -68,4 +74,6 @@ if(status==1) {
     clipWidth+=2;
     y-=1;
     clipHeight+=2;',
-    'admin');
+    'admin',
+    'javascript',
+    datetime('now'));

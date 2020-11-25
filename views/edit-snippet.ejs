@@ -68,17 +68,12 @@
                             <!-- Nachfolgendes <textarea> mit 'id="unnecessary"' hat keine richtige Funktion. Ohne die Area verschwindet CodeMirror aber seltsamerweise -->
                             <textarea id="unnecessary" style="border:none; margin: 0px; height: 0px; resize: none;"></textarea>
                             <textarea id=snippetIdent name="code"><%= snippetCode %></textarea>
+                            <input type="hidden" id="edited" name="edited" value="<%= timestamp %>">
                             
                             <!-- Versteckte Input-Felder erzeugen, die geänderte Werte annehmen -->
                             <script>
                                 function createHiddenInput() {
-                                    /* var hiddenId = document.createElement('input'); */
                                     var hiddenCode = document.createElement('input');
-                                    /* hiddenId.setAttribute('type', 'hidden'); */
-                                    hiddenHead.setAttribute('type', 'hidden');
-                                    /* hiddenId.setAttribute('name', 'id'); */
-                                    hiddenHead.setAttribute('name', 'head');
-                                    /* hiddenId.setAttribute('value', '<%= snippetId %>'); */
                                     hiddenCode.setAttribute('value', `${editor2.getValue()}`);
                                 }
                             </script>

@@ -77,6 +77,13 @@ app.get("/register", function(req, res)
     res.sendFile(__dirname + "/views/register.html");
 });
 
+app.get("/registration-complete", function(req, res)
+{
+    res.sendFile(__dirname + "/views/reg-success.html");
+});
+
+
+
 /* Login-Seite wird nur aufgerufen, wenn keine Session aktiv ist.
    ansonsten wird direkt aufs Profil umgeleitet. */
 app.get("/login", function(req, res)
@@ -103,7 +110,7 @@ app.get("/profile", function(req, res)
         res.redirect("/login");
     } else {
         const sessionValueName = req.session.sessionValue;
-        codedb.all(`SELECT id, headline, description, code FROM allcode WHERE loginname ='${sessionValueName}'`,
+        codedb.all(`SELECT id, headline, description, code, edited FROM allcode WHERE loginname ='${sessionValueName}'`,
                 function(err,rows)
                 {
                     const param_userCodeInfo = rows;
@@ -118,7 +125,7 @@ app.get("/edit", function(req, res)
     if (!req.session.sessionValue) {
         res.redirect("/login");
     } else {
-        res.render("edit-snippet", {snippetId: null, snippetCode: null, snippetHead: null, snippetDesc: null});
+        res.render("edit-snippet", {snippetId: null, snippetCode: null, snippetHead: null, snippetDesc: null, timestamp: null});
     } 
 });
 
@@ -186,14 +193,14 @@ app.post('/newUser', function(req,res)
                     `INSERT INTO allusers(time, email, loginname, password, role, favorites, status) VALUES(datetime('now'),'${param_email}','${param_loginname}', '${hash}','user','/${param_loginname}',1)`, 
                 function(err)
                 {
-                    // Hier verlinkung zur Seite bei erfolgreicher Registrierung 
-                    res.sendFile(__dirname + "/views/index.html");
+                    // Redirect bei erfolgreicher Registrierung 
+                    res.redirect("/registration-complete");
                 });
             }
             else
                 {
                     // Hier verlinkung zur Seite bei nicht erfolgreicher Registrierung 
-                    res.sendFile(__dirname + "/views/welcome.html");
+                    res.send("Registrierung fehlgeschlagen.");
                 }
         });
     });
@@ -213,7 +220,7 @@ app.post('/login', function(req,res)
             if (isValid==true)
             {
                 req.session.sessionValue = param_loginname;
-                codedb.all(`SELECT id, headline, description, code FROM allcode WHERE loginname ='${param_loginname}'`,
+                codedb.all(`SELECT id, headline, description, code, edited FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
                     const param_userCodeInfo = rows;
@@ -246,7 +253,7 @@ app.post('/onDeleteCode/:id', function(req, res) {
 app.post('/addCode', function(req,res)
 {
     const param_loginname = req.session.sessionValue
-    const sql = `INSERT INTO allcode (code, headline, description, loginname) VALUES ('Neues Dokument', 'Überschrift','Kurze Beschreibung deines Codes','${param_loginname}')`;
+    const sql = `INSERT INTO allcode (code, headline, description, loginname) VALUES ('Dein Code', 'Überschrift','Kurze Beschreibung deines Codes','${param_loginname}')`;
     codedb.run(sql, function(err)
     {
         res.redirect('/profile');
@@ -259,11 +266,12 @@ app.post('/onChangeCode/', function(req, res) {
     const head = req.body.head;
     const desc = req.body.desc;
     const code = req.body.code;
-    const sql = `UPDATE allcode SET code='${code}', headline='${head}', description='${desc}' WHERE id=${id}`;
+    const timestamp = req.body.edited;
+    const sql = `UPDATE allcode SET code='${code}', headline='${head}', description='${desc}', edited='${timestamp}' WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
-        console.log("Code-Snippet geändert") // Message zum Debugging
-        res.redirect(`/profile#code-heading${id}`) // Springt direkt zum geänderten Element
+        console.log("Code-Snippet geändert"); // Message zum Debugging
+        res.redirect(`/profile#code-heading${id}`); // Springt direkt zum geänderten Element
     });
 });
 
@@ -273,5 +281,6 @@ app.post('/editCode/', function(req, res) {
     const param_head = req.body.headline;
     const param_desc = req.body.description;
     const param_code = req.body.code;
-    res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc})
+    const param_timestamp = req.body.timestamp;
+    res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, timestamp: param_timestamp});
 });

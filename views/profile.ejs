@@ -69,8 +69,8 @@
 <div>
 <!-- Hier beginnt der for Loop zum erstellen der Editorfelder -->   
     <% for(var i = 0; i < codelist.length; i++){ %>
-        <h4 id="code-heading<%= codelist[i].id %>"><%= codelist[i].headline %></h4>
-    <p class="code-desc" id="code-desc"><%= codelist[i].description %></p>   
+    <div class="code-head"><h4 id="code-heading<%= codelist[i].id %>"><%= codelist[i].headline %></h4><p><span style="text-decoration: underline;">last edited:</span> <%= `${codelist[i].edited}` %></p></div>
+    <p class="code-desc" id="code-desc"><%= codelist[i].description %></p>
 <!-- CodeMirror-Editor: Code muss ganz links stehen, damit keine ungewollten Einrückungen im Code entstehen. -->
 
     <form style="margin-bottom: 10px;"><textarea id=<%= `snippet${codelist[i].id}` %> name="code">
@@ -92,7 +92,7 @@
     </script>
     <div class="flex-container" style="justify-content: flex-end; margin-bottom: 20px;">
         <form action="/onDeleteCode/<%= codelist[i].id %>" method="POST" id=delete<%= codelist[i].id %>><input type="submit" class="cta-button" style="width: 100px;" onclick="confirmDelete()" value="DELETE"></form>
-        <button class="cta-button" style="width: 100px;" onclick="post('/editCode/', {code: `${editor<%= codelist[i].id %>.getValue()}`, id: <%= codelist[i].id %>, headline: `<%= codelist[i].headline %>`, description: `<%= codelist[i].description %>` })">EDIT</button>
+        <button class="cta-button" style="width: 100px;" onclick="post('/editCode/', {code: `${editor<%= codelist[i].id %>.getValue()}`, id: <%= codelist[i].id %>, headline: `<%= codelist[i].headline %>`, description: `<%= codelist[i].description %>`, timestamp: timeStamp()})">EDIT</button>
         <!-- DELETE-Button: Script fängt POST-Methode ab und prüft, ob bestätigt wird oder nicht. Erst nach Bestätigung wird gelöscht. -->
         <script>
             function confirmDelete(){
