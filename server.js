@@ -110,7 +110,7 @@ app.get("/profile", function(req, res)
         res.redirect("/login");
     } else {
         const sessionValueName = req.session.sessionValue;
-        codedb.all(`SELECT id, headline, description, code, edited FROM allcode WHERE loginname ='${sessionValueName}'`,
+        codedb.all(`SELECT id, headline, description, code, edited FROM ${sessionValueName}`,
                 function(err,rows)
                 {
                     const param_userCodeInfo = rows;
@@ -202,13 +202,27 @@ app.post('/newUser', function(req,res)
             if (rows.length == 0 && param_password1 == param_password2 &&  check != null && param_password1.length > 7)  
             {
                 const hash = bcrypt.hashSync(param_password1,10);
-                db.run(
-                    `INSERT INTO allusers(time, email, loginname, password, role, favorites, status) VALUES(datetime('now'),'${param_email}','${param_loginname}', '${hash}','user','/${param_loginname}',1)`, 
-                function(err)
-                {
-                    // Redirect bei erfolgreicher Registrierung 
-                    res.redirect("/registration-complete");
-                });
+                sql = 
+                `CREATE TABLE '${param_loginname}'(
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    headline TEXT NOT NULL,
+                    description TEXT NOT NULL,
+                    code BLOB NOT NULL,
+                    loginname TEXT NOT NULL,
+                    format TEXT NOT NULL,
+                    edited TEXT NOT NULL
+                    )`
+                codedb.run(sql,
+                    function(err)
+                    {
+                        db.run(
+                            `INSERT INTO allusers(time, email, loginname, password, role, favorites, status) VALUES(datetime('now'),'${param_email}','${param_loginname}', '${hash}','user','/${param_loginname}',1)`, 
+                        function(err)
+                        {
+                            // Redirect bei erfolgreicher Registrierung 
+                            res.redirect("/registration-complete");
+                        });
+                    });
             }
             else
                 {
@@ -255,7 +269,8 @@ app.post('/login', function(req,res)
 // Code-Snippet löschen
 app.post('/onDeleteCode/:id', function(req, res) {
     const id = req.params['id'];
-    const sql = `DELETE FROM allcode WHERE id=${id}`;
+    const param_loginname = req.session.sessionValue
+    const sql = `DELETE FROM '${param_loginname}'  WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
         res.redirect('/profile');
@@ -266,7 +281,9 @@ app.post('/onDeleteCode/:id', function(req, res) {
 app.post('/addCode', function(req,res)
 {
     const param_loginname = req.session.sessionValue
-    const sql = `INSERT INTO allcode (code, headline, description, loginname) VALUES ('Dein Code', 'Überschrift','Kurze Beschreibung deines Codes','${param_loginname}')`;
+    const sql = 
+    `INSERT INTO '${param_loginname}' (headline, description, code, loginname, format, edited) 
+    VALUES ('Überschrift','Kurze Beschreibung deines Codes','Dein Code','${param_loginname}','javascript', datetime('now'))`;
     codedb.run(sql, function(err)
     {
         res.redirect('/profile');
@@ -280,7 +297,8 @@ app.post('/onChangeCode/', function(req, res) {
     const desc = req.body.desc;
     const code = req.body.code;
     const timestamp = req.body.edited;
-    const sql = `UPDATE allcode SET code='${code}', headline='${head}', description='${desc}', edited='${timestamp}' WHERE id=${id}`;
+    const param_loginname = req.session.sessionValue
+    const sql = `UPDATE '${param_loginname}' SET code='${code}', headline='${head}', description='${desc}', edited='${timestamp}' WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
         console.log("Code-Snippet geändert"); // Message zum Debugging
