@@ -145,12 +145,26 @@ app.get("/userlist", function(req, res)
 {
     if (!req.session.sessionValue) {
         res.redirect("/login");
-    } else {
-        res.render("userlist") // ToDo: hier ggf. zusätzliche Parameter übergeben: {param_x: x, param_y: y, param_z: z});
+    } 
+    else if(req.session.sessionValue == "admin")
+    {
+        db.all(
+            `SELECT * FROM allusers`,
+            function(err, rows){
+                res.render("adminpanel", {"allusers": rows});
+            } 
+        );
+    }
+    else {
+        db.all(
+            `SELECT * FROM allusers WHERE role = "user"`,
+            function(err, rows){
+                res.render("userlist", {"allusers": rows});
+            } 
+        );
     }
     
 });
-
 // Settings-Seite
 app.get("/settings", function(req, res)
 {
@@ -159,9 +173,8 @@ app.get("/settings", function(req, res)
     } else {
         res.render("settings") // ToDo: hier ggf. zusätzliche Parameter übergeben: {param_x: x, param_y: y, param_z: z});
     }
-    
 });
-
+// Impressum-Seite
 app.get("/impressum", function(req, res)
 {
     res.render("impressum", {session: req.session.sessionValue});
@@ -283,4 +296,46 @@ app.post('/editCode/', function(req, res) {
     const param_code = req.body.code;
     const param_timestamp = req.body.timestamp;
     res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, timestamp: param_timestamp});
+});
+
+// User löschen
+app.post("/delete/:id", function(req,res)
+{
+    db.run(
+        `DELETE FROM allusers WHERE id=${req.params.id}`,
+        function(err)
+        {
+            res.redirect("/userlist");
+        }
+    );
+});
+// User bearbeiten
+app.post("/update/:id", function(req,res)
+{
+    db.all(
+        `SELECT * FROM allusers WHERE id = ${req.params.id}`,
+        function(err,rows)
+        {
+        res.render("userupdate", rows[0]);
+        }
+    );
+});
+// Userdaten speichern
+app.post("/onupdate/:id", function(req,res)
+{
+    const id = req.params.id;
+    const loginname = req.body.loginname;
+    const password = req.body.password;
+    const email = req.body.email;
+    const favorites = req.body.favorites;
+    const status = req.body.status;
+
+console.log(id);
+    db.run(
+        `UPDATE allusers SET loginname = "${loginname}",password = "${password}",email = "${email}",favorites = "${favorites}",status = "${status}" WHERE id = ${id}`,
+        function(err)
+        {
+            res.redirect("/userlist");
+        }
+    );
 });

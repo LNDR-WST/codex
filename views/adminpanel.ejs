@@ -60,19 +60,34 @@
                     </div>
                 </div>
                 <div id="content" class="flex-container code">
-                        <h1 style="margin-left: 20px; margin-right: 20px;">Benutzerübersicht</h1>
-                        <p style="margin-left: 20px; margin-right: 20px;">Hier findest du eine Übersicht über andere Benutzer.</p>
+                        <h1 style="margin-left: 20px; margin-right: 20px;">Admin Panel</h1>
+                        <p style="margin-left: 20px; margin-right: 20px;">
+                            Hier können Nutzer bearbeitet werden. <br>
+                            Achtung löschen wird sofort ausgeführt!</p>
                 <div style="min-height: 700px;">
                     <!-- INHALT HIER -->
                     <table border="1">
                         <tr>
                         </tr>
-                        <td>Loginname</td> <td>E-Mail</td> 
+                        <td>Loginname</td> <td>E-Mail</td> <td>Rolle</td> <td> Favoriten Pfad</td> <td>Status</td>
                                 <% for(var i = 0; i < allusers.length ; i++) { %>
                                     <tr>
                                         <td> <%= allusers[i].loginname %> </td>
                                         <td> <%= allusers[i].email %> </td>
+                                        <td> <%= allusers[i].role %> </td>
+                                        <td> <%= allusers[i].favorites %> </td>
+                                        <td> <%= allusers[i].status %> </td>
+                                        <td>
+                                            <form action="/delete/<%=allusers[i].id%>" method="POST"> 
+                                            <button type="submit">löschen</button>
                                             </form>
+                                        </td>
+                                        <td>
+                                            <form action="/update/<%=allusers[i].id%>" method="POST"> 
+                                            <button type="submit">bearbeiten</button>
+                                            </form>
+                                        </td>
+                                    
                                     </tr>
                                 <% } %>
                         </table>

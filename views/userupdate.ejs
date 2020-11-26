@@ -60,22 +60,37 @@
                     </div>
                 </div>
                 <div id="content" class="flex-container code">
-                        <h1 style="margin-left: 20px; margin-right: 20px;">Benutzerübersicht</h1>
-                        <p style="margin-left: 20px; margin-right: 20px;">Hier findest du eine Übersicht über andere Benutzer.</p>
+                        <h1 style="margin-left: 20px; margin-right: 20px;">Benutzer bearbeiten</h1>
+                        <p style="margin-left: 20px; margin-right: 20px;">Hier findest kannst du Nutzer bearbeiten.</p>
                 <div style="min-height: 700px;">
-                    <!-- INHALT HIER -->
-                    <table border="1">
-                        <tr>
-                        </tr>
-                        <td>Loginname</td> <td>E-Mail</td> 
-                                <% for(var i = 0; i < allusers.length ; i++) { %>
-                                    <tr>
-                                        <td> <%= allusers[i].loginname %> </td>
-                                        <td> <%= allusers[i].email %> </td>
-                                            </form>
-                                    </tr>
-                                <% } %>
-                        </table>
+                    <!-- Formular zum bearbeiten des Nutzers-->
+    <form action="/onupdate/<%=id%>" method="POST">
+<p>
+    <br>
+    ID:    <br>
+    <input type="text" name="id" value="<%=id%>">
+    <br>
+    Benutzername (Loginname):    <br>
+    <input type="text" name="loginname" value="<%=loginname%>">
+    <br>
+    Passwort:    <br>
+    <input type="password" name="password" value="<%=password%>">
+    <br>
+    E-Mail:    <br>
+    <input type="text" name="email" value="<%=email%>">
+    <br>
+    Rolle:    <br>
+    <input type="text" name="role" value="<%=role%>">
+    <br>
+    Favoriten Pfad:    <br>
+    <input type="text" name="favorites" value="<%=favorites%>">
+    <br>
+    Status:    <br>
+    <input type="text" name="status" value="<%=status%>">
+    <br>
+    <button type="submit">Speichern</button>
+</p>
+</form>
                 </div>
                 </div>
             </div>
