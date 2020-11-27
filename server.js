@@ -110,7 +110,7 @@ app.get("/profile", function(req, res)
         res.redirect("/login");
     } else {
         const sessionValueName = req.session.sessionValue;
-        codedb.all(`SELECT id, headline, description, code, edited FROM allcode WHERE loginname ='${sessionValueName}'`,
+        codedb.all(`SELECT id, headline, description, code, edited, format FROM allcode WHERE loginname ='${sessionValueName}'`,
                 function(err,rows)
                 {
                     const param_userCodeInfo = rows;
@@ -220,7 +220,7 @@ app.post('/login', function(req,res)
             if (isValid==true)
             {
                 req.session.sessionValue = param_loginname;
-                codedb.all(`SELECT id, headline, description, code, edited FROM allcode WHERE loginname ='${param_loginname}'`,
+                codedb.all(`SELECT id, headline, description, code, edited, format FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
                     const param_userCodeInfo = rows;
@@ -266,8 +266,9 @@ app.post('/onChangeCode/', function(req, res) {
     const head = req.body.head;
     const desc = req.body.desc;
     const code = req.body.code;
+    const format = req.body.format;
     const timestamp = req.body.edited;
-    const sql = `UPDATE allcode SET code='${code}', headline='${head}', description='${desc}', edited='${timestamp}' WHERE id=${id}`;
+    const sql = `UPDATE allcode SET code='${code}', headline='${head}', description='${desc}', format='${format}', edited='${timestamp}' WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
         console.log("Code-Snippet geändert"); // Message zum Debugging
@@ -282,5 +283,6 @@ app.post('/editCode/', function(req, res) {
     const param_desc = req.body.description;
     const param_code = req.body.code;
     const param_timestamp = req.body.timestamp;
-    res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, timestamp: param_timestamp});
+    const param_format = req.body.format;
+    res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, snippetFormat: param_format, timestamp: param_timestamp});
 });

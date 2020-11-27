@@ -54,17 +54,71 @@
                         <form action="/onChangeCode/" method="POST" style="margin: 0px 20px 20px 20px; width: 100%;"> 
                             <div>
                                 <label for="headline" class="formlabel"><b>Überschrift:</b></label><br>
-                                <input type="hidden" name="id" value=<%= snippetId %> >
-                                <input type="text" id="head" name="head" class="forminput" value="<%= snippetHead %>"><br><br>
+                                <input type="hidden" name="id" value=<%= snippetId %>>
+                                <input type="text" id="head" name="head" class="forminput" value="<%= snippetHead %>" required><br><br>
                             </div>
                             <div style="margin-bottom: 35px;">
                                 <label for="description" class="formlabel"><b>Beschreibung:</b></label>
                                 <div class="container" style="margin: 0px;">
                                     <div class="description">
-                                        <textarea id="desc" name="desc" class="textinput"><%= snippetDesc %></textarea>
+                                        <textarea id="desc" name="desc" class="textinput" required><%= snippetDesc %></textarea>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Optionen für Auswahl der Syntax zum Speichern des Editor-Modus -->
+                            <select id="format" name="format" required>
+                                <option value="c">C</option>
+                                <option value="c++">C++</option>
+                                <option value="c#">C#</option>
+                                <option value="coffeescript">CoffeeScript</option>
+                                <option value="commonlisp">Common Lisp</option>
+                                <option value="css">CSS</option>
+                                <option value="django">Django</option>
+                                <option value="ejs">Embedded Javascript</option>
+                                <option value="html">HTML</option>
+                                <option value="http">HTTP</option>
+                                <option value="java">Java</option>
+                                <option value="javascript">JavaScript</option>
+                                <option value="julia">Julia</option>
+                                <option value="mathematica">Mathematica</option>
+                                <option value="mysql">MySQL</option>
+                                <option value="objective-c">Objective-C</option>
+                                <option value="objective-c++">Objective-C++</option>
+                                <option value="pascal">Pascal</option>
+                                <option value="perl">Perl</option>
+                                <option value="php">PHP</option>
+                                <option value="text">Plain Text</option>
+                                <option value="powershell">Power Shell</option>
+                                <option value="python">Python</option>
+                                <option value="r">R</option>
+                                <option value="ruby">Ruby</option>
+                                <option value="shell">Shell</option>
+                                <option value="spreadsheet">Spreadsheet</option>
+                                <option value="sql">SQL</option>
+                                <option value="sqlite">SQLite</option>
+                                <option value="swift">Swift</option>
+                                <option value="latex">LaTeX</option>
+                                <option value="typescript">TypeScript</option>
+                                <option value="vbnet">VB.NET</option>
+                                <option value="vbscript">VBScript</option>
+                                <option value="xml">XML</option>
+                            </select>
+                            <!-- Javascript, um die aktuelle Syntax des zu bearbeitenden Codes vorauszuwählen -->
+                            <!-- Quelle: https://www.daftlogic.com/information-programmatically-preselect-dropdown-using-javascript.htm -->
+                            <script>
+                            function setSelectedIndex(s, valsearch) {
+                            // Loop through all the items in drop down list
+                                for (i = 0; i< s.options.length; i++) {
+                                    if (s.options[i].value == valsearch) {
+                                    // Item is found. Set its property and exit
+                                        s.options[i].selected = true;
+                                        break;
+                                    }
+                                }
+                                return;
+                            }
+                            setSelectedIndex(document.getElementById("format"),"<%= snippetFormat %>");
+                            </script>
                             <!-- Nachfolgendes <textarea> mit 'id="unnecessary"' hat keine richtige Funktion. Ohne die Area verschwindet CodeMirror aber seltsamerweise -->
                             <textarea id="unnecessary" style="border:none; margin: 0px; height: 0px; resize: none;"></textarea>
                             <textarea id=snippetIdent name="code"><%= snippetCode %></textarea><br>
@@ -83,7 +137,7 @@
                     <script> 
                         var idCode = "snippetIdent";
                         var editor2 = CodeMirror.fromTextArea(document.getElementById(idCode), {
-                            lineNumbers: true, theme: "ayu-mirage", styleActiveLine: true});
+                            lineNumbers: true, theme: "ayu-mirage", styleActiveLine: true, mode: "<%= snippetFormat %>"});
                         editor2.on("change", function(editorChange) {
                             console.log(editorChange.getValue());
                         });

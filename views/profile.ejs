@@ -81,10 +81,11 @@
     <script> 
         var codeid = "snippet" + <%= codelist[i].id %>; // wird von VSC als Problem identifiziert, da VSC kein EJS unterstützt (https://github.com/Microsoft/vscode/issues/51118)
         var editor<%= codelist[i].id %> = CodeMirror.fromTextArea(document.getElementById(codeid), {
-            lineNumbers: true,      // Boolean: aktiviert Zeilennummern
-            theme: "ayu-mirage",    // Theme-Auswahl für Editor
-            styleActiveLine: true,  // Boolean: Aktive Zeile wird markiert
-            readOnly: true          // Boolean: Keine Änderungen im Editor möglich.
+            lineNumbers: true,                // Boolean: aktiviert Zeilennummern
+            theme: "ayu-mirage",              // Theme-Auswahl für Editor
+            styleActiveLine: true,            // Boolean: Aktive Zeile wird markiert
+            readOnly: true,                   // Boolean: Keine Änderungen im Editor möglich.
+            mode: "<%= codelist[i].format %>" // String; Nutzungmodus des Editors ('Sprache')
         });
         editor<%= codelist[i].id %>.on("change", function(editorChange) {       // Bei Änderungen feuert das Change-Event und führt die nachfolgende Funktion aus
             console.log(editorChange.getValue());    // gibt in der Browser-Konsole den veränderten Text aus (zum Test)
@@ -92,7 +93,7 @@
     </script>
     <div class="flex-container" style="justify-content: flex-end; margin-bottom: 20px;">
         <form action="/onDeleteCode/<%= codelist[i].id %>" method="POST" id=delete<%= codelist[i].id %>><input type="submit" class="cta-button" style="width: 100px;" onclick="confirmDelete()" value="DELETE"></form>
-        <button class="cta-button" style="width: 100px;" onclick="post('/editCode/', {code: `${editor<%= codelist[i].id %>.getValue()}`, id: <%= codelist[i].id %>, headline: `<%= codelist[i].headline %>`, description: `<%= codelist[i].description %>`, timestamp: timeStamp()})">EDIT</button>
+        <button class="cta-button" style="width: 100px;" onclick="post('/editCode/', {code: `${editor<%= codelist[i].id %>.getValue()}`, id: <%= codelist[i].id %>, headline: `<%= codelist[i].headline %>`, description: `<%= codelist[i].description %>`, format: `<%= codelist[i].format %>`, timestamp: timeStamp()})">EDIT</button>
         <!-- DELETE-Button: Script fängt POST-Methode ab und prüft, ob bestätigt wird oder nicht. Erst nach Bestätigung wird gelöscht. -->
         <script>
             function confirmDelete(){
