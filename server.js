@@ -110,7 +110,7 @@ app.get("/profile", function(req, res)
         res.redirect("/login");
     } else {
         const sessionValueName = req.session.sessionValue;
-        codedb.all(`SELECT id, headline, description, code, edited FROM allcode`,
+        codedb.all(`SELECT id, headline, description, code, edited FROM allcode WHERE loginname = '${sessionValueName}'`,
                 function(err,rows)
                 {
                     const param_userCodeInfo = rows;
