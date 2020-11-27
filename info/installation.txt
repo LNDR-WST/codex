@@ -15,3 +15,5 @@ npm install cookie-parser --save
 npm install express-session --save
 
 npm install codemirror --save // Zur Sicherheit (sollte eigentlich nicht erforderlich sein)
+
+Userdaten generiert mit https://www.generatedata.com/
