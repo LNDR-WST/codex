@@ -193,6 +193,13 @@ li {
     margin: 0px 10px 0px 0px;
   }
 
+  .code-head > table {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: white;
+    margin: 0px 10px 0px 0px;
+  }
+
 /* Style für Textarea (Code-Snippet-Description) */
 
   .container {

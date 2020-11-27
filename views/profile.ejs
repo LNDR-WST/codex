@@ -82,7 +82,17 @@
 <div>
 <!-- Hier beginnt der for Loop zum erstellen der Editorfelder -->   
     <% for(var i = 0; i < codelist.length; i++){ %>
-    <div class="code-head"><h4 id="code-heading<%= codelist[i].id %>"><%= codelist[i].headline %></h4><p><span style="text-decoration: underline;">last edited:</span> <%= `${codelist[i].edited}` %></p></div>
+    <div class="code-head"><h4 id="code-heading<%= codelist[i].id %>"><%= codelist[i].headline %></h4>
+        <table id=<%= `codeInfo${codelist[i].id}` %>>
+            <tr><td><span style="text-decoration: underline;">last edited:</span></td><td><%= `${codelist[i].edited}` %></td></tr>
+            <tr><td><span style="text-decoration: underline;">Sprache:</span></td><td name=<%= `language${codelist[i].id}` %>>Sprache</td></tr>
+            <!-- Kurzes Script, um die entsprechende Sprache einzusetzen-->
+            <script>
+                var formatLang = "<%= codelist[i].format %>";
+                document.getElementsByName("language<%= codelist[i].id %>")[0].innerHTML = document.getElementsByName("language<%= codelist[i].id %>")[0].innerHTML.replace('Sprache', getFormatName(formatLang));
+            </script>
+        </table>
+    </div>
     <p class="code-desc" id="code-desc"><%= codelist[i].description %></p>
 <!-- CodeMirror-Editor: Code muss ganz links stehen, damit keine ungewollten Einrückungen im Code entstehen. -->
 

@@ -125,3 +125,82 @@ function post(path, params, method='post') {
     const timestamp = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     return timestamp;
   }
+
+
+/* Funktion wird im Profil aufgerufen und gibt einen String für die Sprache nach Format zurück*/
+function getFormatName(format) {
+  switch (format) {
+    case "c":
+      return "C";
+    case "c++":
+      return "C++";
+    case "c#":
+      return "C#";
+    case "coffeescript":
+      return "CoffeeScript";
+    case "commonlisp":
+      return "Common Lisp";
+    case "css":
+      return "CSS";
+    case "django":
+      return "Django";
+    case "ejs":
+      return "Embedded Javascript";
+    case "html":
+      return "HTML";
+    case "http":
+      return "HTTP";
+    case "java":
+      return "Java";
+    case "javascript":
+      return "JavaScript";
+    case "julia":
+      return "Julia";
+    case "mathematica":
+      return "Mathematica";
+    case "mysql":
+      return "MySQL";
+    case "objectivec":
+      return "Objective-C";
+    case "objectivec++":
+      return "Objective-C++";
+    case "pascal":
+      return "Pascal";
+    case "perl":
+      return "Perl";
+    case "php":
+      return "PHP";
+    case "text":
+      return "Plain Text";
+    case "powershell":
+      return "Power Shell";
+    case "python":
+      return "Python";
+    case "r":
+      return "R";
+    case "ruby":
+      return "Ruby";
+    case "shell":
+      return "Shell";
+    case "spreadsheet":
+      return "Spreadsheet";
+    case "sql":
+      return "SQL";
+    case "sqlite":
+      return "SQLite";
+    case "swift":
+      return "Swift";
+    case "latex":
+      return "LaTeX";
+    case "typescript":
+      return "TypeScript";
+    case "vbnet":
+      return "VB.NET";
+    case "vbscript":
+      return "VBScript";
+    case "xml":
+      return "XML";
+    default:
+      return "not defined";
+  }    
+}
