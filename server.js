@@ -317,7 +317,6 @@ app.post('/onChangeCode/', function(req, res) {
             case 'text':
                 cmMode = "null";
                 break;
-            case 'swift':
             case 'latex':
                 cmMode = "stex";
                 break;

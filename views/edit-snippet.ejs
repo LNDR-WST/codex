@@ -79,42 +79,42 @@
                                 </div>
                             </div>
                             <!-- Optionen für Auswahl der Syntax zum Speichern des Editor-Modus -->
-                            <select id="format" name="format" required>
-                                <option value="c">C</option>
-                                <option value="c++">C++</option>
-                                <option value="c#">C#</option>
-                                <option value="coffeescript">CoffeeScript</option>
-                                <option value="commonlisp">Common Lisp</option>
-                                <option value="css">CSS</option>
-                                <option value="django">Django</option>
-                                <option value="ejs">Embedded Javascript</option>
-                                <option value="html">HTML</option>
-                                <option value="http">HTTP</option>
-                                <option value="java">Java</option>
-                                <option value="javascript">JavaScript</option>
-                                <option value="julia">Julia</option>
-                                <option value="mathematica">Mathematica</option>
-                                <option value="mysql">MySQL</option>
-                                <option value="objectivec">Objective-C</option>
-                                <option value="objectivec++">Objective-C++</option>
-                                <option value="pascal">Pascal</option>
-                                <option value="perl">Perl</option>
-                                <option value="php">PHP</option>
-                                <option value="text">Plain Text</option>
-                                <option value="powershell">Power Shell</option>
-                                <option value="python">Python</option>
-                                <option value="r">R</option>
-                                <option value="ruby">Ruby</option>
-                                <option value="shell">Shell</option>
-                                <option value="spreadsheet">Spreadsheet</option>
-                                <option value="sql">SQL</option>
-                                <option value="sqlite">SQLite</option>
-                                <option value="swift">Swift</option>
-                                <option value="latex">LaTeX</option>
-                                <option value="typescript">TypeScript</option>
-                                <option value="vbnet">VB.NET</option>
-                                <option value="vbscript">VBScript</option>
-                                <option value="xml">XML</option>
+                            <select id="format" name="format" onchange="changeCmMode()" required>
+                                <option id="clike" value="c">C</option>
+                                <option id="clike" value="c++">C++</option>
+                                <option id="clike" value="c#">C#</option>
+                                <option id="coffeescript" value="coffeescript">CoffeeScript</option>
+                                <option id="commonlisp" value="commonlisp">Common Lisp</option>
+                                <option id="css" value="css">CSS</option>
+                                <option id="django" value="django">Django</option>
+                                <option id="htmlembedded" value="ejs">Embedded Javascript</option>
+                                <option id="htmlmixed" value="html">HTML</option>
+                                <option id="http" value="http">HTTP</option>
+                                <option id="clike" value="java">Java</option>
+                                <option id="javascript" value="javascript">JavaScript</option>
+                                <option id="julia" value="julia">Julia</option>
+                                <option id="mathematica" value="mathematica">Mathematica</option>
+                                <option id="sql" value="mysql">MySQL</option>
+                                <option id="clike" value="objectivec">Objective-C</option>
+                                <option id="clike" value="objectivec++">Objective-C++</option>
+                                <option id="pascal" value="pascal">Pascal</option>
+                                <option id="perl" value="perl">Perl</option>
+                                <option id="php" value="php">PHP</option>
+                                <option id="null" value="text">Plain Text</option>
+                                <option id="powershell" value="powershell">Power Shell</option>
+                                <option id="python" value="python">Python</option>
+                                <option id="r" value="r">R</option>
+                                <option id="ruby" value="ruby">Ruby</option>
+                                <option id="shell" value="shell">Shell</option>
+                                <option id="spreadsheet" value="spreadsheet">Spreadsheet</option>
+                                <option id="sql" value="sql">SQL</option>
+                                <option id="sql" value="sqlite">SQLite</option>
+                                <option id="swift" value="swift">Swift</option>
+                                <option id="stex" value="latex">LaTeX</option>
+                                <option id="javascript" value="typescript">TypeScript</option>
+                                <option id="vb" value="vbnet">VB.NET</option>
+                                <option id="vbscript" value="vbscript">VBScript</option>
+                                <option id="xml" value="xml">XML</option>
                             </select>
                             <!-- Javascript, um die aktuelle Syntax des zu bearbeitenden Codes vorauszuwählen -->
                             <!-- Quelle: https://www.daftlogic.com/information-programmatically-preselect-dropdown-using-javascript.htm -->
@@ -147,13 +147,22 @@
                             <button class="cta-button" onclick="createHiddenInput()" style="width: 135px;">SPEICHERN</button>
                             <a href="/profile" class="cta-button" style="width: 135px;">ABBRECHEN</a>
                         </form>
+                    <!-- CodeMirror Script, um textarea durch den Editor zu ersetzen -->
                     <script> 
                         var idCode = "snippetIdent";
+                        var cMirrorMode = "<%= cmMode %>";
                         var editor2 = CodeMirror.fromTextArea(document.getElementById(idCode), {
-                            lineNumbers: true, theme: "ayu-mirage", styleActiveLine: true, mode: "<%= cmMode %>"});
+                            lineNumbers: true, theme: "ayu-mirage", styleActiveLine: true, mode: cMirrorMode});
                         editor2.on("change", function(editorChange) {
                             console.log(editorChange.getValue());
                         });
+                        
+                        // Funktion, um den Modus direkt bei Änderung im Dropdown zu ändern
+                        function changeCmMode () {
+                            var dropDown = document.getElementById("format");
+                            var newMode = dropDown.options[dropDown.selectedIndex].id;
+                            editor2.setOption("mode", `${newMode}`);
+                        }
                     </script>
                 </div>
             </div>
