@@ -110,7 +110,7 @@ app.get("/profile", function(req, res)
         res.redirect("/login");
     } else {
         const sessionValueName = req.session.sessionValue;
-        codedb.all(`SELECT id, headline, description, code, edited, format FROM allcode WHERE loginname ='${sessionValueName}'`,
+        codedb.all(`SELECT id, headline, description, code, edited, format, cmmode FROM allcode WHERE loginname ='${sessionValueName}'`,
                 function(err,rows)
                 {
                     const param_userCodeInfo = rows;
@@ -202,15 +202,11 @@ app.post('/newUser', function(req,res)
             if (rows.length == 0 && param_password1 == param_password2 &&  check != null && param_password1.length > 7)  
             {
                 const hash = bcrypt.hashSync(param_password1,10);
+                // Nachfolgend Tabelle für Favoriten je User erstellen (noch zu erledigen)
                 sql = 
                 `CREATE TABLE '${param_loginname}'(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    headline TEXT NOT NULL,
-                    description TEXT NOT NULL,
-                    code BLOB NOT NULL,
-                    loginname TEXT NOT NULL,
-                    format TEXT NOT NULL,
-                    edited TEXT NOT NULL
+                    headline TEXT NOT NULL, 
                     )`
                 codedb.run(sql,
                     function(err)
@@ -247,7 +243,7 @@ app.post('/login', function(req,res)
             if (isValid==true)
             {
                 req.session.sessionValue = param_loginname;
-                codedb.all(`SELECT id, headline, description, code, edited, format FROM allcode WHERE loginname ='${param_loginname}'`,
+                codedb.all(`SELECT id, headline, description, code, edited, format, cmmode FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
                     const param_userCodeInfo = rows;
@@ -282,8 +278,8 @@ app.post('/addCode', function(req,res)
 {
     const param_loginname = req.session.sessionValue
     const sql = 
-    `INSERT INTO allcode (headline, description, code, loginname, format, edited) 
-    VALUES ('Überschrift','Kurze Beschreibung deines Codes','Dein Code','${param_loginname}','javascript', datetime('now'))`;
+    `INSERT INTO allcode (headline, description, code, loginname, format, cmmode, edited) 
+    VALUES ('Überschrift','Kurze Beschreibung deines Codes','Dein Code','${param_loginname}','text', 'null', datetime('now'))`;
     codedb.run(sql, function(err)
     {
         res.redirect('/profile');
@@ -297,8 +293,45 @@ app.post('/onChangeCode/', function(req, res) {
     const desc = req.body.desc;
     const code = req.body.code;
     const format = req.body.format;
+    let cmMode; // cmMode wird im nachfolgenden je nach Snippet-Format gesetzt; perspektivisch ließe sich evtl. auch das "cmmode"-Feld in der DB einsparen
+        switch (format) {
+            case 'c':
+            case 'c++':
+            case 'c#':
+            case 'java':
+            case 'objectivec':
+            case 'objectivec++':
+                cmMode = "clike";
+                break;
+            case 'ejs':
+                cmMode = "htmlembedded";
+                break;
+            case 'html':
+                cmMode = "htmlmixed";
+                break;
+            case 'mysql':
+            case 'sql':
+            case 'sqlite':
+                cmMode = "sql";
+                break;
+            case 'text':
+                cmMode = "null";
+                break;
+            case 'swift':
+            case 'latex':
+                cmMode = "stex";
+                break;
+            case 'typescript':
+                cmMode = "javascript";
+                break;
+            case 'vbnet':
+                cmMode = "vb";
+                break;
+            default:
+                cmMode = format;
+        }
     const timestamp = req.body.edited;
-    const sql = `UPDATE allcode SET code='${code}', headline='${head}', description='${desc}', format='${format}', edited='${timestamp}' WHERE id=${id}`;
+    const sql = `UPDATE allcode SET code='${code}', headline='${head}', description='${desc}', format='${format}', cmmode='${cmMode}', edited='${timestamp}' WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
         console.log("Code-Snippet geändert"); // Message zum Debugging
@@ -314,7 +347,8 @@ app.post('/editCode/', function(req, res) {
     const param_code = req.body.code;
     const param_timestamp = req.body.timestamp;
     const param_format = req.body.format;
-    res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, snippetFormat: param_format, timestamp: param_timestamp});
+    const param_cmmode = req.body.cmMode;
+    res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, snippetFormat: param_format, cmMode: param_cmmode, timestamp: param_timestamp});
 });
 
 // User löschen

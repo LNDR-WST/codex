@@ -14,11 +14,24 @@
         <link rel="stylesheet" href="/stylesheet.css">
         
         <!-- Laden der CodeMirror-Dateien -->
-        <script src="/editCode/codemirror.js"></script>
-		<link rel="stylesheet" href="/editCode/codemirror.css">
-		<link rel="stylesheet" href="/editCode/ayu-mirage.css">
-        <script src="/editCode/javascript/javascript.js"></script>
-        <script src="/editCode/selection/active-line.js"></script>
+            <!-- Required -->
+            <script src="/editCode/codemirror.js"></script>
+            <link rel="stylesheet" href="/editCode/codemirror.css">
+            <!-- Theme -->
+            <link rel="stylesheet" href="/editCode/ayu-mirage.css">
+            <!-- Jede Sprache, deren Syntax von CodeMirror erkannt werden soll, muss hier geladen werden -->
+            <!-- Hier zum Veranschaulichen nur ausgewählte. Evtl. später dynamisch ladbar, wenn je Sprache eine Seite gerendert wird. -->
+            <script src="/editCode/javascript/javascript.js"></script>  
+            <script src="/editCode/python/python.js"></script>          
+            <script src="/editCode/clike/clike.js"></script>
+            <script src="/editCode/htmlembedded/htmlembedded.js"></script>
+            <script src="/editCode/htmlmixed/htmlmixed.js"></script>
+            <script src="/editCode/php/php.js"></script>
+            <script src="/editCode/css/css.js"></script>
+            <script src="/editCode/xml/xml.js"></script>
+            <script src="/editCode/powershell/powershell.js"></script>
+            <!-- Additional Modes von CodeMirror-->
+            <script src="/editCode/selection/active-line.js"></script>
 
         <!-- Laden von Formular-Script -->
         <script src="/js/form.js"></script>
@@ -82,8 +95,8 @@
                                 <option value="julia">Julia</option>
                                 <option value="mathematica">Mathematica</option>
                                 <option value="mysql">MySQL</option>
-                                <option value="objective-c">Objective-C</option>
-                                <option value="objective-c++">Objective-C++</option>
+                                <option value="objectivec">Objective-C</option>
+                                <option value="objectivec++">Objective-C++</option>
                                 <option value="pascal">Pascal</option>
                                 <option value="perl">Perl</option>
                                 <option value="php">PHP</option>
@@ -137,7 +150,7 @@
                     <script> 
                         var idCode = "snippetIdent";
                         var editor2 = CodeMirror.fromTextArea(document.getElementById(idCode), {
-                            lineNumbers: true, theme: "ayu-mirage", styleActiveLine: true, mode: "<%= snippetFormat %>"});
+                            lineNumbers: true, theme: "ayu-mirage", styleActiveLine: true, mode: "<%= cmMode %>"});
                         editor2.on("change", function(editorChange) {
                             console.log(editorChange.getValue());
                         });

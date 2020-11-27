@@ -1,15 +1,16 @@
 /*Tabele erzeugen*/
 CREATE TABLE allcode(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    headline TEXT NOT NULL,
-    description TEXT NOT NULL,
-    code BLOB NOT NULL,
-    loginname TEXT NOT NULL,
-    format TEXT NOT NULL,
-    edited TEXT NOT NULL
+    headline TEXT NOT NULL,     /* Spalte für Code-Headline */
+    description TEXT NOT NULL,  /* Spalte für Code-Beschreibung */
+    code BLOB NOT NULL,         /* Spalte für Code */
+    loginname TEXT NOT NULL,    /* Spalte für Eigentümer des Codes */
+    format TEXT NOT NULL,       /* Spalte für Syntax/Sprache des Codes */
+    cmmode TEXT NOT NULL,       /* Spalte für CodeMirror-Modus */
+    edited TEXT NOT NULL        /* Spalte für Zeitstempel "last edited" */
 );
 
-INSERT INTO allcode (headline, description, code, loginname, format, edited) VALUES ('Überschrift 0', 
+INSERT INTO allcode (headline, description, code, loginname, format, cmmode, edited) VALUES ('Überschrift 0', 
 'Dieser Code ist vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
 'var imgWidth=285, imgHeight=233;
 var xStart=Math.floor(imgWidth/2), yStart=Math.floor(imgHeight/2);
@@ -26,5 +27,6 @@ if(status==1) {
     y-=1;
     clipHeight+=2;',
     'admin',
+    'javascript',
     'javascript',
     datetime('now'));
