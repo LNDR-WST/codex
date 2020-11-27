@@ -145,12 +145,26 @@ app.get("/userlist", function(req, res)
 {
     if (!req.session.sessionValue) {
         res.redirect("/login");
-    } else {
-        res.render("userlist") // ToDo: hier ggf. zusätzliche Parameter übergeben: {param_x: x, param_y: y, param_z: z});
+    } 
+    else if(req.session.sessionValue == "admin")
+    {
+        db.all(
+            `SELECT * FROM allusers`,
+            function(err, rows){
+                res.render("adminpanel", {"allusers": rows});
+            } 
+        );
+    }
+    else {
+        db.all(
+            `SELECT * FROM allusers WHERE role = "user"`,
+            function(err, rows){
+                res.render("userlist", {"allusers": rows});
+            } 
+        );
     }
     
 });
-
 // Settings-Seite
 app.get("/settings", function(req, res)
 {
@@ -159,9 +173,8 @@ app.get("/settings", function(req, res)
     } else {
         res.render("settings") // ToDo: hier ggf. zusätzliche Parameter übergeben: {param_x: x, param_y: y, param_z: z});
     }
-    
 });
-
+// Impressum-Seite
 app.get("/impressum", function(req, res)
 {
     res.render("impressum", {session: req.session.sessionValue});
@@ -189,13 +202,27 @@ app.post('/newUser', function(req,res)
             if (rows.length == 0 && param_password1 == param_password2 &&  check != null && param_password1.length > 7)  
             {
                 const hash = bcrypt.hashSync(param_password1,10);
-                db.run(
-                    `INSERT INTO allusers(time, email, loginname, password, role, favorites, status) VALUES(datetime('now'),'${param_email}','${param_loginname}', '${hash}','user','/${param_loginname}',1)`, 
-                function(err)
-                {
-                    // Redirect bei erfolgreicher Registrierung 
-                    res.redirect("/registration-complete");
-                });
+                sql = 
+                `CREATE TABLE '${param_loginname}'(
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    headline TEXT NOT NULL,
+                    description TEXT NOT NULL,
+                    code BLOB NOT NULL,
+                    loginname TEXT NOT NULL,
+                    format TEXT NOT NULL,
+                    edited TEXT NOT NULL
+                    )`
+                codedb.run(sql,
+                    function(err)
+                    {
+                        db.run(
+                            `INSERT INTO allusers(time, email, loginname, password, role, favorites, status) VALUES(datetime('now'),'${param_email}','${param_loginname}', '${hash}','user','/${param_loginname}',1)`, 
+                        function(err)
+                        {
+                            // Redirect bei erfolgreicher Registrierung 
+                            res.redirect("/registration-complete");
+                        });
+                    });
             }
             else
                 {
@@ -242,6 +269,7 @@ app.post('/login', function(req,res)
 // Code-Snippet löschen
 app.post('/onDeleteCode/:id', function(req, res) {
     const id = req.params['id'];
+    const param_loginname = req.session.sessionValue
     const sql = `DELETE FROM allcode WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
@@ -253,7 +281,9 @@ app.post('/onDeleteCode/:id', function(req, res) {
 app.post('/addCode', function(req,res)
 {
     const param_loginname = req.session.sessionValue
-    const sql = `INSERT INTO allcode (code, headline, description, loginname) VALUES ('Dein Code', 'Überschrift','Kurze Beschreibung deines Codes','${param_loginname}')`;
+    const sql = 
+    `INSERT INTO allcode (headline, description, code, loginname, format, edited) 
+    VALUES ('Überschrift','Kurze Beschreibung deines Codes','Dein Code','${param_loginname}','javascript', datetime('now'))`;
     codedb.run(sql, function(err)
     {
         res.redirect('/profile');
@@ -285,4 +315,48 @@ app.post('/editCode/', function(req, res) {
     const param_timestamp = req.body.timestamp;
     const param_format = req.body.format;
     res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, snippetFormat: param_format, timestamp: param_timestamp});
+});
+
+// User löschen
+app.post("/delete/:id", function(req,res)
+{
+    db.run(
+        `DELETE FROM allusers WHERE id=${req.params.id}`,
+        function(err)
+        {
+            res.redirect("/userlist");
+        }
+    );
+});
+
+// User bearbeiten
+app.post("/update/:id", function(req,res)
+{
+    db.all(
+        `SELECT * FROM allusers WHERE id = ${req.params.id}`,
+        function(err,rows)
+        {
+        res.render("userupdate", rows[0]);
+        }
+    );
+});
+
+// Userdaten speichern
+app.post("/onupdate/:id", function(req,res)
+{
+    const id = req.params.id;
+    const loginname = req.body.loginname;
+    const password = req.body.password;
+    const email = req.body.email;
+    const favorites = req.body.favorites;
+    const status = req.body.status;
+
+console.log(id);
+    db.run(
+        `UPDATE allusers SET loginname = "${loginname}",password = "${password}",email = "${email}",favorites = "${favorites}",status = "${status}" WHERE id = ${id}`,
+        function(err)
+        {
+            res.redirect("/userlist");
+        }
+    );
 });
