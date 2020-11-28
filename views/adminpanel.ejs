@@ -64,73 +64,94 @@
                         <p style="margin-left: 20px; margin-right: 20px;">
                             Hier können Nutzer bearbeitet werden. <br>
                             <span style="color: red; font-weight: bold;">Achtung:<br> Das Löschen eines Benutzers kann nicht rückgängig gemacht werden!</span></p>
-                <div style="min-height: 700px;">
-                    <!-- Benutzerliste & Verwaltung -->
-                    <div style="margin-bottom: 20px;">
-                        <h2 style="font-size: 16px; font-weight: bold; text-decoration: underline;">Benutzer hinzufügen</h2>
-                        <form action="newUser" method="POST">
-                            <table style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>E-Mail:</th>
-                                        <th>Benutzername:</th>
-                                        <th>Passwort</th>
-                                        <th>Password Wdh</th>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" id="email" name="email" oninput="checkEmail()" required></td>
-                                        <td><input type="text" name="loginname" id="loginname" oninput="checkName()" required></td>
-                                        <td><input type="password" id="password1" name="password1" oninput="checkPass()" required></td>
-                                        <td><input type="password" id="password2" name="password2" oninput="checkMatch()" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border: none;"><div class="error-msg email">E-Mail falsch.</div></td>
-                                        <td style="border: none;"><div class="error-msg loginname" style="display:none;">Name vergeben.</div></td>
-                                        <td style="border: none;"><div class="error-msg password1">Passwort zu kurz.</div></td>
-                                        <td style="border: none;"><div class="error-msg password2">Stimmt nicht überein.</div></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4" style="text-align: center;"><input type="submit" class="button-invert" style="font-size: 12px;" value="hinzufügen"></td>
-                                    </tr>
-                                </thead>
+                    <div style="min-height: 700px;">
+                        <!-- Benutzerliste & Verwaltung -->
+                        <div style="margin-bottom: 20px;">
+                            <h2 style="font-size: 16px; font-weight: bold; text-decoration: underline;">Benutzer hinzufügen</h2>
+                            <form action="newUser" method="POST">
+                                <table style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>E-Mail:</th>
+                                            <th>Benutzername:</th>
+                                            <th>Passwort</th>
+                                            <th>Password Wdh</th>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" id="email" name="email" oninput="checkEmail()" required></td>
+                                            <td><input type="text" name="loginname" id="loginname" oninput="checkName()" required></td>
+                                            <td><input type="password" id="password1" name="password1" oninput="checkPass()" required></td>
+                                            <td><input type="password" id="password2" name="password2" oninput="checkMatch()" required></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: none;"><div class="error-msg email">E-Mail falsch.</div></td>
+                                            <td style="border: none;"><div class="error-msg loginname" style="display:none;">Name vergeben.</div></td>
+                                            <td style="border: none;"><div class="error-msg password1">Passwort zu kurz.</div></td>
+                                            <td style="border: none;"><div class="error-msg password2">Stimmt nicht überein.</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="text-align: center;"><input type="submit" class="button-invert" style="font-size: 12px;" value="hinzufügen"></td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <input type="hidden" id="origin" name="origin" value="adminpanel">
+                            </form>
+                        </div>
+                        <h2 style="font-size: 16px; font-weight: bold; text-decoration: underline;">Benutzerübersicht</h2>
+                        <table style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th><b>Loginname</b></th>
+                                    <th><b>E-Mail</b></th>
+                                    <th><b>Rolle</b></th>
+                                    <th><b>Favoriten-Pfad</b></th>
+                                    <th><b>Status</b></th>
+                                    <th colspan="2" style="text-align: center;">Aktionen</th>
+                                </tr>
+                            </thead>
+                                    <% for(var i = 0; i < allusers.length ; i++) { %>
+                                        <tr id='row<%=allusers[i].id%>'>
+                                            <td><a href="/profile?=<%=allusers[i].loginname%>"><%= allusers[i].loginname %></a></td>
+                                            <td><%= allusers[i].email %></td>
+                                            <td><%= allusers[i].role %></td>
+                                            <td><%= allusers[i].favorites %></td>
+                                            <td style="text-align: center;"><%= allusers[i].status %> </td>
+                                            <td>
+                                                <form action="/delete/<%=allusers[i].id%>" method="POST"> 
+                                                <button class="button-invert" style="font-size: 12px; width: 100%;" type="submit" onclick="confirmDelete('row<%=allusers[i].id%>')">löschen</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form action="/update/<%=allusers[i].id%>" method="POST"> 
+                                                <button class="button-invert" style="font-size: 12px; width: 100%;" type="submit">bearbeiten</button>
+                                                </form>
+                                            </td>
+                                        
+                                        </tr>
+                                    <% } %>
                             </table>
-                            <input type="hidden" id="origin" name="origin" value="adminpanel">
-                        </form>
-                    </div>
-                    <h2 style="font-size: 16px; font-weight: bold; text-decoration: underline;">Benutzerübersicht</h2>
-                    <table style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th><b>Loginname</b></th>
-                                <th><b>E-Mail</b></th>
-                                <th><b>Rolle</b></th>
-                                <th><b>Favoriten-Pfad</b></th>
-                                <th><b>Status</b></th>
-                                <th colspan="2" style="text-align: center;">Aktionen</th>
-                            </tr>
-                        </thead>
-                                <% for(var i = 0; i < allusers.length ; i++) { %>
-                                    <tr id='row<%=allusers[i].id%>'>
-                                        <td><a href="/profile?=<%=allusers[i].loginname%>"><%= allusers[i].loginname %></a></td>
-                                        <td><%= allusers[i].email %></td>
-                                        <td><%= allusers[i].role %></td>
-                                        <td><%= allusers[i].favorites %></td>
-                                        <td style="text-align: center;"><%= allusers[i].status %> </td>
-                                        <td>
-                                            <form action="/delete/<%=allusers[i].id%>" method="POST"> 
-                                            <button class="button-invert" style="font-size: 12px; width: 100%;" type="submit" onclick="confirmDelete('row<%=allusers[i].id%>')">löschen</button>
-                                            </form>
-                                        </td>
-                                        <td>
-                                            <form action="/update/<%=allusers[i].id%>" method="POST"> 
-                                            <button class="button-invert" style="font-size: 12px; width: 100%;" type="submit">bearbeiten</button>
-                                            </form>
-                                        </td>
-                                    
+                            <div>
+                                <h2 style="font-size: 14px;">Statuscodes:</h2>
+                                <table style="border: none;">
+                                    <thead>
+                                        <th style="background: none; padding: 0px 10px 0px 10px;">Status</th>
+                                        <th style="background: none; padding: 0px 10px 0px 10px;">Bedeutung</th>
+                                    </thead>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>aktiv</td>
                                     </tr>
-                                <% } %>
-                        </table>
-                </div>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>inaktiv</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>gesperrt</td>
+                                    </tr>
+                                </table>
+                            </div>
+                    </div>
                 </div>
             </div>
             <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->

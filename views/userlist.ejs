@@ -62,17 +62,17 @@
                 <div id="content" class="flex-container code">
                         <h1 style="margin-left: 20px; margin-right: 20px;">Benutzerübersicht</h1>
                         <p style="margin-left: 20px; margin-right: 20px;">Hier findest du eine Übersicht über andere Benutzer.</p>
-                <div style="min-height: 700px;">
+                <div style="min-height: 65vh;">
                     <!-- INHALT HIER -->
-                    <table border="1">
-                        <tr>
-                        </tr>
-                        <td>Loginname</td> <td>E-Mail</td> 
+                    <table style="width: 100%;">
+                        <thead>
+                            <th>Benutzername</th>
+                            <th>Anzahl Snippets</th>
+                        </thead> 
                                 <% for(var i = 0; i < allusers.length ; i++) { %>
                                     <tr>
-                                        <td> <%= allusers[i].loginname %> </td>
+                                        <td style="font-weight: bold;"><a href="/profile?=<%= allusers[i].loginname %>"> <%= allusers[i].loginname %> </a></td>
                                         <td> <%= allusers[i].email %> </td>
-                                            </form>
                                     </tr>
                                 <% } %>
                         </table>
