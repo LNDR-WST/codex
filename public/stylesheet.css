@@ -291,6 +291,36 @@ pre {
   display: none;
 }
 
+/* Style für Tabellen */
+table {
+  border: solid;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  border-spacing: 0px 0rem;
+  border-collapse: separate;
+}
+
+td {
+  border-bottom: 1px solid #ddd;
+  padding: 5px 10px 5px 10px;
+}
+
+th {
+  background: #FF9000;
+  text-align: left;
+  border-bottom: solid;
+  border-color: black;
+}
+
+tr {
+  border-right: none;
+  border-left: none;
+}
+tr:hover {
+  background-color: #d8d8d8;
+}
+
 /* Style Footer */
 .footer {
   font-family: 'Share Tech Mono', monospace;
@@ -318,6 +348,7 @@ font-family: 'Poppins', sans-serif;
 font-weight: 700;
 font-size: 18px;
 text-decoration: none;
+text-transform: uppercase;
 padding: 5px 10px;
 border-style: solid;
 border-color: #FF9000;
@@ -338,6 +369,7 @@ margin-right: 10px;
   font-weight: 700;
   font-size: 18px;
   text-decoration: none;
+  text-transform: uppercase;
   padding: 5px 10px;
   border-style: solid;
   border-color: #FF9000;

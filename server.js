@@ -92,7 +92,7 @@ app.get("/login", function(req, res)
     if (!req.session.sessionValue) {
         res.sendFile(__dirname + "/views/login.html");
     } else {
-        res.redirect("/profile");
+        res.redirect("/my-profile");
     }
 });
 
@@ -103,7 +103,7 @@ app.get("/logout", function(req, res)
 });
 
 // Profil-Aufruf ist geschützt: Nur bei gesetzter sessionValue (Username) ist Aufruf möglich!
-app.get("/profile", function(req, res)
+app.get("/my-profile", function(req, res)
 {
     console.log(req.session);
     if (!req.session.sessionValue) {
@@ -114,7 +114,7 @@ app.get("/profile", function(req, res)
                 function(err,rows)
                 {
                     const param_userCodeInfo = rows;
-                    res.render("profile", {username: sessionValueName, codelist: param_userCodeInfo});
+                    res.render("myprofile", {username: sessionValueName, codelist: param_userCodeInfo});
                 })
     }
 });
@@ -193,6 +193,7 @@ app.post('/newUser', function(req,res)
         const param_loginname = req.body.loginname;
         const param_password1 = req.body.password1;
         const param_password2 = req.body.password2;
+        const param_origin = req.body.origin; // Übergabe, von welcher Seite der Post-Request kommt
         //hier wird gechecked ob die Email "plausibel" ist.
         const check = param_email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     
@@ -216,7 +217,11 @@ app.post('/newUser', function(req,res)
                         function(err)
                         {
                             // Redirect bei erfolgreicher Registrierung 
-                            res.redirect("/registration-complete");
+                            if (param_origin == "adminpanel") {
+                                res.redirect("/userlist"); // Wenn POST-Request vom Admin-Panel kommt, wird darauf zurückgeleitet
+                            } else {
+                                res.redirect("/registration-complete");
+                            }
                         });
                     });
             }
@@ -247,7 +252,7 @@ app.post('/login', function(req,res)
                 function(err,rows)
                 {
                     const param_userCodeInfo = rows;
-                    res.render("profile", {username: param_loginname, codelist: param_userCodeInfo});
+                    res.render("myprofile", {username: param_loginname, codelist: param_userCodeInfo});
                 })
 
             }
@@ -269,7 +274,7 @@ app.post('/onDeleteCode/:id', function(req, res) {
     const sql = `DELETE FROM allcode WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
-        res.redirect('/profile');
+        res.redirect('/my-profile');
     });
 });
 
@@ -282,7 +287,7 @@ app.post('/addCode', function(req,res)
     VALUES ('Überschrift','Kurze Beschreibung deines Codes','Dein Code','${param_loginname}','text', 'null', datetime('now'))`;
     codedb.run(sql, function(err)
     {
-        res.redirect('/profile');
+        res.redirect('/my-profile');
     })
 })
 
@@ -334,7 +339,7 @@ app.post('/onChangeCode/', function(req, res) {
     console.log(sql);
     codedb.run(sql, function(err) {
         console.log("Code-Snippet geändert"); // Message zum Debugging
-        res.redirect(`/profile#code-heading${id}`); // Springt direkt zum geänderten Element
+        res.redirect(`/my-profile#code-heading${id}`); // Springt direkt zum geänderten Element
     });
 });
 

@@ -104,6 +104,16 @@ function post(path, params, method='post') {
   form.submit();
 }
 
+/* Lösch-Aktion bestätigen, sonst ausführen abfangen */
+function confirmDelete(elementID){
+  document.getElementById(elementID).onsubmit = function (evt) { 	
+      var confirmDel = confirm("Wirklich löschen?\nKann nicht rückgängig gemacht werden!");
+      if (confirmDel == false) {
+          evt.preventDefault();
+      }
+  }
+}
+
 // Jetzigen Zeitpunkt erhalten YYYY-MM-DD HH:MM:SS
 
   // Mini-Funktion, um 0 darzustellen, falls Zeitangabe < 10 

@@ -43,7 +43,7 @@
                     </div>
                     <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
                         <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
-                        <p class="menu-button"><a href="/profile">[ My Snippets ]</b></a></p>
+                        <p class="menu-button"><a href="/my-profile">[ My Snippets ]</b></a></p>
                         <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
                         <p class="menu-button"><a href="/favorites">[ Favorites ]</b></a></p>
                         <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
@@ -63,28 +63,67 @@
                         <h1 style="margin-left: 20px; margin-right: 20px;">Admin Panel</h1>
                         <p style="margin-left: 20px; margin-right: 20px;">
                             Hier können Nutzer bearbeitet werden. <br>
-                            Achtung löschen wird sofort ausgeführt!</p>
+                            <span style="color: red; font-weight: bold;">Achtung:<br> Das Löschen eines Benutzers kann nicht rückgängig gemacht werden!</span></p>
                 <div style="min-height: 700px;">
-                    <!-- INHALT HIER -->
-                    <table border="1">
-                        <tr>
-                        </tr>
-                        <td>Loginname</td> <td>E-Mail</td> <td>Rolle</td> <td> Favoriten Pfad</td> <td>Status</td>
-                                <% for(var i = 0; i < allusers.length ; i++) { %>
+                    <!-- Benutzerliste & Verwaltung -->
+                    <div style="margin-bottom: 20px;">
+                        <h2 style="font-size: 16px; font-weight: bold; text-decoration: underline;">Benutzer hinzufügen</h2>
+                        <form action="newUser" method="POST">
+                            <table style="width: 100%;">
+                                <thead>
                                     <tr>
-                                        <td> <%= allusers[i].loginname %> </td>
-                                        <td> <%= allusers[i].email %> </td>
-                                        <td> <%= allusers[i].role %> </td>
-                                        <td> <%= allusers[i].favorites %> </td>
-                                        <td> <%= allusers[i].status %> </td>
+                                        <th>E-Mail:</th>
+                                        <th>Benutzername:</th>
+                                        <th>Passwort</th>
+                                        <th>Password Wdh</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" id="email" name="email" oninput="checkEmail()" required></td>
+                                        <td><input type="text" name="loginname" id="loginname" oninput="checkName()" required></td>
+                                        <td><input type="password" id="password1" name="password1" oninput="checkPass()" required></td>
+                                        <td><input type="password" id="password2" name="password2" oninput="checkMatch()" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: none;"><div class="error-msg email">E-Mail falsch.</div></td>
+                                        <td style="border: none;"><div class="error-msg loginname" style="display:none;">Name vergeben.</div></td>
+                                        <td style="border: none;"><div class="error-msg password1">Passwort zu kurz.</div></td>
+                                        <td style="border: none;"><div class="error-msg password2">Stimmt nicht überein.</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="text-align: center;"><input type="submit" class="button-invert" style="font-size: 12px;" value="hinzufügen"></td>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <input type="hidden" id="origin" name="origin" value="adminpanel">
+                        </form>
+                    </div>
+                    <h2 style="font-size: 16px; font-weight: bold; text-decoration: underline;">Benutzerübersicht</h2>
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th><b>Loginname</b></th>
+                                <th><b>E-Mail</b></th>
+                                <th><b>Rolle</b></th>
+                                <th><b>Favoriten-Pfad</b></th>
+                                <th><b>Status</b></th>
+                                <th colspan="2" style="text-align: center;">Aktionen</th>
+                            </tr>
+                        </thead>
+                                <% for(var i = 0; i < allusers.length ; i++) { %>
+                                    <tr id='row<%=allusers[i].id%>'>
+                                        <td><a href="/profile?=<%=allusers[i].loginname%>"><%= allusers[i].loginname %></a></td>
+                                        <td><%= allusers[i].email %></td>
+                                        <td><%= allusers[i].role %></td>
+                                        <td><%= allusers[i].favorites %></td>
+                                        <td style="text-align: center;"><%= allusers[i].status %> </td>
                                         <td>
                                             <form action="/delete/<%=allusers[i].id%>" method="POST"> 
-                                            <button type="submit">löschen</button>
+                                            <button class="button-invert" style="font-size: 12px; width: 100%;" type="submit" onclick="confirmDelete('row<%=allusers[i].id%>')">löschen</button>
                                             </form>
                                         </td>
                                         <td>
                                             <form action="/update/<%=allusers[i].id%>" method="POST"> 
-                                            <button type="submit">bearbeiten</button>
+                                            <button class="button-invert" style="font-size: 12px; width: 100%;" type="submit">bearbeiten</button>
                                             </form>
                                         </td>
                                     
