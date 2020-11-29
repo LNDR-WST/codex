@@ -129,6 +129,29 @@ app.get("/edit", function(req, res)
     } 
 });
 
+/* Profile anderer Nutzer (nur mit gesetzter Session-Varibale erreichbar): 
+   Beim Aufruf wird der an die URL gehängte URL-Parameter 'view' ausgelesen, um
+   den zu betrachtenden Nutzer zu identifizieren.
+   
+   Beispiel: 
+   Die URL 'localhost:3000/profiles?view=admin' übergibt den Parameter 'view' mit dem Wert 'admin'
+   Aus der Datenbank werden dann alle Codes von 'admin' ausgelesen. */
+app.get("/profile", function(req, res)
+{
+    console.log(req.session);
+    if (!req.session.sessionValue) {
+        res.redirect("/login");
+    } else {
+        const profileName = req.query.view;
+        codedb.all(`SELECT id, headline, description, code, edited, format, cmmode FROM allcode WHERE loginname ='${profileName}'`,
+                function(err,rows)
+                {
+                    const param_userCodeInfo = rows;
+                    res.render("profiles", {username: profileName, codelist: param_userCodeInfo});
+                })
+    }
+});
+
 // Favoriten-Seite
 app.get("/favorites", function(req, res)
 {

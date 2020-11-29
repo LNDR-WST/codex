@@ -1,4 +1,4 @@
-<!-- Benutzerprofil/Code-Sammlung -->
+<!-- Benutzerprofil fremdansicht (nicht als Eigentümer) -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,7 +37,7 @@
         <script src="/js/form.js"></script>
 
         <!-- Meta-Daten -->
-        <title>Codex - Dein Profil</title>
+        <title>Codex - Profil ##PLATZHALTER##</title>
     </head>
     <body>
         <div class="inner">
@@ -73,29 +73,29 @@
                     </div>
                 </div>
                 <div id="content" class="flex-container code">
-                        <h1 style="margin-left: 20px; margin-right: 20px;">Hallo, <i><%= username %></i>!</h1>
-                        <p style="margin-left: 20px; margin-right: 20px;">Willkommen in deinem persönlichen Bereich.
-                            Hier kannst du neue Code-Snippets anlegen, bestehende bearbeiten oder wieder entfernen.
-                            Über die Navigation links kommst du zu weiteren Bereichen, kannst Favoriten speichern und Code-Lösungen von anderen Nutzern entdecken. 
-                            <br><br>
-                            Viel Spaß!</p>
+                        <h1 style="margin-left: 20px; margin-right: 20px;"><i><%=username%>s</i> Profil</h1>
+                        <p style="margin-left: 20px; margin-right: 20px;">
+                            <%=username%> hat die folgenden Code-Snippets erstellt:
+                        </p>
 <div style="width: 95%;">
 <!-- Hier beginnt der for Loop zum erstellen der Editorfelder -->   
     <% for(var i = 0; i < codelist.length; i++){ %>
-    <div class="code-head"><h4 id="code-heading<%= codelist[i].id %>"><%= codelist[i].headline %></h4>
-        <table id=<%= `codeInfo${codelist[i].id}` %> style="border: none;">
-            <tr style="background-color: transparent;"><td style="border: none;"><span style="text-decoration: underline;">last edited</span>:</td><td style="border: none;"><%= `${codelist[i].edited}` %></td></tr>
-            <tr style="background-color: transparent;"><td style="border: none;"><span style="text-decoration: underline;">Format</span>:</td><td style="border: none;" name=<%= `language${codelist[i].id}` %>>Sprache</td></tr>
-            <!-- Kurzes Script, um die entsprechende Sprache einzusetzen-->
-            <script>
-                var formatLang = "<%= codelist[i].format %>";
-                document.getElementsByName("language<%= codelist[i].id %>")[0].innerHTML = document.getElementsByName("language<%= codelist[i].id %>")[0].innerHTML.replace('Sprache', getFormatName(formatLang));
-            </script>
-        </table>
-    </div>
-    <p class="code-desc" id="code-desc"><%= codelist[i].description %></p>
+    
+        <h4 id="code-heading<%= codelist[i].id %>"><%= codelist[i].headline %></h4>
+        <div class="code-head">
+            <p class="code-desc" id="code-desc" style="width: 60%;"><%= codelist[i].description %></p>
+            <table id=<%= `codeInfo${codelist[i].id}` %>>
+                <tr style="background-color: transparent;"><td style="border: none;"><span style="text-decoration: underline;">last edited</span>:</td><td style="border: none;"><%= `${codelist[i].edited}` %></td></tr>
+                <tr style="background-color: transparent;"><td style="border: none;"><span style="text-decoration: underline;">Format</span>:</td><td name=<%= `language${codelist[i].id}` %> style="border: none;">Sprache</td></tr>
+                <tr style="background-color: transparent;"><td style="border: none;"><span style="text-decoration: underline;">User</span>:</td><td style="border: none;"><a class="codelink" href="profile?view=<%= username %>"><%= username %></a></td></tr>
+                <!-- Kurzes Script, um die entsprechende Sprache einzusetzen-->
+                <script>
+                    var formatLang = "<%= codelist[i].format %>";
+                    document.getElementsByName("language<%= codelist[i].id %>")[0].innerHTML = document.getElementsByName("language<%= codelist[i].id %>")[0].innerHTML.replace('Sprache', getFormatName(formatLang));
+                </script>
+            </table>
+        </div>
 <!-- CodeMirror-Editor: Code muss ganz links stehen, damit keine ungewollten Einrückungen im Code entstehen. -->
-
     <form style="margin-bottom: 10px;">
 <textarea id=<%= `snippet${codelist[i].id}` %> name="code">
 <%= codelist[i].code %>
@@ -116,8 +116,7 @@
         });
     </script>
     <div class="flex-container" style="justify-content: flex-end; margin-bottom: 20px;">
-        <form action="/onDeleteCode/<%= codelist[i].id %>" method="POST" id=delete<%= codelist[i].id %>><input type="submit" class="cta-button" style="width: 100px;" onclick="confirmDelete('delete<%= codelist[i].id %>')" value="DELETE"></form>
-        <button class="cta-button" style="width: 100px;" onclick="post('/editCode/', {code: `${editor<%= codelist[i].id %>.getValue()}`, id: <%= codelist[i].id %>, headline: `<%= codelist[i].headline %>`, description: `<%= codelist[i].description %>`, format: `<%= codelist[i].format %>`, cmMode: `<%= codelist[i].cmmode %>`, timestamp: timeStamp()})">EDIT</button>
+        <form action="" method="POST" id="fav"><input type="submit" class="cta-button" style="width: 100px;" onclick="" value="<%= codelist[i].id %>"></form>
     </div>
 <% } %>
 </div>
