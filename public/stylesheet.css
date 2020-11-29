@@ -83,6 +83,7 @@ body {
   .nav-button-top > a:hover {
     color: #ffffff;
     background-color: #FF9000;
+    font-weight: normal;
   }
 
   .nav-button-top > a:visited {
@@ -418,6 +419,10 @@ border-radius: 3px;
   background-color: white;
   color: #FF9000;
   cursor: pointer;
+}
+
+.cta-button:visited {
+  color: white;
 }
 
 /* Button-Style inverted */

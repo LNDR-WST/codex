@@ -67,12 +67,14 @@
                     <table style="width: 100%;">
                         <thead>
                             <th>Benutzername</th>
-                            <th>Anzahl Snippets</th>
+                            <th>Snippetanzahl</th>
+                            <th>Mitglied seit</th>
                         </thead> 
                                 <% for(var i = 0; i < allusers.length ; i++) { %>
                                     <tr>
-                                        <td style="font-weight: bold;"><a href="/profile?=<%= allusers[i].loginname %>"> <%= allusers[i].loginname %> </a></td>
-                                        <td> <%= allusers[i].email %> </td>
+                                        <td style="font-weight: bold;"><a href="/profile?view=<%= allusers[i].loginname %>"><%= allusers[i].loginname %></a></td>
+                                        <td> n/a </td>
+                                        <td><%= allusers[i].time %></td>
                                     </tr>
                                 <% } %>
                         </table>

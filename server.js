@@ -147,7 +147,7 @@ app.get("/profile", function(req, res)
                 function(err,rows)
                 {
                     const param_userCodeInfo = rows;
-                    res.render("profiles", {username: profileName, codelist: param_userCodeInfo});
+                    res.render("profiles", {username: profileName, codelist: param_userCodeInfo, sessionName: req.session.sessionValue});
                 })
     }
 });
@@ -226,14 +226,9 @@ app.post('/newUser', function(req,res)
             if (rows.length == 0 && param_password1 == param_password2 &&  check != null && param_password1.length > 7)  
             {
                 const hash = bcrypt.hashSync(param_password1,10);
-                // Nachfolgend Tabelle für Favoriten je User erstellen (noch zu erledigen)
-                sql = 
-                `CREATE TABLE '${param_loginname}'(
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    headline TEXT NOT NULL, 
-                    )`
-                codedb.run(sql,
-                    function(err)
+                // Nachfolgend Tabelle für Favoriten je User erstellen
+                sql = `CREATE TABLE ${param_loginname}(id INTEGER PRIMARY KEY AUTOINCREMENT, favid INTEGER);`;
+                codedb.run(sql, function(err)
                     {
                         db.run(
                             `INSERT INTO allusers(time, email, loginname, password, role, favorites, status) VALUES(datetime('now'),'${param_email}','${param_loginname}', '${hash}','user','/${param_loginname}',1)`, 
@@ -378,7 +373,20 @@ app.post('/editCode/', function(req, res) {
     res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, snippetFormat: param_format, cmMode: param_cmmode, timestamp: param_timestamp});
 });
 
+// Code-Snippet favorisieren
+app.post('/addfav', function(req, res) {
+    const favtable = req.body.favTableName; // Tabellenname der Favoritentabelle
+    const favid = req.body.favid; // ID des zu favorisierenden Codes
+    const origin = req.body.origin; // Name der Userseite, auf der favorisiert wurde (für redirect)
+    const sql =  `INSERT INTO ${favtable}(favid) VALUES(${favid})`;
+    codedb.run(sql, function(err) { 
+        res.redirect(`/profile?view=${origin}`);
+    });
+});
+
 // User löschen
+/*** Hier muss später auch noch dafür gesorgt werden, dass die Favoritentabelle ebenfalls wieder gelöscht wird!
+ *   z.B. mit DROP TABLE ${loginname} */ 
 app.post("/delete/:id", function(req,res)
 {
     db.run(

@@ -116,7 +116,12 @@
         });
     </script>
     <div class="flex-container" style="justify-content: flex-end; margin-bottom: 20px;">
-        <form action="" method="POST" id="fav"><input type="submit" class="cta-button" style="width: 100px;" onclick="" value="<%= codelist[i].id %>"></form>
+        <form action="/addfav" method="POST" id="fav">
+            <input type="hidden" name="favTableName" value="<%= sessionName %>">
+            <input type="hidden" name="favid" value="<%= codelist[i].id %>">
+            <input type="hidden" name="origin" value="<%= username %>">
+            <input type="submit" class="cta-button" value="FAVORISIEREN">
+        </form>
     </div>
 <% } %>
 </div>
