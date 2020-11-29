@@ -43,6 +43,7 @@ body {
     flex-direction: column;
     align-items: flex-start;
     margin-left: 150px;
+    width: 100%;
   }
 
 /* Innere Div-Box zur Zentrierung des gesamten Inhalts */
@@ -143,7 +144,7 @@ h4 {
   color: white;
   background-color: #0A64A4;
   margin: 0px;
-  padding: 15px 0px 0px 15px;
+  padding: 15px 15px 0px 15px;
 }
 
 /* Style Paragraph */
@@ -151,6 +152,33 @@ p {
   font-family: 'Poppins', sans-serif;
   font-size: 18px;
   font-weight: 400;
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  color: black;
+  font-weight: bold;
+}
+
+a:visited {
+  color: black;
+}
+
+.codelink {
+  color: white;
+  text-decoration: none;
+}
+
+.codelink:hover {
+  color: white;
+  font-weight: bold;
+}
+
+.codelink:visited {
+  color: white;
 }
 
 li {
@@ -186,18 +214,19 @@ li {
   flex-wrap: wrap;
   background-color: #0A64A4
 } 
-  .code-head > p {
+/*   .code-head > p {
     font-family: 'Share Tech Mono', monospace;
     font-size: 10px;
     color: white;
     margin: 0px 10px 0px 0px;
-  }
+  } */
 
   .code-head > table {
     font-family: 'Share Tech Mono', monospace;
     font-size: 10px;
     color: white;
     margin: 0px 10px 0px 0px;
+    border: none;
   }
 
 /* Style für Textarea (Code-Snippet-Description) */

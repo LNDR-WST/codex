@@ -111,7 +111,7 @@
                             </thead>
                                     <% for(var i = 0; i < allusers.length ; i++) { %>
                                         <tr id='row<%=allusers[i].id%>'>
-                                            <td><a href="/profile?=<%=allusers[i].loginname%>"><%= allusers[i].loginname %></a></td>
+                                            <td><a href="/profile?view=<%=allusers[i].loginname%>"><%= allusers[i].loginname %></a></td>
                                             <td><%= allusers[i].email %></td>
                                             <td><%= allusers[i].role %></td>
                                             <td><%= allusers[i].favorites %></td>
