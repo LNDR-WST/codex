@@ -101,6 +101,13 @@
             console.log(editorChange.getValue());    // gibt in der Browser-Konsole den veränderten Text aus (zum Test)
         });
     </script>
+    <div class="flex-container" style="justify-content: flex-end; margin-bottom: 20px;">
+        <form action="/delfav" method="POST" id="delfav">
+            <input type="hidden" name="favTableName" value="<%= sessionName %>">
+            <input type="hidden" name="favid" value="<%= favSnippets[i].id %>">
+            <input type="submit" class="cta-button" value="ENTFERNEN">
+        </form>
+    </div>
 <% } %>
                 </div>
                 </div>

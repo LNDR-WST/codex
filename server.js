@@ -167,17 +167,21 @@ app.get("/favorites", function(req, res)
                     console.log(favoriteSnippetIDs); // for Debugging
                     var favList = []; // leere Liste für gesamte Code-Infos
                     let counter = 0; // Counter, um in der For-Schleife Aktionen zu differenzieren
-                    for (let i = 0; i < favoriteSnippetIDs.length; i++) {
-                        codedb.all(`SELECT id, headline, description, code, edited, format, cmmode FROM allcode WHERE id='${favoriteSnippetIDs[i].favid}'`, function(err,rows2) {
-                            if (counter < (favoriteSnippetIDs.length)-1) {
-                                favList.push(rows2[0]);
-                                counter++;
-                            } else {
-                                favList.push(rows2[0]);
-                                console.log(favList); // for Debugging
-                                res.render("favorites", {favSnippets: favList});
-                            }
-                        });
+                    if (favoriteSnippetIDs.length > 0) {
+                        for (let i = 0; i < favoriteSnippetIDs.length; i++) {
+                            codedb.all(`SELECT id, loginname, headline, description, code, edited, format, cmmode FROM allcode WHERE id='${favoriteSnippetIDs[i].favid}'`, function(err,rows2) {
+                                if (counter < (favoriteSnippetIDs.length)-1) {
+                                    favList.push(rows2[0]);
+                                    counter++;
+                                } else {
+                                    favList.push(rows2[0]);
+                                    console.log(favList); // for Debugging
+                                    res.render("favorites", {favSnippets: favList, sessionName: req.session.sessionValue});
+                                }
+                            });
+                        }
+                    } else {
+                    res.send("Bisher keine Favoriten") // TODO: Seite erstellen "keine Favoriten" bzw. Redirect mit Meldung
                     }
                 });
     }
@@ -394,14 +398,31 @@ app.post('/editCode/', function(req, res) {
     res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, snippetFormat: param_format, cmMode: param_cmmode, timestamp: param_timestamp});
 });
 
+// Code-Snippet aus Favoriten entfernen
+app.post('/delfav', function(req, res) {
+    const favtable = req.body.favTableName; // Tabellenname der Favoritentabelle
+    const favid = req.body.favid; // ID des zu favorisierenden Codes
+    const sql =  `DELETE FROM ${favtable} WHERE favid=${favid}`;
+    codedb.run(sql, function(err) { 
+        res.redirect(`/favorites`);
+    });
+});
+
 // Code-Snippet favorisieren
 app.post('/addfav', function(req, res) {
     const favtable = req.body.favTableName; // Tabellenname der Favoritentabelle
     const favid = req.body.favid; // ID des zu favorisierenden Codes
     const origin = req.body.origin; // Name der Userseite, auf der favorisiert wurde (für redirect)
-    const sql =  `INSERT INTO ${favtable}(favid) VALUES(${favid})`;
-    codedb.run(sql, function(err) { 
-        res.redirect(`/profile?view=${origin}`);
+    codedb.all(`SELECT * FROM ${favtable} WHERE favid=${favid}`, function(err, rows) {
+        if (rows.length == 0) {
+            console.log(rows);
+            const sql =  `INSERT INTO ${favtable}(favid) VALUES(${favid})`;
+            codedb.run(sql, function(err) { 
+                res.redirect(`/profile?view=${origin}#code-heading${favid}`);
+            });
+        } else {
+            res.send("Favorit bereits vorhanden!");
+        }
     });
 });
 
