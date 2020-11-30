@@ -148,17 +148,38 @@ app.get("/profile", function(req, res)
                 {
                     const param_userCodeInfo = rows;
                     res.render("profiles", {username: profileName, codelist: param_userCodeInfo, sessionName: req.session.sessionValue});
-                })
+                });
     }
 });
 
-// Favoriten-Seite
+// Favoriten-Seite 
 app.get("/favorites", function(req, res)
 {
     if (!req.session.sessionValue) {
         res.redirect("/login");
     } else {
-        res.render("favorites") // ToDo: hier ggf. zusätzliche Parameter übergeben: {param_x: x, param_y: y, param_z: z});
+        const favTable = req.session.sessionValue; // Favoritentabelle = Loginname (ausgelesen von Session-Value)
+        console.log("favTable = " + favTable); // for Debugging
+        codedb.all(`SELECT favid FROM ${favTable}`,
+                function(err,rows)
+                {
+                    const favoriteSnippetIDs = rows; // IDs der Favoriten (als JSON-Objekt) werden in Liste gespeichert
+                    console.log(favoriteSnippetIDs); // for Debugging
+                    var favList = []; // leere Liste für gesamte Code-Infos
+                    let counter = 0; // Counter, um in der For-Schleife Aktionen zu differenzieren
+                    for (let i = 0; i < favoriteSnippetIDs.length; i++) {
+                        codedb.all(`SELECT id, headline, description, code, edited, format, cmmode FROM allcode WHERE id='${favoriteSnippetIDs[i].favid}'`, function(err,rows2) {
+                            if (counter < (favoriteSnippetIDs.length)-1) {
+                                favList.push(rows2[0]);
+                                counter++;
+                            } else {
+                                favList.push(rows2[0]);
+                                console.log(favList); // for Debugging
+                                res.render("favorites", {favSnippets: favList});
+                            }
+                        });
+                    }
+                });
     }
     
 });
