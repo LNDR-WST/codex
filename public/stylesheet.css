@@ -288,6 +288,24 @@ pre {
   color: black;
 }
 
+.menu-button > input {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  font-weight: normal;
+  background: none;
+  border: none;
+  text-decoration: none;
+  color: black;
+  padding: 0px;
+}
+
+.menu-button > input:hover {
+  text-decoration: underline;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 /* Style Infotext Infobox Startseite */
 .infotext {
   color: white;

@@ -58,7 +58,10 @@
                         <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
                         <p class="menu-button"><a href="/my-profile">[ My Snippets ]</b></a></p>
                         <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
-                        <p class="menu-button"><a href="/favorites">[ Favorites ]</b></a></p>
+                        <form action="/favorites" method="POST" id="favLink" class="menu-button">
+                            <input type="hidden" name="userTab" value="<%= sessionName %>">
+                            <input type="submit" value="[ Favorites ]">
+                        </form>
                         <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
                     </div>
                     <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 15px;">

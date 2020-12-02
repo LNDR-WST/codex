@@ -152,40 +152,44 @@ app.get("/profile", function(req, res)
     }
 });
 
-// Favoriten-Seite 
+// Favoriten-Seite
+/* mit kleinem Workaround aufgrund asynchroner Funktionsaufrufe:
+   Die Buttons zum Erreichen der Favoritenseite stellen nicht sofort einen GET-Request sondern senden einen POST-Request (siehe unten).
+   In diesem Post-Request wird zunächst überprüft, ob die favorisierten Codes noch existieren. Ist dies nicht der Fall, werden diese Codes aus der Favoritenliste
+   entfernt. Nach Abschluss dieser Schleife wird auf diesen (hier) GET-Request "redirected". Hier werden sich dann anhand der favorisierten Code-IDs alle Informationen
+   zum jeweiligen Snippet aus der Tabelle 'allcode' (code.db) gezogen, um diese beim Aufruf der Favoriten-EJS zu übergeben.  */
 app.get("/favorites", function(req, res)
 {
     if (!req.session.sessionValue) {
         res.redirect("/login");
     } else {
         const favTable = req.session.sessionValue; // Favoritentabelle = Loginname (ausgelesen von Session-Value)
-        console.log("favTable = " + favTable); // for Debugging
-        codedb.all(`SELECT favid FROM ${favTable}`,
-                function(err,rows)
-                {
-                    const favoriteSnippetIDs = rows; // IDs der Favoriten (als JSON-Objekt) werden in Liste gespeichert
-                    console.log(favoriteSnippetIDs); // for Debugging
-                    var favList = []; // leere Liste für gesamte Code-Infos
-                    let counter = 0; // Counter, um in der For-Schleife Aktionen zu differenzieren
-                    if (favoriteSnippetIDs.length > 0) {
-                        for (let i = 0; i < favoriteSnippetIDs.length; i++) {
-                            codedb.all(`SELECT id, loginname, headline, description, code, edited, format, cmmode FROM allcode WHERE id='${favoriteSnippetIDs[i].favid}'`, function(err,rows2) {
-                                if (counter < (favoriteSnippetIDs.length)-1) {
-                                    favList.push(rows2[0]);
-                                    counter++;
-                                } else {
-                                    favList.push(rows2[0]);
-                                    console.log(favList); // for Debugging
-                                    res.render("favorites", {favSnippets: favList, sessionName: req.session.sessionValue});
-                                }
-                            });
-                        }
-                    } else {
-                    res.send("Bisher keine Favoriten") // TODO: Seite erstellen "keine Favoriten" bzw. Redirect mit Meldung
+        getFavsAndSend(favTable);
+        function getFavsAndSend(favTable) {
+            codedb.all(`SELECT favid FROM ${favTable}`, function(err,rows2) {
+                const favoriteSnippetIDs = rows2; // IDs der Favoriten (als JSON-Objekt) werden in Liste gespeichert
+                console.log("3) " + favoriteSnippetIDs); // for Debugging
+                var favList = []; // leere Liste für gesamte Code-Infos
+                let counter = 0; // Counter, um in der zweiten For-Schleife Aktionen zu differenzieren
+                if (favoriteSnippetIDs.length > 0) { // Schleife sucht sich alle Codesnippets aus der Tabelle allcodes, die als Favorit gespeichert wurden und übergibt diese an favorites.ejs
+                    for (let i = 0; i < favoriteSnippetIDs.length; i++) {
+                        codedb.all(`SELECT * FROM allcode WHERE id='${favoriteSnippetIDs[i].favid}'`, function(err,rows3) {
+                            if (counter < (favoriteSnippetIDs.length)-1) {
+                                favList.push(rows3[0]);
+                                counter++;
+                            } else {
+                                favList.push(rows3[0]);
+                                //console.log(favList); // for Debugging
+                                res.render("favorites", {favSnippets: favList, sessionName: req.session.sessionValue});
+                            }
+                        });
                     }
-                });
-    }
-    
+                } else {
+                res.send("Bisher keine Favoriten") // TODO: Seite erstellen "keine Favoriten" bzw. Redirect mit Meldung
+                }
+            });
+        }
+    }    
 });
 
 // Benutzerübersicht/-verwaltung
@@ -199,7 +203,7 @@ app.get("/userlist", function(req, res)
         db.all(
             `SELECT * FROM allusers`,
             function(err, rows){
-                res.render("adminpanel", {"allusers": rows});
+                res.render("adminpanel", {"allusers": rows, adminname: req.session.sessionValue});
             } 
         );
     }
@@ -207,7 +211,7 @@ app.get("/userlist", function(req, res)
         db.all(
             `SELECT * FROM allusers WHERE role = "user"`,
             function(err, rows){
-                res.render("userlist", {"allusers": rows});
+                res.render("userlist", {"allusers": rows, username: req.session.sessionValue});
             } 
         );
     }
@@ -219,7 +223,7 @@ app.get("/settings", function(req, res)
     if (!req.session.sessionValue) {
         res.redirect("/login");
     } else {
-        res.render("settings") // ToDo: hier ggf. zusätzliche Parameter übergeben: {param_x: x, param_y: y, param_z: z});
+        res.render("settings", {username: req.session.sessionValue}) // ToDo: hier ggf. zusätzliche Parameter übergeben: {param_x: x, param_y: y, param_z: z});
     }
 });
 // Impressum-Seite
@@ -395,7 +399,7 @@ app.post('/editCode/', function(req, res) {
     const param_timestamp = req.body.timestamp;
     const param_format = req.body.format;
     const param_cmmode = req.body.cmMode;
-    res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, snippetFormat: param_format, cmMode: param_cmmode, timestamp: param_timestamp});
+    res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, snippetFormat: param_format, cmMode: param_cmmode, timestamp: param_timestamp, username: req.session.sessionValue});
 });
 
 // Code-Snippet aus Favoriten entfernen
@@ -470,4 +474,35 @@ console.log(id);
             res.redirect("/userlist");
         }
     );
+});
+
+// Favoriten checken und ggf. löschen
+/* Favoritenliste wird in einer Schleife zunächst darauf überprüft, ob die favorisierten Code-IDs überhaupt noch als Codes vorhanden sind.
+   Wird zur favorisierten ID keine passende ID in 'allcode' gefunden, wird die entsprechende 'favid' in der Favoritenliste des Benutzers entfernt.
+   Nach Abschluss dieser Aktion wird verwiesen auf '/favorites' und es werden im entsprechenden GET-Request die erforderlichen Snippet-Infos
+   gesammelt und übergeben. */
+
+app.post("/favorites", function(req,res) {
+    favTable = req.body.userTab;
+    codedb.all(`SELECT favid FROM ${favTable}`, function(err,rows1) {
+        const favoriteSnippets = rows1;
+        if (favoriteSnippets.length != 0) { 
+            for (let i = 0; i < favoriteSnippets.length; i++) { // Schleife überprüft, ob favorisierte CodeIDs überhaupt noch existieren und löscht diese sonst aus FavList
+                codedb.all(`SELECT * FROM allcode WHERE id='${favoriteSnippets[i].favid}'`, function(err,availableCodes) {
+                    console.log(`2) Code ${favoriteSnippets[i].favid} vorhanden: ${availableCodes.length}`); // Debugging
+                    if (availableCodes.length == 0) {
+                        codedb.run(`DELETE FROM ${favTable} WHERE favid='${favoriteSnippets[i].favid}'`, function(err) {
+                            if (err) {
+                                throw err;
+                            } else {
+                                console.log(`2b) Code-Snippet ${favoriteSnippets[i].favid} wurde gelöscht.`) // Debugging
+                            }
+                        });
+                    }
+                });
+            }
+        }
+
+    });
+    res.redirect("/favorites");
 });
