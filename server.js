@@ -75,7 +75,7 @@ app.get("/welcome", function(req, res)
 
 app.get("/register", function(req, res)
 {
-    res.sendFile(__dirname + "/views/register.html");
+    res.render("register", {displayMode: "none"});
 });
 
 app.get("/registration-complete", function(req, res)
@@ -278,8 +278,9 @@ app.post('/newUser', function(req,res)
                             }
                         });
                     });
-            }
-            else
+            } else if (rows.length > 0) {
+                res.render("register", {displayMode: "block"});
+            } else
                 {
                     // Hier verlinkung zur Seite bei nicht erfolgreicher Registrierung 
                     res.send("Registrierung fehlgeschlagen.");

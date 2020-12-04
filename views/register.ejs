@@ -46,7 +46,7 @@
                             <div>
                                 <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>
                                 <input type="text" name="loginname" id="loginname" class="forminput" placeholder="Dein gewünschter Benutzername" oninput="checkName()" required><br>
-                                <div class="error-msg loginname" style="display:none;">Name bereits vergeben.</div>
+                                <div class="error-msg loginname" style="display:<%=displayMode%>;">Name bereits vergeben.</div>
                             </div>
                             <div>
                                 <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
