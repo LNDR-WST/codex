@@ -334,7 +334,16 @@ app.post('/addCode', function(req,res)
     VALUES ('Überschrift','Kurze Beschreibung deines Codes','Dein Code','${param_loginname}','text', 'null', datetime('now'))`;
     codedb.run(sql, function(err)
     {
-        res.redirect('/my-profile');
+        codedb.all(`SELECT id, headline, description, code, format, cmmode, edited FROM allcode WHERE id=last_insert_rowid()`, function(err, rows) {
+            const id = rows[0]['id'];
+            const headline = rows[0]['headline'];
+            const description = rows[0]['description'];
+            const code = rows[0]['code'];
+            const format = rows[0]['format'];
+            const cmmode = rows[0]['cmmode'];
+            const edited = rows[0]['edited'];
+            res.render('edit-snippet', {snippetCode: code, snippetId: id, snippetHead: headline, snippetDesc: description, snippetFormat: format, cmMode: cmmode, timestamp: edited, username: req.session.sessionValue});
+        });
     })
 })
 
