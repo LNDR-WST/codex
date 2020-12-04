@@ -62,6 +62,7 @@ app.use('/editCode', express.static(__dirname + "/addon"));
 ####              GET-Requests             ####
 ###############################################
 */
+
 app.get("/index", function(req,res)
 {
     res.sendFile(__dirname + "/views/index.html");
@@ -81,8 +82,6 @@ app.get("/registration-complete", function(req, res)
 {
     res.sendFile(__dirname + "/views/reg-success.html");
 });
-
-
 
 /* Login-Seite wird nur aufgerufen, wenn keine Session aktiv ist.
    ansonsten wird direkt aufs Profil umgeleitet. */
@@ -119,6 +118,7 @@ app.get("/my-profile", function(req, res)
     }
 });
 
+
 // Editier-Ansicht für Code-Snippets
 app.get("/edit", function(req, res)
 {
@@ -129,8 +129,8 @@ app.get("/edit", function(req, res)
     } 
 });
 
-/* Profile anderer Nutzer (nur mit gesetzter Session-Varibale erreichbar): 
-   Beim Aufruf wird der an die URL gehängte URL-Parameter 'view' ausgelesen, um
+// Profile anderer Nutzer (nur mit gesetzter Session-Varibale erreichbar): 
+/* Beim Aufruf wird der an die URL gehängte URL-Parameter 'view' ausgelesen, um
    den zu betrachtenden Nutzer zu identifizieren.
    
    Beispiel: 
@@ -197,26 +197,27 @@ app.get("/userlist", function(req, res)
 {
     if (!req.session.sessionValue) {
         res.redirect("/login");
-    } 
-    else if(req.session.sessionValue == "admin")
-    {
-        db.all(
-            `SELECT * FROM allusers`,
-            function(err, rows){
-                res.render("adminpanel", {"allusers": rows, adminname: req.session.sessionValue});
-            } 
-        );
-    }
-    else {
-        db.all(
-            `SELECT * FROM allusers WHERE role = "user"`,
-            function(err, rows){
-                res.render("userlist", {"allusers": rows, username: req.session.sessionValue});
-            } 
-        );
-    }
-    
+    } else {
+        db.each(`SELECT role FROM allusers WHERE loginname='${req.session.sessionValue}'`, function(err, rows) {
+            if ((rows.role) === 'admin') {
+                db.all(
+                    `SELECT * FROM allusers`,
+                    function(err, rows){
+                        res.render("adminpanel", {"allusers": rows, adminname: req.session.sessionValue});
+                    } 
+                );
+            } else {
+                db.all(
+                    `SELECT * FROM allusers`,
+                    function(err, rows){
+                        res.render("userlist", {"allusers": rows, username: req.session.sessionValue});
+                    } 
+                );
+            }
+        });
+    }     
 });
+
 // Settings-Seite
 app.get("/settings", function(req, res)
 {
@@ -236,6 +237,12 @@ app.get("/impressum", function(req, res)
 ###############################################
 ####             POST-Requests             ####
 ###############################################
+*/
+
+/*
++++++++++++++++++++++++++++++++
++++ Anmeldung/Registrierung +++
++++++++++++++++++++++++++++++++
 */
 
 // Registrierung
@@ -313,6 +320,12 @@ app.post('/login', function(req,res)
         }
     });
 });
+
+/*
++++++++++++++++++++++++++++++++
++++  Code-Snippet Aktionen  +++
++++++++++++++++++++++++++++++++
+*/
 
 // Code-Snippet löschen
 app.post('/onDeleteCode/:id', function(req, res) {
@@ -439,6 +452,12 @@ app.post('/addfav', function(req, res) {
     });
 });
 
+/*
++++++++++++++++++++++++++++++++
++++   Benutzerverwaltung    +++
++++++++++++++++++++++++++++++++
+*/
+
 // User löschen
 app.post("/delete", function(req,res)
 {
@@ -489,11 +508,21 @@ console.log(id);
     );
 });
 
-// Favoriten checken und ggf. löschen
-/* Favoritenliste wird in einer Schleife zunächst darauf überprüft, ob die favorisierten Code-IDs überhaupt noch als Codes vorhanden sind.
-   Wird zur favorisierten ID keine passende ID in 'allcode' gefunden, wird die entsprechende 'favid' in der Favoritenliste des Benutzers entfernt.
-   Nach Abschluss dieser Aktion wird verwiesen auf '/favorites' und es werden im entsprechenden GET-Request die erforderlichen Snippet-Infos
-   gesammelt und übergeben. */
+
+/*
++++++++++++++++++++++++++++++++
++++    Favoriten-Handling   +++
++++++++++++++++++++++++++++++++
+*/
+
+// Favoriten prüfen und ggf. löschen
+
+/* 
+Favoritenliste wird in einer Schleife zunächst darauf überprüft, ob die favorisierten Code-IDs überhaupt noch als Codes vorhanden sind.
+Wird zur favorisierten ID keine passende ID in 'allcode' gefunden, wird die entsprechende 'favid' in der Favoritenliste des Benutzers entfernt.
+Nach Abschluss dieser Aktion wird verwiesen auf '/favorites' und es werden im entsprechenden GET-Request die erforderlichen Snippet-Infos
+gesammelt und übergeben.
+*/
 
 app.post("/favorites", function(req,res) {
     favTable = req.body.userTab;
