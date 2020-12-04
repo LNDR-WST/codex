@@ -185,7 +185,7 @@ app.get("/favorites", function(req, res)
                         });
                     }
                 } else {
-                res.send("Bisher keine Favoriten") // TODO: Seite erstellen "keine Favoriten" bzw. Redirect mit Meldung
+                    res.render("nofavorites", {sessionName: req.session.sessionValue});
                 }
             });
         }

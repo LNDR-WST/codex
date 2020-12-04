@@ -198,7 +198,12 @@ li {
     font-weight: 400;
   }
 
-/* Beschreibungstexte der Code-Snippets */
+.code-area {
+  box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.3);
+  border-radius: 15px;
+}
+
+  /* Beschreibungstexte der Code-Snippets */
 .code-desc {
   font-size: 14px;
   background-color: #0A64A4;
