@@ -434,13 +434,13 @@ border-radius: 3px;
 
 /* Button-Style hover */
 .cta-button:hover {
-  background-color: white;
   color: #FF9000;
+  background-color: white;
   cursor: pointer;
 }
 
 .cta-button:visited {
-  color: white;
+  color: transparent;
 }
 
 /* Button-Style inverted */
