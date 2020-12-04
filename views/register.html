@@ -40,7 +40,7 @@
                     <form action="newUser" method="POST">
                             <div>
                                 <label for="email" class="formlabel" style="margin-right: 95px;">E-Mailadresse:</label>
-                                <input type="text" id="email" name="email" class="forminput" oninput="checkEmail()" required><br>
+                                <input type="text" id="email" name="email" class="forminput" placeholder="email@domain.de" oninput="checkEmail()" required><br>
                                 <div class="error-msg email">Bitte E-Mailadresse überprüfen.</div>
                             </div>
                             <div>
@@ -50,7 +50,7 @@
                             </div>
                             <div>
                                 <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
-                                <input type="password" id="password1" name="password1" class="forminput" oninput="checkPass()" required><br>
+                                <input type="password" id="password1" name="password1" class="forminput" placeholder="mind. 8 Zeichen" oninput="checkPass()" required><br>
                                 <div class="error-msg password1">Passwort ist zu kurz.</div>
                             </div>
                             <div>

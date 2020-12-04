@@ -77,8 +77,8 @@
                                         <tr>
                                             <th>E-Mail:</th>
                                             <th>Benutzername:</th>
-                                            <th>Passwort</th>
-                                            <th>Password Wdh</th>
+                                            <th>Passwort:</th>
+                                            <th>Password Wdh.:</th>
                                         </tr>
                                         <tr>
                                             <td><input type="text" id="email" name="email" oninput="checkEmail()" required></td>
@@ -107,7 +107,7 @@
                                     <th><b>Loginname</b></th>
                                     <th><b>E-Mail</b></th>
                                     <th><b>Rolle</b></th>
-                                    <th><b>Favoriten-Pfad</b></th>
+                                    <th><b>Favoriten-Tabelle</b></th>
                                     <th><b>Status</b></th>
                                     <th colspan="2" style="text-align: center;">Aktionen</th>
                                 </tr>
@@ -120,7 +120,7 @@
                                             <td><%= allusers[i].favorites %></td>
                                             <td style="text-align: center;"><%= allusers[i].status %> </td>
                                             <td>
-                                                <form action="/delete/<%=allusers[i].id%>" method="POST"> 
+                                                <form action="/delete?id=<%=allusers[i].id%>&loginname=<%= allusers[i].loginname %>" method="POST"> 
                                                 <button class="button-invert" style="font-size: 12px; width: 100%;" type="submit" onclick="confirmDelete('row<%=allusers[i].id%>')">löschen</button>
                                                 </form>
                                             </td>

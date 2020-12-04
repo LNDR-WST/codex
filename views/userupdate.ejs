@@ -65,36 +65,62 @@
                 <div id="content" class="flex-container code">
                         <h1 style="margin-left: 20px; margin-right: 20px;">Benutzer bearbeiten</h1>
                         <p style="margin-left: 20px; margin-right: 20px;">Hier kannst du Nutzer bearbeiten.</p>
-                <div style="min-height: 700px;">
-                    <!-- Formular zum bearbeiten des Nutzers-->
-    <form action="/onupdate/<%=id%>" method="POST">
-<p>
-    <br>
-    ID:    <br>
-    <input type="text" name="id" value="<%=id%>">
-    <br>
-    Benutzername (Loginname):    <br>
-    <input type="text" name="loginname" value="<%=loginname%>">
-    <br>
-    Passwort:    <br>
-    <input type="password" name="password" value="<%=password%>">
-    <br>
-    E-Mail:    <br>
-    <input type="text" name="email" value="<%=email%>">
-    <br>
-    Rolle:    <br>
-    <input type="text" name="role" value="<%=role%>">
-    <br>
-    Favoriten Pfad:    <br>
-    <input type="text" name="favorites" value="<%=favorites%>">
-    <br>
-    Status:    <br>
-    <input type="text" name="status" value="<%=status%>">
-    <br>
-    <button type="submit">Speichern</button>
-</p>
-</form>
-                </div>
+                    <div style="min-height: 700px; width: 80%">
+                        <!-- Formular zum bearbeiten des Nutzers-->
+                        <form action="/onupdate/<%=id%>" method="POST" style="display: flex; flex-direction: column;">
+                            <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                <label for="user" class="formlabel">User-/Loginname:</label>
+                                <input class="forminput" type="text" name="loginname" value="<%=loginname%>">
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                <label for="password" class="formlabel">Passwort:</label>
+                                <input class="forminput" type="password" name="password" placeholder="mind. 8 Zeichen">
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                <label for="email" class="formlabel">E-Mail</label>
+                                <input class="forminput" type="text" name="email" value="<%=email%>">
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                <label for="role" class="formlabel">Rolle</label>
+                                <select id="role" name="role" style="margin: 0px;  height: 36px; width: 369px;">
+                                    <option id="role-admin" value="admin">admin</option>
+                                    <option id="role-editor" value="editor">editor</option>
+                                    <option id="role-user" value="user">user</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                <label for="status" class="formlabel">Status</label>
+                                <select id="status" name="status" style="margin: 0px; height: 36px;  width: 369px;">
+                                    <option id="status1" value="1">1 - aktiv</option>
+                                    <option id="status2" value="2">2 - inaktiv</option>
+                                    <option id="status3" value="3">3 - gesperrt</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; justify-content: center; margin: 5px;">
+                                <button class="cta-button" type="submit" >Speichern</button>
+                                <a href="/userlist" class="cta-button">Abbrechen</a>
+                            </div>
+                            <input class="forminput" type="hidden" name="id" value="<%=id%>">
+                            <input class="forminput" type="hidden" name="favorites" value="/<%=loginname%>">
+                        </form>
+                        <!-- Javascript, um die aktuelle Syntax des zu bearbeitenden Codes vorauszuwählen -->
+                        <!-- Quelle: https://www.daftlogic.com/information-programmatically-preselect-dropdown-using-javascript.htm -->
+                        <script>
+                            function setSelectedIndex(s, valsearch) {
+                            // Loop through all the items in drop down list
+                                for (i = 0; i< s.options.length; i++) {
+                                    if (s.options[i].value == valsearch) {
+                                    // Item is found. Set its property and exit
+                                        s.options[i].selected = true;
+                                        break;
+                                    }
+                                }
+                                return;
+                            }
+                            setSelectedIndex(document.getElementById("role"),"<%= role %>");
+                            setSelectedIndex(document.getElementById("status"),"<%= status %>");
+                        </script>
+                    </div>
                 </div>
             </div>
             <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->

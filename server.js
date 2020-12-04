@@ -440,15 +440,18 @@ app.post('/addfav', function(req, res) {
 });
 
 // User löschen
-/*** Hier muss später auch noch dafür gesorgt werden, dass die Favoritentabelle ebenfalls wieder gelöscht wird!
- *   z.B. mit DROP TABLE ${loginname} */ 
-app.post("/delete/:id", function(req,res)
+app.post("/delete", function(req,res)
 {
+    const id = req.query.id;
+    const loginname = req.query.loginname;
     db.run(
-        `DELETE FROM allusers WHERE id=${req.params.id}`,
+        `DELETE FROM allusers WHERE id=${id}`, // hier wird der Benutzer gelöscht
         function(err)
         {
-            res.redirect("/userlist");
+            codedb.run(`DROP TABLE ${loginname}`, function() { // hier wird die zugehörige Favoritentabelle des Nutzers gelöscht
+                console.log("Tabelle " + loginname + " wurde gelöscht.")
+                res.redirect("/userlist");
+            });
         }
     );
 });
@@ -470,14 +473,15 @@ app.post("/onupdate/:id", function(req,res)
 {
     const id = req.params.id;
     const loginname = req.body.loginname;
-    const password = req.body.password;
+    const password = bcrypt.hashSync(req.body.password,10);
     const email = req.body.email;
     const favorites = req.body.favorites;
     const status = req.body.status;
+    const role = req.body.role;
 
 console.log(id);
     db.run(
-        `UPDATE allusers SET loginname = "${loginname}",password = "${password}",email = "${email}",favorites = "${favorites}",status = "${status}" WHERE id = ${id}`,
+        `UPDATE allusers SET loginname="${loginname}", password="${password}", email="${email}", favorites="${favorites}", status="${status}", role="${role}" WHERE id=${id}`,
         function(err)
         {
             res.redirect("/userlist");
