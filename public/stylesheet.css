@@ -110,6 +110,8 @@ body {
     color: #000000;
     padding-left: 10px;
     padding-right: 10px;
+    width: 110px;
+    text-align: center;
   }
 
   /* Hover-Link in Navigation */
