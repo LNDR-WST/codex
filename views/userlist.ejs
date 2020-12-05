@@ -45,7 +45,10 @@
                         <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
                         <p class="menu-button"><a href="/my-profile">[ My Snippets ]</b></a></p>
                         <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
-                        <p class="menu-button"><a href="/favorites">[ Favorites ]</b></a></p>
+                        <form action="/favorites" method="POST" id="favLink" class="menu-button">
+                            <input type="hidden" name="userTab" value="<%= username %>">
+                            <input type="submit" value="[ Favorites ]">
+                        </form>
                         <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
                     </div>
                     <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 15px;">
@@ -67,12 +70,14 @@
                     <table style="width: 100%;">
                         <thead>
                             <th>Benutzername</th>
-                            <th>Anzahl Snippets</th>
+                            <th>Snippetanzahl</th>
+                            <th>Mitglied seit</th>
                         </thead> 
                                 <% for(var i = 0; i < allusers.length ; i++) { %>
                                     <tr>
-                                        <td style="font-weight: bold;"><a href="/profile?=<%= allusers[i].loginname %>"> <%= allusers[i].loginname %> </a></td>
-                                        <td> <%= allusers[i].email %> </td>
+                                        <td style="font-weight: bold;"><a href="/profile?view=<%= allusers[i].loginname %>"><%= allusers[i].loginname %></a></td>
+                                        <td> n/a </td>
+                                        <td><%= allusers[i].time %></td>
                                     </tr>
                                 <% } %>
                         </table>

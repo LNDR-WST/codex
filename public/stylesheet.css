@@ -83,6 +83,7 @@ body {
   .nav-button-top > a:hover {
     color: #ffffff;
     background-color: #FF9000;
+    font-weight: normal;
   }
 
   .nav-button-top > a:visited {
@@ -197,7 +198,12 @@ li {
     font-weight: 400;
   }
 
-/* Beschreibungstexte der Code-Snippets */
+.code-area {
+  box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.3);
+  border-radius: 15px;
+}
+
+  /* Beschreibungstexte der Code-Snippets */
 .code-desc {
   font-size: 14px;
   background-color: #0A64A4;
@@ -285,6 +291,24 @@ pre {
 .menu-button > a:visited {
   text-decoration: none;
   color: black;
+}
+
+.menu-button > input {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  font-weight: normal;
+  background: none;
+  border: none;
+  text-decoration: none;
+  color: black;
+  padding: 0px;
+}
+
+.menu-button > input:hover {
+  text-decoration: underline;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 /* Style Infotext Infobox Startseite */
@@ -415,9 +439,13 @@ border-radius: 3px;
 
 /* Button-Style hover */
 .cta-button:hover {
-  background-color: white;
   color: #FF9000;
+  background-color: white;
   cursor: pointer;
+}
+
+.cta-button:visited {
+  color: transparent;
 }
 
 /* Button-Style inverted */

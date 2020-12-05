@@ -58,7 +58,10 @@
                         <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
                         <p class="menu-button"><a href="/my-profile">[ My Snippets ]</b></a></p>
                         <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
-                        <p class="menu-button"><a href="/favorites">[ Favorites ]</b></a></p>
+                        <form action="/favorites" method="POST" id="favLink" class="menu-button">
+                            <input type="hidden" name="userTab" value="<%= username %>">
+                            <input type="submit" value="[ Favorites ]">
+                        </form>
                         <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
                     </div>
                 </div>
@@ -145,7 +148,7 @@
                                 }
                             </script>
                             <button class="cta-button" onclick="createHiddenInput()" style="width: 135px;">SPEICHERN</button>
-                            <a href="/profile" class="cta-button" style="width: 135px;">ABBRECHEN</a>
+                            <a href="/my-profile" class="cta-button" style="width: 135px;">ABBRECHEN</a>
                         </form>
                     <!-- CodeMirror Script, um textarea durch den Editor zu ersetzen -->
                     <script> 
