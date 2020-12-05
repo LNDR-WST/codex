@@ -27,17 +27,19 @@
         <title>Codex - Favoriten</title>
     </head>
     <body>
-        <div class="inner">
             <!-- Navigation & Website-Header -->
-            <div class="flex-container" style="background-color: white;">
-                <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/logout">Logout</a></div>
+            <div class="navigation-container">
+                <div class="inner-nav">
+                    <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
+                    <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
+                    <div class="nav-button-top" style="height: 60px; flex-grow: 1;"></div>
+                    <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/logout">Logout</a></div>
+                </div>
             </div>
+            <div style="margin-top: 109px;"></div>
             <!-- Flex-Container für Seiten-Menü und Inhalt -->
-            <div class="flex-container" style="justify-content: flex-start; align-items: flex-start;">
-                <div id="menu" class="flex-container" style="justify-content: flex-start; flex-direction: column; align-items: flex-start; position: fixed;">
+            <div class="inner" style="justify-content: flex-start; align-items: flex-start; max-width: 984px;">
+                <div id="menu" class="side-menu">
                     <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 10px;">
                         <h3 style="text-align: center; background-color: #FF9000; font-size: 24px;">MENÜ</h3>
                     </div>
@@ -62,25 +64,29 @@
                         <p class="menu-button"><a href="">> benutzer</b></a></p>
                     </div>
                 </div>
-                <div id="content" class="flex-container code">
-                        <h1 style="margin-left: 20px; margin-right: 20px;">Deine Favoriten</h1>
-                        <p style="margin-left: 20px; margin-right: 20px;">Hier findest du deine als Favorit markierten Code-Snippets</p>
-                <div style="min-height: 700px; width: 95%;">
-                   <p style="background-color: #ffb4b4; text-align: center; padding: 25px;">
-                    <b>Du hast bisher keine Favoriten!</b><br><br>
-                    Schau dich<br>
-                    <a href="/userlist">auf den Profilen anderer Nutzer:innen</a><br>
-                    um und füge gute Snippets deiner Sammlung hinzu!
-                </p> 
-                </div>
+                <div class="flex-container" style="align-items: center; min-height: 350px; width: 100%;">
+                    <div class="inner" style="justify-content: flex-start; width: 100%;">
+                        <div style="margin-left: 14%; width: 100%;">
+                            <h1 style="margin-left: 20px; margin-right: 20px;">Deine Favoriten</h1>
+                            <p style="margin-left: 20px; margin-right: 20px;">Hier findest du deine als Favorit markierten Code-Snippets</p>
+                            <div style="min-height: 700px; width: 95%;">
+                                <p style="background-color: #ffb4b4; text-align: center; padding: 25px;">
+                                    <b>Du hast bisher keine Favoriten!</b><br><br>
+                                    Schau dich<br>
+                                    <a href="/userlist">auf den Profilen anderer Nutzer:innen</a><br>
+                                    um und füge gute Snippets deiner Sammlung hinzu!
+                                </p> 
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->
-            <div class="flex-container" style="height: 50px; background-color: #FF9000; margin: 0px;">
+            <!-- Footer -->
+            <div style="margin-bottom: 50px;"></div>
+            <div class="footer-container">
                 <p class="footer">© 2020 CODEX &nbsp;
                     <a href="/impressum">Impressum</a> | <a href="/impressum#privacy">Datenschutz</a>
                 </p>
             </div>
-        </div>
     </body>
 </html>
