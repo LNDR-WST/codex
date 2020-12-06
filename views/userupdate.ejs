@@ -81,11 +81,11 @@
                                     <input class="forminput" type="password" name="password" placeholder="mind. 8 Zeichen">
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin: 5px;">
-                                    <label for="email" class="formlabel">E-Mail</label>
+                                    <label for="email" class="formlabel">E-Mail:</label>
                                     <input class="forminput" type="text" name="email" value="<%=email%>">
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin: 5px;">
-                                    <label for="role" class="formlabel">Rolle</label>
+                                    <label for="role" class="formlabel">Rolle:</label>
                                     <select id="role" name="role" style="margin: 0px;  height: 36px; width: 369px;">
                                         <option id="role-admin" value="admin">admin</option>
                                         <option id="role-editor" value="editor">editor</option>
@@ -93,7 +93,7 @@
                                     </select>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin: 5px;">
-                                    <label for="status" class="formlabel">Status</label>
+                                    <label for="status" class="formlabel">Status:</label>
                                     <select id="status" name="status" style="margin: 0px; height: 36px;  width: 369px;">
                                         <option id="status1" value="1">1 - aktiv</option>
                                         <option id="status2" value="2">2 - inaktiv</option>
@@ -107,7 +107,7 @@
                                 <input class="forminput" type="hidden" name="id" value="<%=id%>">
                                 <input class="forminput" type="hidden" name="favorites" value="/<%=loginname%>">
                             </form>
-                            <!-- Javascript, um die aktuelle Syntax des zu bearbeitenden Codes vorauszuwählen -->
+                            <!-- Javascript, um Dropdown vorauszuwählen -->
                             <!-- Quelle: https://www.daftlogic.com/information-programmatically-preselect-dropdown-using-javascript.htm -->
                             <script>
                                 function setSelectedIndex(s, valsearch) {

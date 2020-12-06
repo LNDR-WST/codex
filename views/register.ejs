@@ -35,11 +35,12 @@
         <div style="margin-top: 109px;"></div>
         <!-- Registrationsdialog -->
         <div class="flex-container" style="align-items: center; min-height: 400px;">
-            <div class="inner" style="justify-content: flex-start; flex-direction: column; align-items: flex-start;">
-                <h1>Registration</h1>
-                <p>Wir freuen uns, dass du Teil von <span style="font-weight: 500;">CODEX</span> werden möchtest!
-                    Bitte fülle das nachstehende Formular aus, damit wir dir dein eigenes Profil erstellen können.</p>
-                <form action="newUser" method="POST" style="margin: 20px 0px 20px 0px;">
+            <div class="inner" style="justify-content: flex-start; flex-direction: column; align-items: center;">
+                <div>
+                    <h1>Registration</h1>
+                    <p>Wir freuen uns, dass du Teil von <span style="font-weight: 500;">CODEX</span> werden möchtest!
+                        Bitte fülle das nachstehende Formular aus, damit wir dir dein eigenes Profil erstellen können.</p>
+                    <form action="newUser" method="POST" style="margin: 20px 0px 20px 0px; display: flex; justify-content: center; flex-direction: column; align-items: center;">
                         <div>
                             <label for="email" class="formlabel" style="margin-right: 95px;">E-Mailadresse:</label>
                             <input type="text" id="email" name="email" class="forminput" placeholder="email@domain.de" oninput="checkEmail()" required><br>
@@ -65,8 +66,9 @@
                         name="" style="border:none; transform:scale(2); margin: 15px 10px 0px 0px;" required>
                         Ich habe die <a href="/impressum#termsofuse" target="_blank">allgemeinen Nutzungsbedingungen</a> sowie die <a href="/impressum#privacy" target="_blank">Hinweise zum Datenschutz</a> zur Kenntnis genommen 
                         und akzeptiere diese mit meiner Registrierung.</p><br>
-                    <div id="bHidden" style="display: none;"><input type="submit" class="cta-button" value="REGISTRIERUNG&nbsp;ABSCHLIESSEN"></div>
-                </form>
+                        <div id="bHidden" style="display: none;"><input type="submit" class="cta-button" value="REGISTRIERUNG&nbsp;ABSCHLIESSEN"></div>
+                    </form>
+                </div>
             </div>
         </div>
         <!-- Info-Box -->

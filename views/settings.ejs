@@ -48,7 +48,7 @@
                         <p class="menu-button"><a href="/my-profile">[ My Snippets ]</b></a></p>
                         <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
                         <form action="/favorites" method="POST" id="favLink" class="menu-button">
-                            <input type="hidden" name="userTab" value="<%= username %>">
+                            <input type="hidden" name="userTab" value="<%= currentLoginname %>">
                             <input type="submit" value="[ Favorites ]">
                         </form>
                         <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
@@ -68,9 +68,42 @@
                     <div class="inner" style="justify-content: flex-start; width: 100%;">
                         <div style="margin-left: 14%; width: 100%;">
                             <h1 style="margin-left: 20px; margin-right: 20px;">Einstellungen</h1>
-                            <p style="margin-left: 20px; margin-right: 20px;">Deine persönlichen Einstellungen:</p>
+                            <p style="margin-left: 20px; margin-right: 20px;">Deine persönlichen Einstellungen:<br>(Änderungen führen zum Logout)</p>
                             <div style="min-height: 700px;">
-                                <!-- INHALT HIER -->
+                                <!-- Formular zum bearbeiten des Nutzers-->
+                                <form action="/selfupdate" method="POST" style="display: flex; flex-direction: column; margin: 25px 15px 25px 15px;">
+                                    <!-- <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                        <label for="user" class="formlabel">User-/Loginname:</label>
+                                        <input class="forminput" type="text" name="loginname" value="<%=currentLoginname%>">
+                                    </div> -->
+                                    <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                        <label for="password" class="formlabel">Passwort:</label>
+                                        <input class="forminput" type="password" name="password" id="password1" oninput="checkPass()" placeholder="mind. 8 Zeichen">
+                                    </div>
+                                    <div style="margin-left: 9px;">
+                                        <div class="error-msg password1">Passwort ist zu kurz.</div>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                        <label for="password" class="formlabel">Passwort wiederholen:</label>
+                                        <input class="forminput" type="password2" name="password2" id="password2" oninput="checkMatch()" placeholder="">
+                                    </div>
+                                    <div style="margin-left: 9px;">
+                                        <div class="error-msg password2">Passwörter stimmen nicht überein.</div>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                        <label for="email" class="formlabel">E-Mail:</label>
+                                        <input class="forminput" type="text" name="email" id="email" oninput="checkEmail()" value="<%=currentEmail%>">
+                                    </div>
+                                    <div style="margin-left: 9px;">
+                                        <div class="error-msg email">Bitte E-Mailadresse überprüfen.</div>
+                                    </div>
+                                    <div style="display: flex; justify-content: center; margin: 25px;">
+                                        <button class="cta-button" type="submit" >Speichern</button>
+                                        <a href="/my-profile" class="cta-button">Abbrechen</a>
+                                    </div>
+                                    <input class="forminput" type="hidden" name="id" value="<%=currentID%>">
+                                    <input class="forminput" type="hidden" name="loginname" value="<%=currentLoginname%>">
+                                </form>
                             </div>
                         </div>
                     </div>
