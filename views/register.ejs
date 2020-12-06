@@ -23,79 +23,81 @@
         <title>Codex - Registrierung</title>
     </head>
     <body>
-        <div class="inner">
-            <!-- Navigation & Website-Header -->
-            <div class="flex-container" style="background-color: white;">
+        <!-- Navigation & Website-Header -->
+        <div class="navigation-container">
+            <div class="inner-nav">
                 <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
                 <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
                 <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/login">Login</a></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/register">Register</a></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/register">Register</a></div>
             </div>
-            <!-- Registrationsdialog -->
-            <div class="flex-container">
-                <div style="padding: 25px 75px 75px 75px;">
+        </div>
+        <div style="margin-top: 109px;"></div>
+        <!-- Registrationsdialog -->
+        <div class="flex-container" style="align-items: center; min-height: 400px;">
+            <div class="inner" style="justify-content: flex-start; flex-direction: column; align-items: center;">
+                <div>
                     <h1>Registration</h1>
                     <p>Wir freuen uns, dass du Teil von <span style="font-weight: 500;">CODEX</span> werden möchtest!
-                       Bitte fülle das nachstehende Formular aus, damit wir dir dein eigenes Profil erstellen können.</p>
-                    <form action="newUser" method="POST">
-                            <div>
-                                <label for="email" class="formlabel" style="margin-right: 95px;">E-Mailadresse:</label>
-                                <input type="text" id="email" name="email" class="forminput" placeholder="email@domain.de" oninput="checkEmail()" required><br>
-                                <div class="error-msg email">Bitte E-Mailadresse überprüfen.</div>
-                            </div>
-                            <div>
-                                <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>
-                                <input type="text" name="loginname" id="loginname" class="forminput" placeholder="Dein gewünschter Benutzername" oninput="checkName()" required><br>
-                                <div class="error-msg loginname" style="display:<%=displayMode%>;">Name bereits vergeben.</div>
-                            </div>
-                            <div>
-                                <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
-                                <input type="password" id="password1" name="password1" class="forminput" placeholder="mind. 8 Zeichen" oninput="checkPass()" required><br>
-                                <div class="error-msg password1">Passwort ist zu kurz.</div>
-                            </div>
-                            <div>
-                                <label for="pass_whd" class="formlabel" style="margin-right: 4px;">Passwort wiederholen:</label>
-                                <input type="password" id="password2" name="password2" class="forminput" oninput="checkMatch()" required><br>
-                                <div class="error-msg password2">Passwörter stimmen nicht überein.</div>
-                            </div>
-                            <!-- Links zu Nutzungsbedingungen & Datenschutz stehen noch aus -->
-                            <p><input type="checkbox" onclick="if(this.checked) showButton(); else hideButton();" 
-                            name="" style="border:none; transform:scale(2); margin-right: 10px;" required>
-                            Ich habe die <a href="/impressum#termsofuse" target="_blank">allgemeinen Nutzungsbedingungen</a> sowie die <a href="/impressum#privacy" target="_blank">Hinweise zum Datenschutz</a> zur Kenntnis genommen 
-                            und akzeptiere diese mit meiner Registrierung.</p><br>
+                        Bitte fülle das nachstehende Formular aus, damit wir dir dein eigenes Profil erstellen können.</p>
+                    <form action="newUser" method="POST" style="margin: 20px 0px 20px 0px; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                        <div>
+                            <label for="email" class="formlabel" style="margin-right: 95px;">E-Mailadresse:</label>
+                            <input type="text" id="email" name="email" class="forminput" placeholder="email@domain.de" oninput="checkEmail()" required><br>
+                            <div class="error-msg email">Bitte E-Mailadresse überprüfen.</div>
+                        </div>
+                        <div>
+                            <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>
+                            <input type="text" name="loginname" id="loginname" class="forminput" placeholder="Dein gewünschter Benutzername" oninput="checkName()" required><br>
+                            <div class="error-msg loginname" style="display:<%=displayMode%>;">Name bereits vergeben.</div>
+                        </div>
+                        <div>
+                            <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
+                            <input type="password" id="password1" name="password1" class="forminput" placeholder="mind. 8 Zeichen" oninput="checkPass()" required><br>
+                            <div class="error-msg password1">Passwort ist zu kurz.</div>
+                        </div>
+                        <div>
+                            <label for="pass_whd" class="formlabel" style="margin-right: 4px;">Passwort wiederholen:</label>
+                            <input type="password" id="password2" name="password2" class="forminput" oninput="checkMatch()" required><br>
+                            <div class="error-msg password2">Passwörter stimmen nicht überein.</div>
+                        </div>
+                        <!-- Links zu Nutzungsbedingungen & Datenschutz stehen noch aus -->
+                        <p><input type="checkbox" onclick="if(this.checked) showButton(); else hideButton();" 
+                        name="" style="border:none; transform:scale(2); margin: 15px 10px 0px 0px;" required>
+                        Ich habe die <a href="/impressum#termsofuse" target="_blank">allgemeinen Nutzungsbedingungen</a> sowie die <a href="/impressum#privacy" target="_blank">Hinweise zum Datenschutz</a> zur Kenntnis genommen 
+                        und akzeptiere diese mit meiner Registrierung.</p><br>
                         <div id="bHidden" style="display: none;"><input type="submit" class="cta-button" value="REGISTRIERUNG&nbsp;ABSCHLIESSEN"></div>
                     </form>
                 </div>
             </div>
-            <!-- Info-Box -->
-            <div class="flex-container">
-                <div class="parallax-infobox" style="width: 960px;">
-                    <div class="flex-container" style="margin-top: 20px;">
-                        <div style="text-align: center; padding: 5px;  width: 295px;">
-                            <img src="/img/code-icon.svg" alt="Code-Icon" style="height: 115px;"></img><br>
-                            <h2 style="color: white;">Code speichern.</h2>
-                            <p class="infotext">
-                               Speichere deine besten Code-Snippets, um bei ähnlichen Problemen gleich eine Lösung parat zu haben!</p>
-                        </div>
-                        <div style="text-align: center; padding: 5px; width: 295px;">
-                            <img src="/img/comment-icon.svg" alt="Comment-Icon" style="height: 115px;"></img><br>
-                            <h2 style="color: white;">Sich austauschen.</h2>
-                            <p class="infotext">Tausche dich mit Nutzer:innen aus, diskutiere über Code, erhalte Vorschläge oder hilf anderen beim Optimieren!</p>
-                        </div>
-                        <div style="text-align: center; padding: 5px;  width: 295px;">
-                            <img src="/img/learn-icon.svg" alt="Learn-Icon" style="height: 115px;"></img><br>
-                            <h2 style="color: white;">Neues lernen.</h2>
-                            <p class="infotext">Stöbere in Sammlungen anderer, finde Inspiration fürs nächste Projekt oder lerne neue Coding-Wege kennen!</p>
-                        </div>
-                    </div>
+        </div>
+        <!-- Info-Box -->
+        <div class="parallax-infobox">
+            <div class="inner" style="align-items: flex-start; background-color: transparent; padding-top: 35px;">
+                <div style="text-align: center; padding: 5px;  width: 295px;">
+                    <img src="/img/code-icon.svg" alt="Code-Icon" style="height: 115px;"></img><br>
+                    <h2 style="color: white;">Code speichern.</h2>
+                    <p class="infotext">
+                        Speichere deine besten Code-Snippets, um bei ähnlichen Problemen gleich eine Lösung parat zu haben!</p>
+                </div>
+                <div style="text-align: center; padding: 5px; width: 295px;">
+                    <img src="/img/comment-icon.svg" alt="Comment-Icon" style="height: 115px;"></img><br>
+                    <h2 style="color: white;">Sich austauschen.</h2>
+                    <p class="infotext">Tausche dich mit Nutzer:innen aus, diskutiere über Code, erhalte Vorschläge oder hilf anderen beim Optimieren!</p>
+                </div>
+                <div style="text-align: center; padding: 5px;  width: 295px;">
+                    <img src="/img/learn-icon.svg" alt="Learn-Icon" style="height: 115px;"></img><br>
+                    <h2 style="color: white;">Neues lernen.</h2>
+                    <p class="infotext">Stöbere in Sammlungen anderer, finde Inspiration fürs nächste Projekt oder lerne neue Coding-Wege kennen!</p>
                 </div>
             </div>
-            <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->
-            <div class="flex-container" style="height: 50px; background-color: #FF9000; margin: 0px;">
-                <p class="footer">© 2020 CODEX &nbsp;
-                    <a href="/impressum">Impressum</a> | <a href="/impressum#privacy">Datenschutz</a>
-                </p>
-            </div>
+        </div>
+        <!-- Footer -->
+        <div style="margin-bottom: 50px;"></div>
+        <div class="footer-container">
+            <p class="footer">© 2020 CODEX &nbsp;
+                <a href="/impressum">Impressum</a> | <a href="/impressum#privacy">Datenschutz</a>
+            </p>
         </div>
     </body>
 </html>

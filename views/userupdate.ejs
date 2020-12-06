@@ -27,108 +27,114 @@
         <title>Codex - Benutzerliste</title>
     </head>
     <body>
-        <div class="inner">
-            <!-- Navigation & Website-Header -->
-            <div class="flex-container" style="background-color: white;">
+        <!-- Navigation & Website-Header -->
+        <div class="navigation-container">
+            <div class="inner-nav">
                 <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
                 <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
                 <div class="nav-button-top" style="height: 60px; flex-grow: 1;"></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/logout">Logout</a></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/logout">Logout</a></div>
             </div>
-            <!-- Flex-Container für Seiten-Menü und Inhalt -->
-            <div class="flex-container" style="justify-content: flex-start; align-items: flex-start;">
-                <div id="menu" class="flex-container" style="justify-content: flex-start; flex-direction: column; align-items: flex-start; position: fixed;">
-                    <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 10px;">
-                        <h3 style="text-align: center; background-color: #FF9000; font-size: 24px;">MENÜ</h3>
-                    </div>
-                    <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
-                        <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
-                        <p class="menu-button"><a href="/my-profile">[ My Snippets ]</b></a></p>
-                        <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
-                        <form action="/favorites" method="POST" id="favLink" class="menu-button">
-                            <input type="hidden" name="userTab" value="<%= loginname %>">
-                            <input type="submit" value="[ Favorites ]">
-                        </form>
-                        <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
-                    </div>
-                    <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 15px;">
-                        <h3 style="text-align: center; background-color: #FF9000; font-size: 18px;">last visited</h3>
-                    </div>
-                    <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
-                        <p class="menu-button"><a href="">> user1235</b></a></p>
-                        <p class="menu-button"><a href="">> brother912</b></a></p>
-                        <p class="menu-button"><a href="">> nutzernam11 </b></a></p>
-                        <p class="menu-button"><a href="">> benutzer9s1</b></a></p>
-                        <p class="menu-button"><a href="">> benutzer</b></a></p>
-                    </div>
+        </div>
+        <div style="margin-top: 109px;"></div>
+        <!-- Flex-Container für Seiten-Menü und Inhalt -->
+        <div class="inner" style="justify-content: flex-start; align-items: flex-start; max-width: 984px;">
+            <div id="menu" class="side-menu">
+                <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 10px;">
+                    <h3 style="text-align: center; background-color: #FF9000; font-size: 24px;">MENÜ</h3>
                 </div>
-                <div id="content" class="flex-container code">
+                <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
+                    <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
+                    <p class="menu-button"><a href="/my-profile">[ My Snippets ]</b></a></p>
+                    <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
+                    <form action="/favorites" method="POST" id="favLink" class="menu-button">
+                        <input type="hidden" name="userTab" value="<%= loginname %>">
+                        <input type="submit" value="[ Favorites ]">
+                    </form>
+                    <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
+                </div>
+                <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 15px;">
+                    <h3 style="text-align: center; background-color: #FF9000; font-size: 18px;">last visited</h3>
+                </div>
+                <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
+                    <p class="menu-button"><a href="">> user1235</b></a></p>
+                    <p class="menu-button"><a href="">> brother912</b></a></p>
+                    <p class="menu-button"><a href="">> nutzernam11 </b></a></p>
+                    <p class="menu-button"><a href="">> benutzer9s1</b></a></p>
+                    <p class="menu-button"><a href="">> benutzer</b></a></p>
+                </div>
+            </div>
+            <div class="flex-container" style="align-items: center; min-height: 350px; width: 100%;">
+                <div class="inner" style="justify-content: flex-start; width: 100%;">
+                    <div style="margin-left: 14%; width: 100%;">
                         <h1 style="margin-left: 20px; margin-right: 20px;">Benutzer bearbeiten</h1>
                         <p style="margin-left: 20px; margin-right: 20px;">Hier kannst du Nutzer bearbeiten.</p>
-                    <div style="min-height: 700px; width: 80%">
-                        <!-- Formular zum bearbeiten des Nutzers-->
-                        <form action="/onupdate/<%=id%>" method="POST" style="display: flex; flex-direction: column;">
-                            <div style="display: flex; justify-content: space-between; margin: 5px;">
-                                <label for="user" class="formlabel">User-/Loginname:</label>
-                                <input class="forminput" type="text" name="loginname" value="<%=loginname%>">
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin: 5px;">
-                                <label for="password" class="formlabel">Passwort:</label>
-                                <input class="forminput" type="password" name="password" placeholder="mind. 8 Zeichen">
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin: 5px;">
-                                <label for="email" class="formlabel">E-Mail</label>
-                                <input class="forminput" type="text" name="email" value="<%=email%>">
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin: 5px;">
-                                <label for="role" class="formlabel">Rolle</label>
-                                <select id="role" name="role" style="margin: 0px;  height: 36px; width: 369px;">
-                                    <option id="role-admin" value="admin">admin</option>
-                                    <option id="role-editor" value="editor">editor</option>
-                                    <option id="role-user" value="user">user</option>
-                                </select>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; margin: 5px;">
-                                <label for="status" class="formlabel">Status</label>
-                                <select id="status" name="status" style="margin: 0px; height: 36px;  width: 369px;">
-                                    <option id="status1" value="1">1 - aktiv</option>
-                                    <option id="status2" value="2">2 - inaktiv</option>
-                                    <option id="status3" value="3">3 - gesperrt</option>
-                                </select>
-                            </div>
-                            <div style="display: flex; justify-content: center; margin: 5px;">
-                                <button class="cta-button" type="submit" >Speichern</button>
-                                <a href="/userlist" class="cta-button">Abbrechen</a>
-                            </div>
-                            <input class="forminput" type="hidden" name="id" value="<%=id%>">
-                            <input class="forminput" type="hidden" name="favorites" value="/<%=loginname%>">
-                        </form>
-                        <!-- Javascript, um die aktuelle Syntax des zu bearbeitenden Codes vorauszuwählen -->
-                        <!-- Quelle: https://www.daftlogic.com/information-programmatically-preselect-dropdown-using-javascript.htm -->
-                        <script>
-                            function setSelectedIndex(s, valsearch) {
-                            // Loop through all the items in drop down list
-                                for (i = 0; i< s.options.length; i++) {
-                                    if (s.options[i].value == valsearch) {
-                                    // Item is found. Set its property and exit
-                                        s.options[i].selected = true;
-                                        break;
+                        <div>
+                            <!-- Formular zum bearbeiten des Nutzers-->
+                            <form action="/onupdate/<%=id%>" method="POST" style="display: flex; flex-direction: column; margin: 25px 15px 25px 15px;">
+                                <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                    <label for="user" class="formlabel">User-/Loginname:</label>
+                                    <input class="forminput" type="text" name="loginname" value="<%=loginname%>">
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                    <label for="password" class="formlabel">Passwort:</label>
+                                    <input class="forminput" type="password" name="password" placeholder="mind. 8 Zeichen">
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                    <label for="email" class="formlabel">E-Mail:</label>
+                                    <input class="forminput" type="text" name="email" value="<%=email%>">
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                    <label for="role" class="formlabel">Rolle:</label>
+                                    <select id="role" name="role" style="margin: 0px;  height: 36px; width: 369px;">
+                                        <option id="role-admin" value="admin">admin</option>
+                                        <option id="role-editor" value="editor">editor</option>
+                                        <option id="role-user" value="user">user</option>
+                                    </select>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                    <label for="status" class="formlabel">Status:</label>
+                                    <select id="status" name="status" style="margin: 0px; height: 36px;  width: 369px;">
+                                        <option id="status1" value="1">1 - aktiv</option>
+                                        <option id="status2" value="2">2 - inaktiv</option>
+                                        <option id="status3" value="3">3 - gesperrt</option>
+                                    </select>
+                                </div>
+                                <div style="display: flex; justify-content: center; margin: 25px;">
+                                    <button class="cta-button" type="submit" >Speichern</button>
+                                    <a href="/userlist" class="cta-button">Abbrechen</a>
+                                </div>
+                                <input class="forminput" type="hidden" name="id" value="<%=id%>">
+                                <input class="forminput" type="hidden" name="favorites" value="/<%=loginname%>">
+                            </form>
+                            <!-- Javascript, um Dropdown vorauszuwählen -->
+                            <!-- Quelle: https://www.daftlogic.com/information-programmatically-preselect-dropdown-using-javascript.htm -->
+                            <script>
+                                function setSelectedIndex(s, valsearch) {
+                                // Loop through all the items in drop down list
+                                    for (i = 0; i< s.options.length; i++) {
+                                        if (s.options[i].value == valsearch) {
+                                        // Item is found. Set its property and exit
+                                            s.options[i].selected = true;
+                                            break;
+                                        }
                                     }
+                                    return;
                                 }
-                                return;
-                            }
-                            setSelectedIndex(document.getElementById("role"),"<%= role %>");
-                            setSelectedIndex(document.getElementById("status"),"<%= status %>");
-                        </script>
+                                setSelectedIndex(document.getElementById("role"),"<%= role %>");
+                                setSelectedIndex(document.getElementById("status"),"<%= status %>");
+                            </script>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->
-            <div class="flex-container" style="height: 50px; background-color: #FF9000; margin: 0px;">
-                <p class="footer">© 2020 CODEX &nbsp;
-                    <a href="/impressum">Impressum</a> | <a href="/impressum#privacy">Datenschutz</a>
-                </p>
-            </div>
+        </div>
+        <!-- Footer -->
+        <div style="margin-bottom: 50px;"></div>
+        <div class="footer-container">
+            <p class="footer">© 2020 CODEX &nbsp;
+                <a href="/impressum">Impressum</a> | <a href="/impressum#privacy">Datenschutz</a>
+            </p>
         </div>
     </body>
 </html>

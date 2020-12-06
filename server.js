@@ -224,7 +224,12 @@ app.get("/settings", function(req, res)
     if (!req.session.sessionValue) {
         res.redirect("/login");
     } else {
-        res.render("settings", {username: req.session.sessionValue}) // ToDo: hier ggf. zusätzliche Parameter übergeben: {param_x: x, param_y: y, param_z: z});
+        db.all(`SELECT * FROM allusers WHERE loginname='${req.session.sessionValue}'`, function(err, rows) {
+            const email = rows[0].email;
+            const id = rows[0].id;
+            const loginname = rows[0].loginname;
+            res.render("settings", {currentID: id, currentEmail: email, currentLoginname: loginname});
+        });
     }
 });
 // Impressum-Seite
@@ -509,6 +514,33 @@ console.log(id);
     );
 });
 
+// User Self-Update (via Settings)
+app.post("/selfupdate", function(req,res)
+{
+    const id = req.body.id;
+    const loginname = req.body.loginname;
+    const email = req.body.email;
+    const password = req.body.password;
+    bcrypt.hash(password, 10).then(
+        hash => {
+          console.log('Your hash: ', hash);
+          db.run(
+            `UPDATE allusers SET loginname="${loginname}", password="${hash}", email="${email}" WHERE id=${id}`,
+            function(err) {
+                if (err) {
+                    console.log(err);
+                } else { 
+                req.session.destroy(); 
+                res.redirect("/my-profile");
+                }
+            }
+            );
+        },
+        err => {
+          console.log(err);
+        }
+      );
+});
 
 /*
 +++++++++++++++++++++++++++++++

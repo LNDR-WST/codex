@@ -27,81 +27,85 @@
         <title>Codex - Benutzerliste</title>
     </head>
     <body>
-        <div class="inner">
-            <!-- Navigation & Website-Header -->
-            <div class="flex-container" style="background-color: white;">
+        <!-- Navigation & Website-Header -->
+        <div class="navigation-container">
+            <div class="inner-nav">
                 <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
                 <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
                 <div class="nav-button-top" style="height: 60px; flex-grow: 1;"></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 1; margin-right: 40px;"><a href="/logout">Logout</a></div>
+                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/logout">Logout</a></div>
             </div>
-            <!-- Flex-Container für Seiten-Menü und Inhalt -->
-            <div class="flex-container" style="justify-content: flex-start; align-items: flex-start;">
-                <div id="menu" class="flex-container" style="justify-content: flex-start; flex-direction: column; align-items: flex-start; position: fixed;">
-                    <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 10px;">
-                        <h3 style="text-align: center; background-color: #FF9000; font-size: 24px;">MENÜ</h3>
-                    </div>
-                    <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
-                        <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
-                        <p class="menu-button"><a href="/my-profile">[ My Snippets ]</b></a></p>
-                        <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
-                        <form action="/favorites" method="POST" id="favLink" class="menu-button">
-                            <input type="hidden" name="userTab" value="<%= adminname %>">
-                            <input type="submit" value="[ Favorites ]">
-                        </form>
-                        <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
-                    </div>
-                    <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 15px;">
-                        <h3 style="text-align: center; background-color: #FF9000; font-size: 18px;">last visited</h3>
-                    </div>
-                    <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
-                        <p class="menu-button"><a href="">> user1235</b></a></p>
-                        <p class="menu-button"><a href="">> brother912</b></a></p>
-                        <p class="menu-button"><a href="">> nutzernam11 </b></a></p>
-                        <p class="menu-button"><a href="">> benutzer9s1</b></a></p>
-                        <p class="menu-button"><a href="">> benutzer</b></a></p>
-                    </div>
+        </div>
+        <div style="margin-top: 109px;"></div>
+        <!-- Flex-Container für Seiten-Menü und Inhalt -->
+        <div class="inner" style="justify-content: flex-start; align-items: flex-start; max-width: 984px;">
+            <div id="menu" class="side-menu">
+                <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 10px;">
+                    <h3 style="text-align: center; background-color: #FF9000; font-size: 24px;">MENÜ</h3>
                 </div>
-                <div id="content" class="flex-container code">
+                <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
+                    <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
+                    <p class="menu-button"><a href="/my-profile">[ My Snippets ]</b></a></p>
+                    <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
+                    <form action="/favorites" method="POST" id="favLink" class="menu-button">
+                        <input type="hidden" name="userTab" value="<%= adminname %>">
+                        <input type="submit" value="[ Favorites ]">
+                    </form>
+                    <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
+                </div>
+                <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 15px;">
+                    <h3 style="text-align: center; background-color: #FF9000; font-size: 18px;">last visited</h3>
+                </div>
+                <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
+                    <p class="menu-button"><a href="">> user1235</b></a></p>
+                    <p class="menu-button"><a href="">> brother912</b></a></p>
+                    <p class="menu-button"><a href="">> nutzernam11 </b></a></p>
+                    <p class="menu-button"><a href="">> benutzer9s1</b></a></p>
+                    <p class="menu-button"><a href="">> benutzer</b></a></p>
+                </div>
+            </div>
+            <div class="flex-container" style="align-items: center; min-height: 350px; width: 100%;">
+                <div class="inner" style="justify-content: flex-start; width: 100%;">
+                    <div style="margin-left: 14%; width: 100%;">
                         <h1 style="margin-left: 20px; margin-right: 20px;">Admin Panel</h1>
                         <p style="margin-left: 20px; margin-right: 20px;">
                             Hier können Nutzer bearbeitet werden. <br>
                             <span style="color: red; font-weight: bold;">Achtung:<br> Das Löschen eines Benutzers kann nicht rückgängig gemacht werden!</span></p>
-                    <div style="min-height: 700px;">
-                        <!-- Benutzerliste & Verwaltung -->
-                        <div style="margin-bottom: 20px;">
-                            <h2 style="font-size: 16px; font-weight: bold; text-decoration: underline;">Benutzer hinzufügen</h2>
-                            <form action="newUser" method="POST">
-                                <table style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th>E-Mail:</th>
-                                            <th>Benutzername:</th>
-                                            <th>Passwort:</th>
-                                            <th>Password Wdh.:</th>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="text" id="email" name="email" oninput="checkEmail()" required></td>
-                                            <td><input type="text" name="loginname" id="loginname" oninput="checkName()" required></td> <!-- checkName() ist noch nicht definiert -->
-                                            <td><input type="password" id="password1" name="password1" oninput="checkPass()" required></td>
-                                            <td><input type="password" id="password2" name="password2" oninput="checkMatch()" required></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="border: none;"><div class="error-msg email">E-Mail falsch.</div></td>
-                                            <td style="border: none;"><div class="error-msg loginname" style="display:none;">Name vergeben.</div></td>
-                                            <td style="border: none;"><div class="error-msg password1">Passwort zu kurz.</div></td>
-                                            <td style="border: none;"><div class="error-msg password2">Stimmt nicht überein.</div></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" style="text-align: center;"><input type="submit" class="button-invert" style="font-size: 12px;" value="hinzufügen"></td>
-                                        </tr>
-                                    </thead>
-                                </table>
-                                <input type="hidden" id="origin" name="origin" value="adminpanel">
-                            </form>
-                        </div>
-                        <h2 style="font-size: 16px; font-weight: bold; text-decoration: underline;">Benutzerübersicht</h2>
-                        <table style="width: 100%;">
+                        <div>
+                            <!-- Benutzerliste & Verwaltung -->
+                            <div style="margin-bottom: 20px;">
+                                <h2 style="font-size: 16px; font-weight: bold; text-decoration: underline;">Benutzer hinzufügen</h2>
+                                <form action="newUser" method="POST">
+                                    <table style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>E-Mail:</th>
+                                                <th>Benutzername:</th>
+                                                <th>Passwort:</th>
+                                                <th>Password Wdh.:</th>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" id="email" name="email" oninput="checkEmail()" required></td>
+                                                <td><input type="text" name="loginname" id="loginname" oninput="checkName()" required></td> <!-- checkName() ist noch nicht definiert -->
+                                                <td><input type="password" id="password1" name="password1" oninput="checkPass()" required></td>
+                                                <td><input type="password" id="password2" name="password2" oninput="checkMatch()" required></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border: none;"><div class="error-msg email">E-Mail falsch.</div></td>
+                                                <td style="border: none;"><div class="error-msg loginname" style="display:none;">Name vergeben.</div></td>
+                                                <td style="border: none;"><div class="error-msg password1">Passwort zu kurz.</div></td>
+                                                <td style="border: none;"><div class="error-msg password2">Stimmt nicht überein.</div></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" style="text-align: center;"><input type="submit" class="button-invert" style="font-size: 12px;" value="hinzufügen"></td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <input type="hidden" id="origin" name="origin" value="adminpanel">
+                                </form>
+                            </div>
+                            <h2 style="font-size: 16px; font-weight: bold; text-decoration: underline;">Benutzerübersicht</h2>
+                            <table style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th><b>Loginname</b></th>
@@ -154,15 +158,17 @@
                                     </tr>
                                 </table>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Footer [Links zu Impressum und Datenschutz stehen noch aus] -->
-            <div class="flex-container" style="height: 50px; background-color: #FF9000; margin: 0px;">
-                <p class="footer">© 2020 CODEX &nbsp;
-                    <a href="/impressum">Impressum</a> | <a href="/impressum#privacy">Datenschutz</a>
-                </p>
-            </div>
+        </div>
+        <!-- Footer -->
+        <div style="margin-bottom: 50px;"></div>
+        <div class="footer-container">
+            <p class="footer">© 2020 CODEX &nbsp;
+                <a href="/impressum">Impressum</a> | <a href="/impressum#privacy">Datenschutz</a>
+            </p>
         </div>
     </body>
 </html>
