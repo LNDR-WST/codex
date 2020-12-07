@@ -24,7 +24,7 @@
         <script src="/js/form.js"></script>
 
         <!-- Meta-Daten -->
-        <title>Codex - Favoriten</title>
+        <title>Codex - <%=username%>s Profil</title>
     </head>
     <body>
             <!-- Navigation & Website-Header -->
@@ -46,7 +46,7 @@
                         <p class="menu-button"><a href="/my-profile">[ My Snippets ]</b></a></p>
                         <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
                         <form action="/favorites" method="POST" id="favLink" class="menu-button">
-                            <input type="hidden" name="userTab" value="<%= sessionName %>">
+                            <input type="hidden" name="userTab" value="<%= username %>">
                             <input type="submit" value="[ Favorites ]">
                         </form>
                         <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
@@ -63,13 +63,13 @@
                 <div class="flex-container" style="align-items: center; min-height: 350px; width: 100%;">
                     <div class="inner" style="justify-content: flex-start; width: 100%;">
                         <div style="margin-left: 14%; width: 100%;">
-                            <h1 style="margin-left: 20px; margin-right: 20px;">Deine Favoriten</h1>
-                            <p style="margin-left: 20px; margin-right: 20px;">Hier findest du deine als Favorit markierten Code-Snippets</p>
+                            <h1 style="margin-left: 20px; margin-right: 20px;"><i><%=username%>s</i> Profil</h1>
+                            <p style="margin-left: 20px; margin-right: 20px;"><%=username%> hat die folgenden Code-Snippets erstellt:</p>
                             <div style="min-height: 700px; width: 95%;">
                                 <p class="error-text">
-                                    <b>Du hast bisher keine Favoriten!</b><br><br>
+                                    <b><%=username%> hat bisher keine Code-Snippets erstellt!</b><br><br>
                                     Schau dich<br>
-                                    <a href="/userlist">auf den Profilen anderer Nutzer:innen</a><br>
+                                    <a href="/userlist">einfach auf anderen Profilen</a><br>
                                     um und füge gute Snippets deiner Sammlung hinzu!
                                 </p> 
                             </div>
