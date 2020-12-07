@@ -414,6 +414,25 @@ pre {
   display: none;
 }
 
+.error-text {
+  color: black;
+  background-color: #ffb4b4;
+  text-align: center;
+  padding: 25px;
+}
+
+.error-text > a {
+  color: black;
+}
+
+.error-text > a:hover {
+  color: black;
+}
+
+.error-text > a:visited {
+  color: black;
+}
+
 /* Style für Dropdowns */
 
 .select-wrapper {
@@ -450,6 +469,10 @@ td {
   color: #eee;
   border-bottom: 1px solid #ddd;
   padding: 5px 10px 5px 10px;
+}
+
+.td-fav {
+  color: #1f2430;
 }
 
 th {

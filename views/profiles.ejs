@@ -76,6 +76,9 @@
             <div class="flex-container" style="align-items: center; min-height: 350px; width: 100%;">
                 <div class="inner" style="justify-content: flex-start; width: 100%;">
                 <div style="margin-left: 14%; width: 100%;">
+                    <p class="error-text" style="<%=errorStyle%>">
+                        <b>Code bereits in Favoriten!</b><br>
+                    </p>
                     <h1 style="margin-left: 20px; margin-right: 20px;"><i><%=username%>s</i> Profil</h1>
                     <p style="margin-left: 20px; margin-right: 20px;">
                         <%=username%> hat die folgenden Code-Snippets erstellt:
@@ -83,8 +86,9 @@
 <div style="width: 95%;">
 <!-- Hier beginnt der for Loop zum erstellen der Editorfelder -->   
     <% for(var i = 0; i < codelist.length; i++){ %>
+    <div id="code-heading<%= codelist[i].id %>" style="position:relative; top:-150px;"></div>
     <div class="code-head" style="background-color:#0A64A4;">
-        <h4 id="code-heading<%= codelist[i].id %>" style="background-color: #0A64A4; color: white; border-top-left-radius: 15px; border-top-right-radius: 15px;"><%= codelist[i].headline %></h4>
+        <h4 style="background-color: #0A64A4; color: white; border-top-left-radius: 15px; border-top-right-radius: 15px;"><%= codelist[i].headline %></h4>
         <table id=<%= `codeInfo${codelist[i].id}` %> style="color: white;">
             <tr style="background-color: transparent;"><td style="border: none;"><span style="text-decoration: underline;">last edited</span>:</td><td style="border: none;"><%= `${codelist[i].edited}` %></td></tr>
             <tr style="background-color: transparent;"><td style="border: none;"><span style="text-decoration: underline;">Format</span>:</td><td name=<%= `language${codelist[i].id}` %> style="border: none;">Sprache</td></tr>

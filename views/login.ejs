@@ -33,6 +33,8 @@
                 <div>
                     <h1>Login</h1>
                     <p>Bitte melde dich mit deinen Nutzerdaten an.</p>
+                    <p class="error-text" style="<%=wrongName%>">Benutzername existiert nicht.</p>
+                    <p class="error-text" style="<%=wrongPass%>">Passwort falsch.</p>
                     <form action="login" method="POST"> 
                             <div>
                                 <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>

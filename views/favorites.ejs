@@ -73,9 +73,9 @@
         <div class="code-head" style="background-color: #FF9000; border-top-right-radius: 0%;">
             <p class="code-desc" id="code-desc" style="width: 60%; background-color: #FF9000; color: #1f2430;"><%= favSnippets[i].description %></p>
             <table id=<%= `codeInfo${favSnippets[i].id}` %> style="color: #1f2430;">
-                <tr style="background-color: transparent;"><td style="border: none;"><span style="text-decoration: underline;">last edited</span>:</td><td style="border: none;"><%= `${favSnippets[i].edited}` %></td></tr>
-                <tr style="background-color: transparent;"><td style="border: none;"><span style="text-decoration: underline;">Format</span>:</td><td name=<%= `language${favSnippets[i].id}` %> style="border: none;">Sprache</td></tr>
-                <tr style="background-color: transparent;"><td style="border: none;"><span style="text-decoration: underline;">User</span>:</td><td style="border: none;"><a class="codelink" href="profile?view=<%= favSnippets[i].loginname %>" style="color:#1f2430;"><%= favSnippets[i].loginname %></a></td></tr>
+                <tr style="background-color: transparent;"><td class="td-fav" style="border: none;"><span style="text-decoration: underline;">last edited</span>:</td><td class="td-fav" style="border: none;"><%= `${favSnippets[i].edited}` %></td></tr>
+                <tr style="background-color: transparent;"><td class="td-fav" style="border: none;"><span style="text-decoration: underline;">Format</span>:</td><td class="td-fav" name=<%= `language${favSnippets[i].id}` %> style="border: none;">Sprache</td></tr>
+                <tr style="background-color: transparent;"><td class="td-fav" style="border: none;"><span style="text-decoration: underline;">User</span>:</td><td class="td-fav" style="border: none;"><a class="codelink" href="profile?view=<%= favSnippets[i].loginname %>" style="color:#1f2430;"><%= favSnippets[i].loginname %></a></td></tr>
                 <!-- Kurzes Script, um die entsprechende Sprache einzusetzen-->
                 <script>
                     var formatLang = "<%= favSnippets[i].format %>";

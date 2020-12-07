@@ -83,7 +83,7 @@ app.get("/register", function(req, res)
     if (req.cookies.darkmode == 1) {
         stylesheet = "/stylesheet-dark.css";
     }
-    res.render("register", {displayMode: "none", stylesheet: stylesheet});
+    res.render("register", {displayMode: "none", stylesheet: stylesheet, regFail: "display:none;"});
 });
 
 app.get("/registration-complete", function(req, res)
@@ -105,7 +105,7 @@ app.get("/login", function(req, res)
         if (req.cookies.darkmode == 1) {
             stylesheet = "/stylesheet-dark.css";
         }
-        res.render("login", {stylesheet: stylesheet});
+        res.render("login", {wrongName: "display:none", wrongPass: "display:none", stylesheet: stylesheet});
     } else {
         res.redirect("/my-profile");
     }
@@ -171,6 +171,8 @@ app.get("/profile", function(req, res)
         res.redirect("/login");
     } else {
         const profileName = req.query.view;
+        const errorStatus = req.query.error;
+        console.log(errorStatus);
         codedb.all(`SELECT id, headline, description, code, edited, format, cmmode FROM allcode WHERE loginname ='${profileName}'`,
                 function(err,rows)
                 {
@@ -179,7 +181,11 @@ app.get("/profile", function(req, res)
                     if (req.cookies.darkmode == 1) {
                         stylesheet = "/stylesheet-dark.css";
                     }
-                    res.render("profiles", {username: profileName, codelist: param_userCodeInfo, sessionName: req.session.sessionValue, stylesheet: stylesheet});
+                    let errorMessage = "display:none;";
+                    if (errorStatus == 1) {
+                        errorMessage = "display:block;";
+                    }
+                    res.render("profiles", {username: profileName, codelist: param_userCodeInfo, sessionName: req.session.sessionValue, stylesheet: stylesheet, errorStyle: errorMessage});
                 });
     }
 });
@@ -345,11 +351,14 @@ app.post('/newUser', function(req,res)
                 if (req.cookies.darkmode == 1) {
                     stylesheet = "/stylesheet-dark.css";
                 }
-                res.render("register", {displayMode: "block", stylesheet: stylesheet});
+                res.render("register", {displayMode: "block", stylesheet: stylesheet, regFail: "display:none;"});
             } else
                 {
-                    // Hier verlinkung zur Seite bei nicht erfolgreicher Registrierung 
-                    res.send("Registrierung fehlgeschlagen.");
+                    let stylesheet = "/stylesheet.css";
+                    if (req.cookies.darkmode == 1) {
+                        stylesheet = "/stylesheet-dark.css";
+                    }
+                    res.render("register", {displayMode: "none", stylesheet: stylesheet, regFail: "display:block;"});
                 }
         });
     });
@@ -362,9 +371,9 @@ app.post('/login', function(req,res)
     db.all(`SELECT password, darkmode FROM allusers WHERE loginname ='${param_loginname}'`,
     function(err,rows)
     {
-        let darkmode = rows[0].darkmode;
         if (rows.length==1)
         {
+            let darkmode = rows[0].darkmode;
             const hash = rows[0].password;
             const isValid = bcrypt.compareSync(param_password, hash);
             if (isValid==true)
@@ -390,11 +399,19 @@ app.post('/login', function(req,res)
             }
             else
             {
-                res.send("Passwort falsch");  // Hier verlinkung bei nicht erfolgreichem Login [passwort falsch]
+                let stylesheet = "/stylesheet.css";
+                if (req.cookies.darkmode == 1) {
+                    stylesheet = "/stylesheet-dark.css"
+                }
+                res.render("login", {wrongName: "display:none;", wrongPass: "display:block;", stylesheet: stylesheet});
             };
         }
         else{
-            res.send("Benutzername existiert nicht");   // Hier verlinkung bei nicht erfolgreichem Login [User existiert nicht]
+            let stylesheet = "/stylesheet.css";
+            if (req.cookies.darkmode == 1) {
+                stylesheet = "/stylesheet-dark.css"
+            }
+            res.render("login", {wrongName: "display:block;", wrongPass: "display:none;", stylesheet: stylesheet});
         }
     });
 });
@@ -533,7 +550,7 @@ app.post('/addfav', function(req, res) {
                 res.redirect(`/profile?view=${origin}#code-heading${favid}`);
             });
         } else {
-            res.send("Favorit bereits vorhanden!");
+            res.redirect(`/profile?view=${origin}&error=1`);
         }
     });
 });

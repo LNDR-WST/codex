@@ -108,6 +108,14 @@
                                             <input id="darkmode" type="checkbox" name="darkmode" onchange="changeDarkmode()">
                                             <span class="slider round"></span>
                                         </label>
+                                        <script>
+                                            function toggleSwitch(){
+                                                if (document.getElementById("stylesheet-theme").href.includes("stylesheet-dark")) {
+                                                    document.getElementById("darkmode").checked = true;
+                                                }
+                                            }
+                                            toggleSwitch();
+                                        </script>
                                     </div>
                                     <div style="display: flex; justify-content: center; margin: 25px;">
                                         <button class="cta-button" type="submit">Speichern</button>
