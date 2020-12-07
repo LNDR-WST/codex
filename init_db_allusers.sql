@@ -7,9 +7,10 @@ CREATE TABLE allusers(
     password TEXT NOT NULL,
     role TEXT NOT NULL,
     favorites TEXT NOT NULL,
-    status INTEGER NOT NULL
+    status INTEGER NOT NULL,
+    darkmode INTEGER NOT NULL
 );
 
-INSERT INTO allusers (time, email, loginname, password ,role ,favorites ,status) 
-VALUES (datetime('now'),'admin@admin.de' , 'admin','$2b$10$1qd0/8ogWCeGYGle2.sw7.rr851zjo7HgDIMSi.0Eq7pMin8xEF4.','admin','/admin',1);
+INSERT INTO allusers (time, email, loginname, password, role, favorites, status, darkmode) 
+VALUES (datetime('now'),'admin@admin.de' , 'admin','$2b$10$1qd0/8ogWCeGYGle2.sw7.rr851zjo7HgDIMSi.0Eq7pMin8xEF4.','admin','/admin', 1, 0);
 

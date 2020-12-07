@@ -1,4 +1,4 @@
-/* JS-Funktionen für Login- & Registrierungsformular */
+/* JS-Funktionen für Formulare */
 /* JS-Funktion um POST-Requests über Javascript abzuwickeln */
 
 
@@ -213,4 +213,19 @@ function getFormatName(format) {
     default:
       return "not defined";
   }    
+}
+
+/*
+Darkmode-Toggle (Settings-Page)
+*/
+
+function changeDarkmode() {
+  const theme = document.querySelector("#stylesheet-theme");
+  if (document.getElementById("darkmode").checked == true) {
+      document.getElementById("darkmode").setAttribute('value', 1);
+      theme.href = "stylesheet-dark.css";
+  } else {
+      document.getElementById("darkmode").setAttribute('value', 0);
+      theme.href = "stylesheet.css";
+  }
 }
