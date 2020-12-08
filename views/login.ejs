@@ -1,4 +1,4 @@
-<!-- Logout Confirmation -->
+<!-- Login -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,11 +11,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Share+Tech+Mono&display=swap" rel="stylesheet"> 
         
         <!-- Laden des CSS-Stylesheets -->
-        <link rel="stylesheet" href="/stylesheet.css">
+        <link rel="stylesheet" href="<%=stylesheet%>">
         
         <!-- Meta-Daten -->
-        <title>Codex - Logout</title>
-        <meta http-equiv="refresh" content="3; URL=/welcome">
+        <title>Codex - Login</title>
     </head>
     <body>
         <!-- Navigation & Website-Header -->
@@ -28,12 +27,26 @@
             </div>
         </div>
         <div style="margin-top: 109px;"></div>
-        <!-- Logout-Nachricht -->
-        <div class="flex-container" style="min-height: 400px;">
-            <div style="padding: 25px 75px 75px 75px;">
-                <h1>Erfolgreich abgemeldet...!</h1>
-                <p><b>Bitte warte einen kleinen Moment. Du wirst in 3 Sekunden weitergeleitet...</b><br>
-                        Sollte die Weiterleitung nicht funktionieren, <a href="/welcome">klicke bitte hier.</a></p>
+        <!-- Logindialog -->
+        <div class="flex-container" style="align-items: center; min-height: 400px;">
+            <div class="inner" style="justify-content: flex-start; flex-direction: column; align-items: center;">
+                <div>
+                    <h1>Login</h1>
+                    <p>Bitte melde dich mit deinen Nutzerdaten an.</p>
+                    <p class="error-text" style="<%=wrongName%>">Benutzername existiert nicht.</p>
+                    <p class="error-text" style="<%=wrongPass%>">Passwort falsch.</p>
+                    <form action="login" method="POST"> 
+                            <div>
+                                <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>
+                                <input type="text" name="loginname" class="forminput"><br>
+                            </div>
+                            <div style="margin-bottom: 35px;">
+                                <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
+                                <input type="password" name="password" class="forminput"><br>
+                            </div>
+                            <input type="submit" class="cta-button" style="width: 100px;" value="LOGIN">
+                    </form>
+                </div>
             </div>
         </div>
         <!-- Info-Box -->

@@ -11,7 +11,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Share+Tech+Mono&display=swap" rel="stylesheet"> 
         
         <!-- Laden des CSS-Stylesheets -->
-        <link rel="stylesheet" href="/stylesheet.css">
+        <link rel="stylesheet" href="<%=stylesheet%>">
         
         <!-- Laden der CodeMirror-Dateien -->
         <script src="/editCode/codemirror.js"></script>
@@ -40,10 +40,8 @@
         <!-- Flex-Container für Seiten-Menü und Inhalt -->
         <div class="inner" style="justify-content: flex-start; align-items: flex-start; max-width: 984px;">
             <div id="menu" class="side-menu">
-                <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 10px;">
-                    <h3 style="text-align: center; background-color: #FF9000; font-size: 24px;">MENÜ</h3>
-                </div>
-                <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
+                <div class="menu-hl">MENÜ</div>
+                <div class="menu-container">
                     <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
                     <p class="menu-button"><a href="/my-profile">[ My Snippets ]</b></a></p>
                     <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
@@ -53,15 +51,13 @@
                     </form>
                     <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
                 </div>
-                <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 15px;">
-                    <h3 style="text-align: center; background-color: #FF9000; font-size: 18px;">last visited</h3>
-                </div>
-                <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
-                    <p class="menu-button"><a href="">> user1235</b></a></p>
-                    <p class="menu-button"><a href="">> brother912</b></a></p>
-                    <p class="menu-button"><a href="">> nutzernam11 </b></a></p>
-                    <p class="menu-button"><a href="">> benutzer9s1</b></a></p>
-                    <p class="menu-button"><a href="">> benutzer</b></a></p>
+                <div class="menu-hl" style="font-size: 19px;">last visited</div>
+                <div class="menu-container">
+                    <p class="menu-button"><a href="/profile?view=<%=lastvis1%>">> <%=lastvis1%></b></a></p>
+                    <p class="menu-button"><a href="/profile?view=<%=lastvis2%>">> <%=lastvis2%></b></a></p>
+                    <p class="menu-button"><a href="/profile?view=<%=lastvis3%>">> <%=lastvis3%></b></a></p>
+                    <p class="menu-button"><a href="/profile?view=<%=lastvis4%>">> <%=lastvis4%></b></a></p>
+                    <p class="menu-button"><a href="/profile?view=<%=lastvis5%>">> <%=lastvis5%></b></a></p>
                 </div>
             </div>
             <div class="flex-container" style="align-items: center; min-height: 350px; width: 100%;">
@@ -77,9 +73,9 @@
         <div class="code-head" style="background-color: #FF9000; border-top-right-radius: 0%;">
             <p class="code-desc" id="code-desc" style="width: 60%; background-color: #FF9000; color: #1f2430;"><%= favSnippets[i].description %></p>
             <table id=<%= `codeInfo${favSnippets[i].id}` %> style="color: #1f2430;">
-                <tr style="background-color: transparent;"><td style="border: none;"><span style="text-decoration: underline;">last edited</span>:</td><td style="border: none;"><%= `${favSnippets[i].edited}` %></td></tr>
-                <tr style="background-color: transparent;"><td style="border: none;"><span style="text-decoration: underline;">Format</span>:</td><td name=<%= `language${favSnippets[i].id}` %> style="border: none;">Sprache</td></tr>
-                <tr style="background-color: transparent;"><td style="border: none;"><span style="text-decoration: underline;">User</span>:</td><td style="border: none;"><a class="codelink" href="profile?view=<%= favSnippets[i].loginname %>" style="color:#1f2430;"><%= favSnippets[i].loginname %></a></td></tr>
+                <tr style="background-color: transparent;"><td class="td-fav" style="border: none;"><span style="text-decoration: underline;">last edited</span>:</td><td class="td-fav" style="border: none;"><%= `${favSnippets[i].edited}` %></td></tr>
+                <tr style="background-color: transparent;"><td class="td-fav" style="border: none;"><span style="text-decoration: underline;">Format</span>:</td><td class="td-fav" name=<%= `language${favSnippets[i].id}` %> style="border: none;">Sprache</td></tr>
+                <tr style="background-color: transparent;"><td class="td-fav" style="border: none;"><span style="text-decoration: underline;">User</span>:</td><td class="td-fav" style="border: none;"><a class="codelink" href="profile?view=<%= favSnippets[i].loginname %>" style="color:#1f2430;"><%= favSnippets[i].loginname %></a></td></tr>
                 <!-- Kurzes Script, um die entsprechende Sprache einzusetzen-->
                 <script>
                     var formatLang = "<%= favSnippets[i].format %>";

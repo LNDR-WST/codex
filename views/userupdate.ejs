@@ -11,7 +11,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Share+Tech+Mono&display=swap" rel="stylesheet"> 
         
         <!-- Laden des CSS-Stylesheets -->
-        <link rel="stylesheet" href="/stylesheet.css">
+        <link rel="stylesheet" href="<%=stylesheet%>">
         
         <!-- Laden der CodeMirror-Dateien -->
         <script src="/editCode/codemirror.js"></script>
@@ -40,28 +40,24 @@
         <!-- Flex-Container für Seiten-Menü und Inhalt -->
         <div class="inner" style="justify-content: flex-start; align-items: flex-start; max-width: 984px;">
             <div id="menu" class="side-menu">
-                <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 10px;">
-                    <h3 style="text-align: center; background-color: #FF9000; font-size: 24px;">MENÜ</h3>
-                </div>
-                <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
+                <div class="menu-hl">MENÜ</div>
+                <div class="menu-container">
                     <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
                     <p class="menu-button"><a href="/my-profile">[ My Snippets ]</b></a></p>
                     <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
                     <form action="/favorites" method="POST" id="favLink" class="menu-button">
-                        <input type="hidden" name="userTab" value="<%= loginname %>">
+                        <input type="hidden" name="userTab" value="<%= rows.loginname %>">
                         <input type="submit" value="[ Favorites ]">
                     </form>
                     <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
                 </div>
-                <div style="width: 130px; padding: 0; margin-bottom: 5px; margin-top: 15px;">
-                    <h3 style="text-align: center; background-color: #FF9000; font-size: 18px;">last visited</h3>
-                </div>
-                <div style="width: 104px; border-style: solid; border-color: #FF9000; padding: 10px;">
-                    <p class="menu-button"><a href="">> user1235</b></a></p>
-                    <p class="menu-button"><a href="">> brother912</b></a></p>
-                    <p class="menu-button"><a href="">> nutzernam11 </b></a></p>
-                    <p class="menu-button"><a href="">> benutzer9s1</b></a></p>
-                    <p class="menu-button"><a href="">> benutzer</b></a></p>
+                <div class="menu-hl" style="font-size: 19px;">last visited</div>
+                <div class="menu-container">
+                    <p class="menu-button"><a href="/profile?view=<%=lastvis1%>">> <%=lastvis1%></b></a></p>
+                    <p class="menu-button"><a href="/profile?view=<%=lastvis2%>">> <%=lastvis2%></b></a></p>
+                    <p class="menu-button"><a href="/profile?view=<%=lastvis3%>">> <%=lastvis3%></b></a></p>
+                    <p class="menu-button"><a href="/profile?view=<%=lastvis4%>">> <%=lastvis4%></b></a></p>
+                    <p class="menu-button"><a href="/profile?view=<%=lastvis5%>">> <%=lastvis5%></b></a></p>
                 </div>
             </div>
             <div class="flex-container" style="align-items: center; min-height: 350px; width: 100%;">
@@ -71,10 +67,10 @@
                         <p style="margin-left: 20px; margin-right: 20px;">Hier kannst du Nutzer bearbeiten.</p>
                         <div>
                             <!-- Formular zum bearbeiten des Nutzers-->
-                            <form action="/onupdate/<%=id%>" method="POST" style="display: flex; flex-direction: column; margin: 25px 15px 25px 15px;">
+                            <form action="/onupdate/<%=rows.id%>" method="POST" style="display: flex; flex-direction: column; margin: 25px 15px 25px 15px;">
                                 <div style="display: flex; justify-content: space-between; margin: 5px;">
                                     <label for="user" class="formlabel">User-/Loginname:</label>
-                                    <input class="forminput" type="text" name="loginname" value="<%=loginname%>">
+                                    <input class="forminput" type="text" name="loginname" value="<%=rows.loginname%>">
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin: 5px;">
                                     <label for="password" class="formlabel">Passwort:</label>
@@ -82,7 +78,7 @@
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin: 5px;">
                                     <label for="email" class="formlabel">E-Mail:</label>
-                                    <input class="forminput" type="text" name="email" value="<%=email%>">
+                                    <input class="forminput" type="text" name="email" value="<%=rows.email%>">
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin: 5px;">
                                     <label for="role" class="formlabel">Rolle:</label>
@@ -104,8 +100,8 @@
                                     <button class="cta-button" type="submit" >Speichern</button>
                                     <a href="/userlist" class="cta-button">Abbrechen</a>
                                 </div>
-                                <input class="forminput" type="hidden" name="id" value="<%=id%>">
-                                <input class="forminput" type="hidden" name="favorites" value="/<%=loginname%>">
+                                <input class="forminput" type="hidden" name="id" value="<%=rows.id%>">
+                                <input class="forminput" type="hidden" name="favorites" value="/<%=rows.loginname%>">
                             </form>
                             <!-- Javascript, um Dropdown vorauszuwählen -->
                             <!-- Quelle: https://www.daftlogic.com/information-programmatically-preselect-dropdown-using-javascript.htm -->
@@ -121,8 +117,8 @@
                                     }
                                     return;
                                 }
-                                setSelectedIndex(document.getElementById("role"),"<%= role %>");
-                                setSelectedIndex(document.getElementById("status"),"<%= status %>");
+                                setSelectedIndex(document.getElementById("role"),"<%= rows.role %>");
+                                setSelectedIndex(document.getElementById("status"),"<%= rows.status %>");
                             </script>
                         </div>
                     </div>
