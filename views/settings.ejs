@@ -64,8 +64,17 @@
                 <div class="flex-container" style="align-items: center; min-height: 350px; width: 100%;">
                     <div class="inner" style="justify-content: flex-start; width: 100%;">
                         <div style="margin-left: 14%; width: 100%;">
-                            <h1 style="margin-left: 20px; margin-right: 20px;">Einstellungen</h1>
-                            <p style="margin-left: 20px; margin-right: 20px;">Deine persönlichen Einstellungen:</p>
+                            <div class="inner" style="justify-content: space-between; flex-direction: row; flex-wrap: nowrap;">
+                                <div class="inner" style="justify-content: flex-start; flex-direction: column; align-items: flex-start; width: 100%;">
+                                    <h1 style="margin-left: 20px; margin-right: 20px;">Einstellungen</h1>
+                                    <p style="margin-left: 20px; margin-right: 20px;">Deine persönlichen Einstellungen:</p>
+                                </div>
+                                <div style="background-color: #FF9000; clip-path: circle(65px at center);">
+                                    <div style="clip-path: circle(60px at center);">
+                                        <img src="/img/profileImages/<%=profilepic%>" style="height: 150px;"></img>
+                                    </div>
+                                </div>
+                            </div>
                             <div style="min-height: 700px;">
                                 <div style="<%=errorMessage%>">
                                     <p style="background-color: #ffb4b4; text-align: center; padding: 25px;">
@@ -76,13 +85,14 @@
                                     </p>
                                 </div>
                                 <!-- Formular zum bearbeiten des Nutzers-->
-                                <form action="/selfupdate" method="POST" style="display: flex; flex-direction: column; margin: 25px 15px 25px 15px;">
-                                    <!-- <div style="display: flex; justify-content: space-between; margin: 5px;">
-                                        <label for="user" class="formlabel">User-/Loginname:</label>
-                                        <input class="forminput" type="text" name="loginname" value="<%=currentLoginname%>">
-                                    </div> -->
+                                <form action="/selfupdate" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; margin: 25px 15px 25px 15px;">
                                     <div style="display: flex; justify-content: space-between; margin: 5px;">
-                                        <label for="password" class="formlabel">Passwort:</label>
+                                        <label for="image" class="formlabel">Profilbild:</label>
+                                        <input class="forminput" type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .gif">
+                                    </div>
+                                    <div style="align-self: flex-end;"><p style="font-size: 12px; margin: 0px; color: red;">*.jpg, *.png, *.gif; max. 1 MB</p></div>
+                                    <div style="display: flex; justify-content: space-between; margin: 5px;">
+                                        <label for="password" class="formlabel">Passwort ändern:</label>
                                         <input class="forminput" type="password" name="password" id="password1" oninput="checkPass()" placeholder="mind. 8 Zeichen">
                                     </div>
                                     <div style="margin-left: 9px;">

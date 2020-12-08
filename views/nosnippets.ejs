@@ -63,8 +63,19 @@
                 <div class="flex-container" style="align-items: center; min-height: 350px; width: 100%;">
                     <div class="inner" style="justify-content: flex-start; width: 100%;">
                         <div style="margin-left: 14%; width: 100%;">
-                            <h1 style="margin-left: 20px; margin-right: 20px;"><i><%=username%>s</i> Profil</h1>
-                            <p style="margin-left: 20px; margin-right: 20px;"><%=username%> hat die folgenden Code-Snippets erstellt:</p>
+                            <div class="inner" style="justify-content: flex-start; flex-direction: row; flex-wrap: nowrap; margin: 0px;">
+                                <div style="background-color: #FF9000; clip-path: circle(65px at center); margin-right: 5%;">
+                                    <div style="clip-path: circle(60px at center);">
+                                        <img src="/img/profileImages/<%=profilepic%>" style="height: 130px;"></img>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h1 style="margin-left: 20px; margin-right: 20px;"><i><%=username%>s</i> Profil</h1>
+                                    <p style="margin-left: 20px; margin-right: 20px;">
+                                        <%=username%> hat die folgenden Code-Snippets erstellt:
+                                    </p>
+                                </div>
+                            </div>
                             <div style="min-height: 700px; width: 95%;">
                                 <p class="error-text">
                                     <b><%=username%> hat bisher keine Code-Snippets erstellt!</b><br><br>

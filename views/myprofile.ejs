@@ -76,12 +76,20 @@
                 <div class="flex-container" style="align-items: center; min-height: 350px;">
                     <div class="inner" style="justify-content: flex-start;">
                     <div style="margin-left: 14%;">
-                        <h1 style="margin-left: 20px; margin-right: 20px;">Hallo, <i><%= username %></i>!</h1>
-                        <p style="margin-left: 20px; margin-right: 20px;">Willkommen in deinem persönlichen Bereich.
-                            Hier kannst du neue Code-Snippets anlegen, bestehende bearbeiten oder wieder entfernen.
-                            Über die Navigation links kommst du zu weiteren Bereichen, kannst Favoriten speichern und Code-Lösungen von anderen Nutzern entdecken. 
-                            <br><br>
-                            Viel Spaß!</p>
+                        <h1 style="margin-left: 20px; margin-right: 20px;">Hallo, <span style="text-decoration: underline; text-decoration-color: #FF9000;"><i><%= username %></i></span>!</h1>
+                        <div class="inner" style="justify-content: space-between; flex-direction: row; flex-wrap: nowrap; margin: 0px;">
+                            <p>Willkommen in deinem persönlichen Bereich.
+                                Hier kannst du neue Code-Snippets anlegen, bestehende bearbeiten oder wieder entfernen.
+                                Über die Navigation links kommst du zu weiteren Bereichen, kannst Favoriten speichern und Code-Lösungen von anderen Nutzern entdecken. 
+                                <br><br>
+                                Viel Spaß!
+                            </p>
+                            <div style="background-color: #FF9000; clip-path: circle(65px at center); margin-right: 5%;">
+                                <div style="clip-path: circle(60px at center);">
+                                    <img src="/img/profileImages/<%=profilepic%>" style="height: 130px;"></img>
+                                </div>
+                            </div>
+                        </div>
 <div style="width: 95%;">
 <!-- Hier beginnt der for Loop zum erstellen der Editorfelder -->   
     <% for(var i = 0; i < codelist.length; i++){ %>

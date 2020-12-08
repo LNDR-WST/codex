@@ -16,4 +16,6 @@ npm install express-session --save
 
 npm install codemirror --save // Zur Sicherheit (sollte eigentlich nicht erforderlich sein)
 
+npm install express-fileupload --save
+
 Userdaten generiert mit https://www.generatedata.com/

@@ -79,10 +79,19 @@
                     <p class="error-text" style="<%=errorStyle%>">
                         <b>Code bereits in Favoriten!</b><br>
                     </p>
-                    <h1 style="margin-left: 20px; margin-right: 20px;"><i><%=username%>s</i> Profil</h1>
-                    <p style="margin-left: 20px; margin-right: 20px;">
-                        <%=username%> hat die folgenden Code-Snippets erstellt:
-                    </p>
+                    <div class="inner" style="justify-content: flex-start; flex-direction: row; flex-wrap: nowrap; margin: 0px;">
+                        <div style="background-color: #FF9000; clip-path: circle(65px at center); margin-right: 5%;">
+                            <div style="clip-path: circle(60px at center);">
+                                <img src="/img/profileImages/<%=profilepic%>" style="height: 130px;"></img>
+                            </div>
+                        </div>
+                        <div>
+                            <h1 style="margin-left: 20px; margin-right: 20px;"><i><%=username%>s</i> Profil</h1>
+                            <p style="margin-left: 20px; margin-right: 20px;">
+                                <%=username%> hat die folgenden Code-Snippets erstellt:
+                            </p>
+                        </div>
+                    </div>
 <div style="width: 95%;">
 <!-- Hier beginnt der for Loop zum erstellen der Editorfelder -->   
     <% for(var i = 0; i < codelist.length; i++){ %>

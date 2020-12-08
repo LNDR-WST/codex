@@ -33,6 +33,9 @@ app.use(session({
     resave:false
 }));
 
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
+
 /*
 ###############################################
 ####              Server-Start             ####
@@ -139,7 +142,7 @@ app.get("/my-profile", function(req, res)
                     }
                     
 
-                    res.render("myprofile", {username: sessionValueName, codelist: param_userCodeInfo, stylesheet: stylesheet,  
+                    res.render("myprofile", {username: sessionValueName, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: req.session.imageValue, 
                         lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
                 })
     }
@@ -193,6 +196,8 @@ app.get("/profile", function(req, res)
 
                     if (rows.length > 0) {
                     
+                        let profilepic = getImage(profileName);
+
                         const param_userCodeInfo = rows;
                         let stylesheet = "/stylesheet.css";
                         if (req.cookies.darkmode == 1) {
@@ -204,13 +209,14 @@ app.get("/profile", function(req, res)
                         }
 
                         res.render("profiles", {username: profileName, codelist: param_userCodeInfo, sessionName: req.session.sessionValue, stylesheet: stylesheet, errorStyle: errorMessage,
-                                                lastvis1: lv1, lastvis2: lv2, lastvis3: lv3, lastvis4: lv4, lastvis5: lv5});
+                                                lastvis1: lv1, lastvis2: lv2, lastvis3: lv3, lastvis4: lv4, lastvis5: lv5, profilepic: profilepic});
                     } else {
+                        let profilepic = getImage(profileName);
                         let stylesheet = "/stylesheet.css";
                         if (req.cookies.darkmode == 1) {
                             stylesheet = "/stylesheet-dark.css";
                         }
-                        res.render("nosnippets", {username: profileName, stylesheet: stylesheet, 
+                        res.render("nosnippets", {username: profileName, stylesheet: stylesheet, profilepic: profilepic, 
                             lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
                     }
                 });
@@ -314,11 +320,12 @@ app.get("/settings", function(req, res)
             const id = rows[0].id;
             const loginname = rows[0].loginname;
             const password = rows[0].password;
+            const image = rows[0].image;
             let stylesheet = "/stylesheet.css";
             if (req.cookies.darkmode == 1) {
                 stylesheet = "/stylesheet-dark.css";
             }
-            res.render("settings", {currentID: id, currentEmail: email, currentLoginname: loginname, currentPassword: password, errorMessage: "display:none;", stylesheet: stylesheet, 
+            res.render("settings", {currentID: id, currentEmail: email, currentLoginname: loginname, currentPassword: password, errorMessage: "display:none;", stylesheet: stylesheet, profilepic: image,  
             lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
         });
     }
@@ -400,12 +407,13 @@ app.post('/login', function(req,res)
 {
     const param_loginname = req.body.loginname;
     const param_password = req.body.password;
-    db.all(`SELECT password, darkmode FROM allusers WHERE loginname ='${param_loginname}'`,
+    db.all(`SELECT password, darkmode, image FROM allusers WHERE loginname ='${param_loginname}'`,
     function(err,rows)
     {
         if (rows.length==1)
         {
             let darkmode = rows[0].darkmode;
+            const image = rows[0].image;
             const hash = rows[0].password;
             const isValid = bcrypt.compareSync(param_password, hash);
             if (isValid==true)
@@ -418,6 +426,9 @@ app.post('/login', function(req,res)
                     res.cookie('darkmode', 0, {'maxAge': maxAge});
                 }
                 req.session.sessionValue = param_loginname;
+                req.session.imageValue = image; //
+                //console.log(req.session.sessionValue);
+                //console.log(req.session.imageValue);
                 codedb.all(`SELECT id, headline, description, code, edited, format, cmmode FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
@@ -426,7 +437,7 @@ app.post('/login', function(req,res)
                     if (darkmode == 1) {
                         stylesheet = "/stylesheet-dark.css";
                     }
-                    res.render("myprofile", {username: param_loginname, codelist: param_userCodeInfo, stylesheet: stylesheet, 
+                    res.render("myprofile", {username: param_loginname, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: req.session.imageValue, 
                         lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
                 })
             }
@@ -660,6 +671,21 @@ app.post("/selfupdate", function(req,res)
     const emailMatches = email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     const password = req.body.password;
     const password2 = req.body.password2;
+    // Profilbild es wird noch nicht geprüft, ob das richtige Format und die zugelassene Größe hochgeladen wurde:
+    let image;
+    const now = new Date();
+    let newFilename;
+    if (req.files == null) { // hier wird der Fall abgefangen, dass kein neues Bild hochgeladen wurde.
+        image = req.session.imageValue;
+        newFilename = image;
+    } else {
+        image = req.files.image;
+        newFilename = now.valueOf() + "_" + image.name;
+        image.mv(__dirname + '/public/img/profileImages/' + newFilename);
+        req.session.imageValue = newFilename;
+    }
+    console.log(newFilename);
+
     let darkmode = req.body.darkmode;
     if (darkmode != 1) { // Ist die Checkbox (der Slider) nicht aktiviert, wird standardmäßig kein Value-Wert übergeben. Daher wird in diesem Fall hier der Wert auf 0 gesetzt.
         darkmode = 0;
@@ -678,17 +704,18 @@ app.post("/selfupdate", function(req,res)
             const id = rows[0].id;
             const loginname = rows[0].loginname;
             const password = rows[0].password;
+            const image = rows[0].image;
             let stylesheet = "/stylesheet.css";
             if (req.cookies.darkmode == 1) {
                 stylesheet = "/stylesheet-dark.css";
             }
-            res.render("settings", {currentID: id, currentEmail: email, currentLoginname: loginname, currentPassword: password, errorMessage: "display:block", stylesheet: stylesheet, 
+            res.render("settings", {currentID: id, currentEmail: email, currentLoginname: loginname, currentPassword: password, errorMessage: "display:block", stylesheet: stylesheet, profilepic: image,  
             lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
         });
     } else {
         if (password === "") { // wurde das Passwortfeld leer gelassen, wird das Passwort nicht geändert
                     db.run(
-                    `UPDATE allusers SET loginname="${loginname}", email="${email}", darkmode=${darkmode} WHERE id=${id}`,
+                    `UPDATE allusers SET loginname="${loginname}", email="${email}", darkmode=${darkmode}, image="${newFilename}" WHERE id=${id}`,
                     function(err) {
                         if (err) {
                             console.log(err);
@@ -701,7 +728,7 @@ app.post("/selfupdate", function(req,res)
                 hash => {
                     console.log('Your hash: ', hash);
                     db.run(
-                    `UPDATE allusers SET loginname="${loginname}", password="${hash}", email="${email}", darkmode=${darkmode} WHERE id=${id}`,
+                    `UPDATE allusers SET loginname="${loginname}", password="${hash}", email="${email}", darkmode=${darkmode}, image="${newFilename}" WHERE id=${id}`,
                     function(err) {
                         if (err) {
                             console.log(err);
@@ -756,3 +783,27 @@ app.post("/favorites", function(req,res) {
     });
     res.redirect("/favorites");
 });
+
+// Profilbild abfragen
+/* 
+Ist leider noch verbuggt: Ist der Server nicht schnell genug, kann das Bild nicht schnell genug abgefragt werden.
+Fehler passieren auch noch, wenn die Funktion von verschiedenen Tabs gleichzeitig oder direkt hintereinander aufgerufen wird.
+Die Profilbilder kommen so durcheinander und werden nicht korrekt angezeigt.
+Müsste man noch einmal dran feilen. Aktuell schaffe ich es aber nicht, eine Datenbankabfrage zu machen und dann das Objekt als 
+**lesbares** Objekt zu übergeben, damit die Bilddatei als String ausgelesen werden kann.
+*/
+
+let profilepicvar = "default.jpg";
+function getImage(loginname){
+    let query = `SELECT image FROM allusers WHERE loginname ='${loginname}'`;
+    db.all(query, function (err, rows) {
+      if(err){
+          console.log(err);
+      }else{
+          profilepicvar = rows[0].image;
+      }
+    });
+    console.log(profilepicvar);
+    return profilepicvar;
+  }
+

@@ -542,14 +542,22 @@ border-radius: 3px;
 }
 
 /* Button-Style hover */
+.cta-button:visited {
+  color: white;
+}
+
 .cta-button:hover {
   color: #FF9000;
   background-color: white;
   cursor: pointer;
 }
 
-.cta-button:visited {
-  color: transparent;
+.cta-button + a:visited {
+  color: white;
+}
+
+.cta-button + a:hover {
+  color: #FF9000;
 }
 
 /* Button-Style inverted */
