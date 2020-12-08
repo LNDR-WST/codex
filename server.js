@@ -196,7 +196,7 @@ app.get("/profile", function(req, res)
 
                     if (rows.length > 0) {
                     
-                        let profilepic = getImage(profileName);
+                        // let profilepic = getImage(profileName); 
 
                         const param_userCodeInfo = rows;
                         let stylesheet = "/stylesheet.css";
@@ -209,14 +209,14 @@ app.get("/profile", function(req, res)
                         }
 
                         res.render("profiles", {username: profileName, codelist: param_userCodeInfo, sessionName: req.session.sessionValue, stylesheet: stylesheet, errorStyle: errorMessage,
-                                                lastvis1: lv1, lastvis2: lv2, lastvis3: lv3, lastvis4: lv4, lastvis5: lv5, profilepic: profilepic});
+                                                lastvis1: lv1, lastvis2: lv2, lastvis3: lv3, lastvis4: lv4, lastvis5: lv5, profilepic: "default.jpg"});
                     } else {
-                        let profilepic = getImage(profileName);
+                        // let profilepic = getImage(profileName);
                         let stylesheet = "/stylesheet.css";
                         if (req.cookies.darkmode == 1) {
                             stylesheet = "/stylesheet-dark.css";
                         }
-                        res.render("nosnippets", {username: profileName, stylesheet: stylesheet, profilepic: profilepic, 
+                        res.render("nosnippets", {username: profileName, stylesheet: stylesheet, profilepic: "default.jpg", 
                             lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
                     }
                 });
@@ -784,7 +784,7 @@ app.post("/favorites", function(req,res) {
     res.redirect("/favorites");
 });
 
-// Profilbild abfragen
+// Profilbild abfragen ## Ist auskommentiert (ebenfalls in den Post/Get-Requests, weil es zu Fehlern kommt.)
 /* 
 Ist leider noch verbuggt: Ist der Server nicht schnell genug, kann das Bild nicht schnell genug abgefragt werden.
 Fehler passieren auch noch, wenn die Funktion von verschiedenen Tabs gleichzeitig oder direkt hintereinander aufgerufen wird.
@@ -793,7 +793,7 @@ Müsste man noch einmal dran feilen. Aktuell schaffe ich es aber nicht, eine Dat
 **lesbares** Objekt zu übergeben, damit die Bilddatei als String ausgelesen werden kann.
 */
 
-let profilepicvar = "default.jpg";
+/* let profilepicvar = "default.jpg";
 function getImage(loginname){
     let query = `SELECT image FROM allusers WHERE loginname ='${loginname}'`;
     db.all(query, function (err, rows) {
@@ -806,4 +806,4 @@ function getImage(loginname){
     console.log(profilepicvar);
     return profilepicvar;
   }
-
+ */
