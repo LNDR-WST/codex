@@ -549,7 +549,7 @@ app.post('/onChangeCode/', function(req, res) {
         }
     const timestamp = req.body.edited;
     // Anführungszeichen "" werden bisher nicht erkanntr
-    const sql = `UPDATE allcode SET code="${code}", headline='${head}', description='${desc}', format='${format}', cmmode='${cmMode}', edited='${timestamp}' WHERE id=${id}`;
+    const sql = `UPDATE allcode SET code='${code}', headline='${head}', description='${desc}', format='${format}', cmmode='${cmMode}', edited='${timestamp}' WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
         console.log("Code-Snippet geändert"); // Message zum Debugging
