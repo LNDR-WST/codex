@@ -541,6 +541,7 @@ app.post('/onChangeCode/', function(req, res) {
     const head = req.body.head;
     const desc = req.body.desc;
     const code = req.body.code;
+    const finalCode = code.replace(/\'/g,"''");
     const format = req.body.format;
     let cmMode; // cmMode wird im nachfolgenden je nach Snippet-Format gesetzt; perspektivisch ließe sich evtl. auch das "cmmode"-Feld in der DB einsparen
         switch (format) {
@@ -579,8 +580,8 @@ app.post('/onChangeCode/', function(req, res) {
                 cmMode = format;
         }
     const timestamp = req.body.edited;
-    // Anführungszeichen "" werden bisher nicht erkannt
-    const sql = `UPDATE allcode SET code='${code}', headline='${head}', description='${desc}', format='${format}', cmmode='${cmMode}', edited='${timestamp}' WHERE id=${id}`;
+
+    const sql = `UPDATE allcode SET code='${finalCode}', headline='${head}', description='${desc}', format='${format}', cmmode='${cmMode}', edited='${timestamp}' WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
         console.log("Code-Snippet geändert"); // Message zum Debugging
@@ -832,29 +833,3 @@ app.post("/favorites", function(req,res) {
     });
     res.redirect("/favorites");
 });
-
-// Profilbild abfragen ## Ist auskommentiert (ebenfalls in den Post/Get-Requests, weil es zu Fehlern kommt.)
-/* 
-Ist leider noch verbuggt: Ist der Server nicht schnell genug, kann das Bild nicht schnell genug abgefragt werden.
-Fehler passieren auch noch, wenn die Funktion von verschiedenen Tabs gleichzeitig oder direkt hintereinander aufgerufen wird.
-Die Profilbilder kommen so durcheinander und werden nicht korrekt angezeigt.
-Müsste man noch einmal dran feilen. Aktuell schaffe ich es aber nicht, eine Datenbankabfrage zu machen und dann das Objekt als 
-**lesbares** Objekt zu übergeben, damit die Bilddatei als String ausgelesen werden kann.
-*/
-
-/* let profilepicvar = "default.jpg";
-function getImage(loginname){
-    let query = `SELECT image FROM allusers WHERE loginname ='${loginname}'`;
-    db.all(query, function (err, rows) {
-      if(err){
-          console.log(err);
-      }else{
-          profilepicvar = rows[0].image;
-      }
-    });
-    console.log(profilepicvar);
-    return profilepicvar;
-  }
- */
-
- 
