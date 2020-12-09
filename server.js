@@ -140,10 +140,17 @@ app.get("/my-profile", function(req, res)
                     if (req.cookies.darkmode == 1) {
                         stylesheet = "/stylesheet-dark.css";
                     }
-                    
+                    db.all(`SELECT image FROM allusers WHERE loginname ='${sessionValueName}'`, function(err, rows) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            const pic = rows[0].image;
+                            console.log(pic);
 
-                    res.render("myprofile", {username: sessionValueName, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: req.session.imageValue, 
-                        lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                            res.render("myprofile", {username: sessionValueName, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: pic, 
+                                lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                        }
+                    });
                 })
     }
 });
@@ -195,8 +202,6 @@ app.get("/profile", function(req, res)
                     res.cookie('lastvisit5', lv5, {'maxAge': maxAge});
 
                     if (rows.length > 0) {
-                    
-                        // let profilepic = getImage(profileName); 
 
                         const param_userCodeInfo = rows;
                         let stylesheet = "/stylesheet.css";
@@ -207,17 +212,35 @@ app.get("/profile", function(req, res)
                         if (errorStatus == 1) {
                             errorMessage = "display:block;";
                         }
+                        db.all(`SELECT image FROM allusers WHERE loginname ='${profileName}'`, function(err, rows) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                const pic = rows[0].image;
+                                console.log(pic);
 
-                        res.render("profiles", {username: profileName, codelist: param_userCodeInfo, sessionName: req.session.sessionValue, stylesheet: stylesheet, errorStyle: errorMessage,
-                                                lastvis1: lv1, lastvis2: lv2, lastvis3: lv3, lastvis4: lv4, lastvis5: lv5, profilepic: "default.jpg"});
+                                res.render("profiles", {username: profileName, codelist: param_userCodeInfo, sessionName: req.session.sessionValue, stylesheet: stylesheet, errorStyle: errorMessage,
+                                    lastvis1: lv1, lastvis2: lv2, lastvis3: lv3, lastvis4: lv4, lastvis5: lv5, profilepic: pic});
+                            }
+                        });
                     } else {
                         // let profilepic = getImage(profileName);
                         let stylesheet = "/stylesheet.css";
                         if (req.cookies.darkmode == 1) {
                             stylesheet = "/stylesheet-dark.css";
                         }
-                        res.render("nosnippets", {username: profileName, stylesheet: stylesheet, profilepic: "default.jpg", 
-                            lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                        
+                        db.all(`SELECT image FROM allusers WHERE loginname ='${profileName}'`, function(err, rows) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                const pic = rows[0].image;
+                                console.log(pic);
+
+                                res.render("nosnippets", {username: profileName, stylesheet: stylesheet, profilepic: pic, 
+                                    lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                            }
+                        });
                     }
                 });
     }
@@ -427,9 +450,7 @@ app.post('/login', function(req,res)
                     res.cookie('darkmode', 0, {'maxAge': maxAge});
                 }
                 req.session.sessionValue = param_loginname;
-                req.session.imageValue = image; // Cookie für Profilbild
                 console.log(req.session.sessionValue);
-                console.log(req.session.imageValue);
                 codedb.all(`SELECT id, headline, description, code, edited, format, cmmode FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
@@ -438,8 +459,17 @@ app.post('/login', function(req,res)
                     if (darkmode == 1) {
                         stylesheet = "/stylesheet-dark.css";
                     }
-                    res.render("myprofile", {username: param_loginname, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: req.session.imageValue, 
-                        lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                    db.all(`SELECT image FROM allusers WHERE loginname ='${param_loginname}'`, function(err, rows) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            const pic = rows[0].image;
+                            console.log(pic);
+
+                            res.render("myprofile", {username: param_loginname, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: pic, 
+                                lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                        }
+                    });
                 })
             }
             else
@@ -675,18 +705,18 @@ app.post("/selfupdate", function(req,res)
     const emailMatches = email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     const password = req.body.password;
     const password2 = req.body.password2;
+    const oldImage = req.body.oldImage;
     // Profilbild es wird noch nicht geprüft, ob das richtige Format und die zugelassene Größe hochgeladen wurde:
     let image;
     const now = new Date();
     let newFilename;
     if (req.files == null) { // hier wird der Fall abgefangen, dass kein neues Bild hochgeladen wurde.
-        image = req.session.imageValue;
+        image = oldImage;
         newFilename = image;
     } else {
         image = req.files.image;
         newFilename = now.valueOf() + "_" + image.name;
         image.mv(__dirname + '/public/img/profileImages/' + newFilename);
-        req.session.imageValue = newFilename;
     }
     console.log(newFilename);
 
@@ -811,3 +841,5 @@ function getImage(loginname){
     return profilepicvar;
   }
  */
+
+ 
