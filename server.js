@@ -619,8 +619,10 @@ app.post("/delete", function(req,res)
         function(err)
         {
             codedb.run(`DROP TABLE '${loginname}'`, function() { // hier wird die zugehörige Favoritentabelle des Nutzers gelöscht
-                console.log("Tabelle " + loginname + " wurde gelöscht.")
-                res.redirect("/userlist");
+                codedb.run(`DELETE FROM allcode WHERE loginname='${loginname}'`, function() { // hier werden alle zum User gehörigen Codes gelöscht
+                    console.log("Tabelle " + loginname + " wurde gelöscht.");
+                    res.redirect("/userlist");
+                });
             });
         }
     );
