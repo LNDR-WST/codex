@@ -429,6 +429,7 @@ app.post('/login', function(req,res)
                 req.session.imageValue = image; //
                 //console.log(req.session.sessionValue);
                 //console.log(req.session.imageValue);
+                //getImage(param_loginname)// Funktionstest zum Debuggen; kann im Nachgang gelöscht werden
                 codedb.all(`SELECT id, headline, description, code, edited, format, cmmode FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
