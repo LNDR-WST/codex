@@ -361,7 +361,7 @@ app.post('/newUser', function(req,res)
         const param_password2 = req.body.password2;
         const param_origin = req.body.origin; // Übergabe, von welcher Seite der Post-Request kommt
         //hier wird gechecked ob die Email "plausibel" ist.
-        const check = param_email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        const check = param_email.match(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/);
     
         db.all(`SELECT * FROM allusers WHERE loginname='${param_loginname}'`,
         function (err, rows)
