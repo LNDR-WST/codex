@@ -548,7 +548,7 @@ app.post('/onChangeCode/', function(req, res) {
                 cmMode = format;
         }
     const timestamp = req.body.edited;
-    // Anführungszeichen "" werden bisher nicht erkanntr
+    // Anführungszeichen "" werden bisher nicht erkannt
     const sql = `UPDATE allcode SET code='${code}', headline='${head}', description='${desc}', format='${format}', cmmode='${cmMode}', edited='${timestamp}' WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
