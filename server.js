@@ -685,15 +685,30 @@ app.post("/onupdate/:id", function(req,res)
     const favorites = req.body.favorites;
     const status = req.body.status;
     const role = req.body.role;
+    const oldLogin = req.body.oldLoginname;
 
-console.log(id);
-    db.run(
-        `UPDATE allusers SET loginname="${loginname}", password="${password}", email="${email}", favorites="${favorites}", status="${status}", role="${role}" WHERE id=${id}`,
-        function(err)
-        {
-            res.redirect("/userlist");
-        }
-    );
+    if (loginname != oldLogin) {
+        db.run(`UPDATE allusers SET loginname="${loginname}", password="${password}", email="${email}", favorites="/${loginname}", status="${status}", role="${role}" WHERE id=${id}`,
+            function(err)
+            {
+                codedb.run(`ALTER TABLE '${oldLogin}' RENAME TO '${loginname}'`, function(err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.redirect("/userlist");
+                    }
+                })
+            }
+        );
+    } else {
+        db.run(
+            `UPDATE allusers SET loginname="${loginname}", password="${password}", email="${email}", favorites="${favorites}", status="${status}", role="${role}" WHERE id=${id}`,
+            function(err)
+            {
+                res.redirect("/userlist");
+            }
+        );
+    }
 });
 
 // User Self-Update (via Settings)
