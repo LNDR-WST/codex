@@ -341,6 +341,9 @@ pre {
   font-family: 'Share Tech Mono', monospace;
   font-size: 12px;
   font-weight: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .menu-button > a {
