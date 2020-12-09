@@ -426,10 +426,9 @@ app.post('/login', function(req,res)
                     res.cookie('darkmode', 0, {'maxAge': maxAge});
                 }
                 req.session.sessionValue = param_loginname;
-                req.session.imageValue = image; //
-                //console.log(req.session.sessionValue);
-                //console.log(req.session.imageValue);
-                //getImage(param_loginname)// Funktionstest zum Debuggen; kann im Nachgang gelöscht werden
+                req.session.imageValue = image; // Cookie für Profilbild
+                console.log(req.session.sessionValue);
+                console.log(req.session.imageValue);
                 codedb.all(`SELECT id, headline, description, code, edited, format, cmmode FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
@@ -549,7 +548,8 @@ app.post('/onChangeCode/', function(req, res) {
                 cmMode = format;
         }
     const timestamp = req.body.edited;
-    const sql = `UPDATE allcode SET code='${code}', headline='${head}', description='${desc}', format='${format}', cmmode='${cmMode}', edited='${timestamp}' WHERE id=${id}`;
+    // Anführungszeichen "" werden bisher nicht erkanntr
+    const sql = `UPDATE allcode SET code="${code}", headline='${head}', description='${desc}', format='${format}', cmmode='${cmMode}', edited='${timestamp}' WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
         console.log("Code-Snippet geändert"); // Message zum Debugging
