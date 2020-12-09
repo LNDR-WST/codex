@@ -237,7 +237,7 @@ app.get("/favorites", function(req, res)
         const favTable = req.session.sessionValue; // Favoritentabelle = Loginname (ausgelesen von Session-Value)
         getFavsAndSend(favTable);
         function getFavsAndSend(favTable) {
-            codedb.all(`SELECT favid FROM ${favTable}`, function(err,rows2) {
+            codedb.all(`SELECT favid FROM '${favTable}'`, function(err,rows2) {
                 const favoriteSnippetIDs = rows2; // IDs der Favoriten (als JSON-Objekt) werden in Liste gespeichert
                 console.log("3) " + favoriteSnippetIDs); // for Debugging
                 var favList = []; // leere Liste für gesamte Code-Infos
@@ -362,15 +362,16 @@ app.post('/newUser', function(req,res)
         const param_origin = req.body.origin; // Übergabe, von welcher Seite der Post-Request kommt
         //hier wird gechecked ob die Email "plausibel" ist.
         const check = param_email.match(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/);
+        const check2 = param_loginname.match(/^[a-zA-Z0-9_]+([-.][a-zA-Z0-9_]+)*$/);
     
         db.all(`SELECT * FROM allusers WHERE loginname='${param_loginname}'`,
         function (err, rows)
         {// Test ob User bereits existiert und ob Passwort wiederholung korrekt und Passwort mehr als 7 zeichen hat
-            if (rows.length == 0 && param_password1 == param_password2 &&  check != null && param_password1.length > 7)  
+            if (rows.length == 0 && param_password1 == param_password2 &&  check != null && check2 != null && param_password1.length > 7)  
             {
                 const hash = bcrypt.hashSync(param_password1,10);
                 // Nachfolgend Tabelle für Favoriten je User erstellen
-                sql = `CREATE TABLE ${param_loginname}(id INTEGER PRIMARY KEY AUTOINCREMENT, favid INTEGER);`;
+                sql = `CREATE TABLE '${param_loginname}' (id INTEGER PRIMARY KEY AUTOINCREMENT, favid INTEGER);`;
                 codedb.run(sql, function(err)
                     {
                         db.run(
@@ -578,7 +579,7 @@ app.post('/editCode/', function(req, res) {
 app.post('/delfav', function(req, res) {
     const favtable = req.body.favTableName; // Tabellenname der Favoritentabelle
     const favid = req.body.favid; // ID des zu favorisierenden Codes
-    const sql =  `DELETE FROM ${favtable} WHERE favid=${favid}`;
+    const sql =  `DELETE FROM '${favtable}' WHERE favid=${favid}`;
     codedb.run(sql, function(err) { 
         res.redirect(`/favorites`);
     });
@@ -589,10 +590,10 @@ app.post('/addfav', function(req, res) {
     const favtable = req.body.favTableName; // Tabellenname der Favoritentabelle
     const favid = req.body.favid; // ID des zu favorisierenden Codes
     const origin = req.body.origin; // Name der Userseite, auf der favorisiert wurde (für redirect)
-    codedb.all(`SELECT * FROM ${favtable} WHERE favid=${favid}`, function(err, rows) {
+    codedb.all(`SELECT * FROM '${favtable}' WHERE favid=${favid}`, function(err, rows) {
         if (rows.length == 0) {
             console.log(rows);
-            const sql =  `INSERT INTO ${favtable}(favid) VALUES(${favid})`;
+            const sql =  `INSERT INTO '${favtable}'(favid) VALUES(${favid})`;
             codedb.run(sql, function(err) { 
                 res.redirect(`/profile?view=${origin}#code-heading${favid}`);
             });
@@ -617,7 +618,7 @@ app.post("/delete", function(req,res)
         `DELETE FROM allusers WHERE id=${id}`, // hier wird der Benutzer gelöscht
         function(err)
         {
-            codedb.run(`DROP TABLE ${loginname}`, function() { // hier wird die zugehörige Favoritentabelle des Nutzers gelöscht
+            codedb.run(`DROP TABLE '${loginname}'`, function() { // hier wird die zugehörige Favoritentabelle des Nutzers gelöscht
                 console.log("Tabelle " + loginname + " wurde gelöscht.")
                 res.redirect("/userlist");
             });
@@ -762,14 +763,14 @@ gesammelt und übergeben.
 
 app.post("/favorites", function(req,res) {
     favTable = req.body.userTab;
-    codedb.all(`SELECT favid FROM ${favTable}`, function(err,rows1) {
+    codedb.all(`SELECT favid FROM '${favTable}'`, function(err,rows1) {
         const favoriteSnippets = rows1;
         if (favoriteSnippets.length != 0) { 
             for (let i = 0; i < favoriteSnippets.length; i++) { // Schleife überprüft, ob favorisierte CodeIDs überhaupt noch existieren und löscht diese sonst aus FavList
                 codedb.all(`SELECT * FROM allcode WHERE id='${favoriteSnippets[i].favid}'`, function(err,availableCodes) {
                     console.log(`2) Code ${favoriteSnippets[i].favid} vorhanden: ${availableCodes.length}`); // Debugging
                     if (availableCodes.length == 0) {
-                        codedb.run(`DELETE FROM ${favTable} WHERE favid='${favoriteSnippets[i].favid}'`, function(err) {
+                        codedb.run(`DELETE FROM '${favTable}' WHERE favid='${favoriteSnippets[i].favid}'`, function(err) {
                             if (err) {
                                 throw err;
                             } else {
