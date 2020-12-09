@@ -7,8 +7,9 @@ CREATE TABLE allusers(
     password TEXT NOT NULL,
     role TEXT NOT NULL,
     favorites TEXT NOT NULL,
-    status INTEGER NOT NULL,
-    darkmode INTEGER NOT NULL
+    status INTEGER DEFAULT 1 NOT NULL,
+    darkmode INTEGER DEFAULT 0 NOT NULL,
+    image TEXT DEFAULT 'default.jpg' NOT NULL
 );
 
 INSERT INTO allusers (time, email, loginname, password, role, favorites, status, darkmode) 
