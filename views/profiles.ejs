@@ -86,13 +86,13 @@
                             </div>
                         </div>
                         <div>
-                            <h1 style="margin-left: 20px; margin-right: 20px;"><i><%=username%>s</i> Profil</h1>
+                            <h1 style="margin-left: 20px; margin-right: 20px;"><span style="text-decoration: underline; text-decoration-color: #FF9000;"><i><%=username%>s</i></span> Profil</h1>
                             <p style="margin-left: 20px; margin-right: 20px;">
                                 <%=username%> hat die folgenden Code-Snippets erstellt:
                             </p>
                         </div>
                     </div>
-<div style="width: 95%;">
+<div style="width: 95%; max-width: 800px;">
 <!-- Hier beginnt der for Loop zum erstellen der Editorfelder -->   
     <% for(var i = 0; i < codelist.length; i++){ %>
     <div id="code-heading<%= codelist[i].id %>" style="position:relative; top:-150px;"></div>

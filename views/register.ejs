@@ -52,8 +52,9 @@
                         </div>
                         <div>
                             <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>
-                            <input type="text" name="loginname" id="loginname" class="forminput" placeholder="Dein gewünschter Benutzername" required><br>
-                            <div class="error-msg loginname" style="display:<%=displayMode%>;">Name bereits vergeben.</div>
+                            <input type="text" name="loginname" id="loginname" class="forminput" placeholder='a-z A-Z 0-9; 1 Trennzeichen: "." "-"  "_"' onblur="checkName()" required><br>
+                            <div class="error-msg" style="display:<%=displayMode%>;">Name bereits vergeben.</div>
+                            <div class="error-msg loginname" style="display:none;">Nicht erlaubter Name.</div>
                         </div>
                         <div>
                             <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>

@@ -70,16 +70,20 @@
                             <form action="/onupdate/<%=rows.id%>" method="POST" style="display: flex; flex-direction: column; margin: 25px 15px 25px 15px;">
                                 <div style="display: flex; justify-content: space-between; margin: 5px;">
                                     <label for="user" class="formlabel">User-/Loginname:</label>
-                                    <input class="forminput" type="text" name="loginname" value="<%=rows.loginname%>">
+                                    <input class="forminput" id="loginname" type="text" name="loginname" value="<%=rows.loginname%>" oninput="checkName()" required>
+                                    <input type="hidden" name="oldLoginname" value="<%=rows.loginname%>">
                                 </div>
+                                <div class="error-msg loginname" style="display:none;">Nicht erlaubter Name.</div>
                                 <div style="display: flex; justify-content: space-between; margin: 5px;">
                                     <label for="password" class="formlabel">Passwort:</label>
-                                    <input class="forminput" type="password" name="password" placeholder="mind. 8 Zeichen">
+                                    <input class="forminput" id="password1" type="password" name="password" placeholder="mind. 8 Zeichen" oninput="checkPass()">
                                 </div>
+                                <div class="error-msg password1">Passwort ist zu kurz.</div>
                                 <div style="display: flex; justify-content: space-between; margin: 5px;">
                                     <label for="email" class="formlabel">E-Mail:</label>
-                                    <input class="forminput" type="text" name="email" value="<%=rows.email%>">
+                                    <input class="forminput" id="email" type="text" name="email" value="<%=rows.email%>" oninput="checkEmail()" required>
                                 </div>
+                                <div class="error-msg email">Bitte E-Mailadresse überprüfen.</div>
                                 <div style="display: flex; justify-content: space-between; margin: 5px;">
                                     <label for="role" class="formlabel">Rolle:</label>
                                     <select id="role" name="role" style="margin: 0px;  height: 36px; width: 369px;">

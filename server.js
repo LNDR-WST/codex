@@ -140,10 +140,17 @@ app.get("/my-profile", function(req, res)
                     if (req.cookies.darkmode == 1) {
                         stylesheet = "/stylesheet-dark.css";
                     }
-                    
+                    db.all(`SELECT image FROM allusers WHERE loginname ='${sessionValueName}'`, function(err, rows) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            const pic = rows[0].image;
+                            console.log(pic);
 
-                    res.render("myprofile", {username: sessionValueName, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: req.session.imageValue, 
-                        lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                            res.render("myprofile", {username: sessionValueName, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: pic, 
+                                lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                        }
+                    });
                 })
     }
 });
@@ -195,8 +202,6 @@ app.get("/profile", function(req, res)
                     res.cookie('lastvisit5', lv5, {'maxAge': maxAge});
 
                     if (rows.length > 0) {
-                    
-                        // let profilepic = getImage(profileName); 
 
                         const param_userCodeInfo = rows;
                         let stylesheet = "/stylesheet.css";
@@ -207,17 +212,35 @@ app.get("/profile", function(req, res)
                         if (errorStatus == 1) {
                             errorMessage = "display:block;";
                         }
+                        db.all(`SELECT image FROM allusers WHERE loginname ='${profileName}'`, function(err, rows) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                const pic = rows[0].image;
+                                console.log(pic);
 
-                        res.render("profiles", {username: profileName, codelist: param_userCodeInfo, sessionName: req.session.sessionValue, stylesheet: stylesheet, errorStyle: errorMessage,
-                                                lastvis1: lv1, lastvis2: lv2, lastvis3: lv3, lastvis4: lv4, lastvis5: lv5, profilepic: "default.jpg"});
+                                res.render("profiles", {username: profileName, codelist: param_userCodeInfo, sessionName: req.session.sessionValue, stylesheet: stylesheet, errorStyle: errorMessage,
+                                    lastvis1: lv1, lastvis2: lv2, lastvis3: lv3, lastvis4: lv4, lastvis5: lv5, profilepic: pic});
+                            }
+                        });
                     } else {
                         // let profilepic = getImage(profileName);
                         let stylesheet = "/stylesheet.css";
                         if (req.cookies.darkmode == 1) {
                             stylesheet = "/stylesheet-dark.css";
                         }
-                        res.render("nosnippets", {username: profileName, stylesheet: stylesheet, profilepic: "default.jpg", 
-                            lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                        
+                        db.all(`SELECT image FROM allusers WHERE loginname ='${profileName}'`, function(err, rows) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                const pic = rows[0].image;
+                                console.log(pic);
+
+                                res.render("nosnippets", {username: profileName, stylesheet: stylesheet, profilepic: pic, 
+                                    lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                            }
+                        });
                     }
                 });
     }
@@ -237,7 +260,7 @@ app.get("/favorites", function(req, res)
         const favTable = req.session.sessionValue; // Favoritentabelle = Loginname (ausgelesen von Session-Value)
         getFavsAndSend(favTable);
         function getFavsAndSend(favTable) {
-            codedb.all(`SELECT favid FROM ${favTable}`, function(err,rows2) {
+            codedb.all(`SELECT favid FROM '${favTable}'`, function(err,rows2) {
                 const favoriteSnippetIDs = rows2; // IDs der Favoriten (als JSON-Objekt) werden in Liste gespeichert
                 console.log("3) " + favoriteSnippetIDs); // for Debugging
                 var favList = []; // leere Liste für gesamte Code-Infos
@@ -361,16 +384,17 @@ app.post('/newUser', function(req,res)
         const param_password2 = req.body.password2;
         const param_origin = req.body.origin; // Übergabe, von welcher Seite der Post-Request kommt
         //hier wird gechecked ob die Email "plausibel" ist.
-        const check = param_email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        const check = param_email.match(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/);
+        const check2 = param_loginname.match(/^[a-zA-Z0-9_]+([-.][a-zA-Z0-9_]+)*$/);
     
         db.all(`SELECT * FROM allusers WHERE loginname='${param_loginname}'`,
         function (err, rows)
         {// Test ob User bereits existiert und ob Passwort wiederholung korrekt und Passwort mehr als 7 zeichen hat
-            if (rows.length == 0 && param_password1 == param_password2 &&  check != null && param_password1.length > 7)  
+            if (rows.length == 0 && param_password1 == param_password2 &&  check != null && check2 != null && param_password1.length > 7)  
             {
                 const hash = bcrypt.hashSync(param_password1,10);
                 // Nachfolgend Tabelle für Favoriten je User erstellen
-                sql = `CREATE TABLE ${param_loginname}(id INTEGER PRIMARY KEY AUTOINCREMENT, favid INTEGER);`;
+                sql = `CREATE TABLE '${param_loginname}' (id INTEGER PRIMARY KEY AUTOINCREMENT, favid INTEGER);`;
                 codedb.run(sql, function(err)
                     {
                         db.run(
@@ -426,9 +450,7 @@ app.post('/login', function(req,res)
                     res.cookie('darkmode', 0, {'maxAge': maxAge});
                 }
                 req.session.sessionValue = param_loginname;
-                req.session.imageValue = image; // Cookie für Profilbild
                 console.log(req.session.sessionValue);
-                console.log(req.session.imageValue);
                 codedb.all(`SELECT id, headline, description, code, edited, format, cmmode FROM allcode WHERE loginname ='${param_loginname}'`,
                 function(err,rows)
                 {
@@ -437,8 +459,17 @@ app.post('/login', function(req,res)
                     if (darkmode == 1) {
                         stylesheet = "/stylesheet-dark.css";
                     }
-                    res.render("myprofile", {username: param_loginname, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: req.session.imageValue, 
-                        lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                    db.all(`SELECT image FROM allusers WHERE loginname ='${param_loginname}'`, function(err, rows) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            const pic = rows[0].image;
+                            console.log(pic);
+
+                            res.render("myprofile", {username: param_loginname, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: pic, 
+                                lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                        }
+                    });
                 })
             }
             else
@@ -510,6 +541,7 @@ app.post('/onChangeCode/', function(req, res) {
     const head = req.body.head;
     const desc = req.body.desc;
     const code = req.body.code;
+    const finalCode = code.replace(/\'/g,"''");
     const format = req.body.format;
     let cmMode; // cmMode wird im nachfolgenden je nach Snippet-Format gesetzt; perspektivisch ließe sich evtl. auch das "cmmode"-Feld in der DB einsparen
         switch (format) {
@@ -548,8 +580,8 @@ app.post('/onChangeCode/', function(req, res) {
                 cmMode = format;
         }
     const timestamp = req.body.edited;
-    // Anführungszeichen "" werden bisher nicht erkanntr
-    const sql = `UPDATE allcode SET code="${code}", headline='${head}', description='${desc}', format='${format}', cmmode='${cmMode}', edited='${timestamp}' WHERE id=${id}`;
+
+    const sql = `UPDATE allcode SET code='${finalCode}', headline='${head}', description='${desc}', format='${format}', cmmode='${cmMode}', edited='${timestamp}' WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
         console.log("Code-Snippet geändert"); // Message zum Debugging
@@ -578,7 +610,7 @@ app.post('/editCode/', function(req, res) {
 app.post('/delfav', function(req, res) {
     const favtable = req.body.favTableName; // Tabellenname der Favoritentabelle
     const favid = req.body.favid; // ID des zu favorisierenden Codes
-    const sql =  `DELETE FROM ${favtable} WHERE favid=${favid}`;
+    const sql =  `DELETE FROM '${favtable}' WHERE favid=${favid}`;
     codedb.run(sql, function(err) { 
         res.redirect(`/favorites`);
     });
@@ -589,10 +621,10 @@ app.post('/addfav', function(req, res) {
     const favtable = req.body.favTableName; // Tabellenname der Favoritentabelle
     const favid = req.body.favid; // ID des zu favorisierenden Codes
     const origin = req.body.origin; // Name der Userseite, auf der favorisiert wurde (für redirect)
-    codedb.all(`SELECT * FROM ${favtable} WHERE favid=${favid}`, function(err, rows) {
+    codedb.all(`SELECT * FROM '${favtable}' WHERE favid=${favid}`, function(err, rows) {
         if (rows.length == 0) {
             console.log(rows);
-            const sql =  `INSERT INTO ${favtable}(favid) VALUES(${favid})`;
+            const sql =  `INSERT INTO '${favtable}'(favid) VALUES(${favid})`;
             codedb.run(sql, function(err) { 
                 res.redirect(`/profile?view=${origin}#code-heading${favid}`);
             });
@@ -617,9 +649,11 @@ app.post("/delete", function(req,res)
         `DELETE FROM allusers WHERE id=${id}`, // hier wird der Benutzer gelöscht
         function(err)
         {
-            codedb.run(`DROP TABLE ${loginname}`, function() { // hier wird die zugehörige Favoritentabelle des Nutzers gelöscht
-                console.log("Tabelle " + loginname + " wurde gelöscht.")
-                res.redirect("/userlist");
+            codedb.run(`DROP TABLE '${loginname}'`, function() { // hier wird die zugehörige Favoritentabelle des Nutzers gelöscht
+                codedb.run(`DELETE FROM allcode WHERE loginname='${loginname}'`, function() { // hier werden alle zum User gehörigen Codes gelöscht
+                    console.log("Tabelle " + loginname + " wurde gelöscht.");
+                    res.redirect("/userlist");
+                });
             });
         }
     );
@@ -652,15 +686,30 @@ app.post("/onupdate/:id", function(req,res)
     const favorites = req.body.favorites;
     const status = req.body.status;
     const role = req.body.role;
+    const oldLogin = req.body.oldLoginname;
 
-console.log(id);
-    db.run(
-        `UPDATE allusers SET loginname="${loginname}", password="${password}", email="${email}", favorites="${favorites}", status="${status}", role="${role}" WHERE id=${id}`,
-        function(err)
-        {
-            res.redirect("/userlist");
-        }
-    );
+    if (loginname != oldLogin) {
+        db.run(`UPDATE allusers SET loginname="${loginname}", password="${password}", email="${email}", favorites="/${loginname}", status="${status}", role="${role}" WHERE id=${id}`,
+            function(err)
+            {
+                codedb.run(`ALTER TABLE '${oldLogin}' RENAME TO '${loginname}'`, function(err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.redirect("/userlist");
+                    }
+                })
+            }
+        );
+    } else {
+        db.run(
+            `UPDATE allusers SET loginname="${loginname}", password="${password}", email="${email}", favorites="${favorites}", status="${status}", role="${role}" WHERE id=${id}`,
+            function(err)
+            {
+                res.redirect("/userlist");
+            }
+        );
+    }
 });
 
 // User Self-Update (via Settings)
@@ -672,18 +721,18 @@ app.post("/selfupdate", function(req,res)
     const emailMatches = email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     const password = req.body.password;
     const password2 = req.body.password2;
+    const oldImage = req.body.oldImage;
     // Profilbild es wird noch nicht geprüft, ob das richtige Format und die zugelassene Größe hochgeladen wurde:
     let image;
     const now = new Date();
     let newFilename;
     if (req.files == null) { // hier wird der Fall abgefangen, dass kein neues Bild hochgeladen wurde.
-        image = req.session.imageValue;
+        image = oldImage;
         newFilename = image;
     } else {
         image = req.files.image;
         newFilename = now.valueOf() + "_" + image.name;
         image.mv(__dirname + '/public/img/profileImages/' + newFilename);
-        req.session.imageValue = newFilename;
     }
     console.log(newFilename);
 
@@ -762,14 +811,14 @@ gesammelt und übergeben.
 
 app.post("/favorites", function(req,res) {
     favTable = req.body.userTab;
-    codedb.all(`SELECT favid FROM ${favTable}`, function(err,rows1) {
+    codedb.all(`SELECT favid FROM '${favTable}'`, function(err,rows1) {
         const favoriteSnippets = rows1;
         if (favoriteSnippets.length != 0) { 
             for (let i = 0; i < favoriteSnippets.length; i++) { // Schleife überprüft, ob favorisierte CodeIDs überhaupt noch existieren und löscht diese sonst aus FavList
                 codedb.all(`SELECT * FROM allcode WHERE id='${favoriteSnippets[i].favid}'`, function(err,availableCodes) {
                     console.log(`2) Code ${favoriteSnippets[i].favid} vorhanden: ${availableCodes.length}`); // Debugging
                     if (availableCodes.length == 0) {
-                        codedb.run(`DELETE FROM ${favTable} WHERE favid='${favoriteSnippets[i].favid}'`, function(err) {
+                        codedb.run(`DELETE FROM '${favTable}' WHERE favid='${favoriteSnippets[i].favid}'`, function(err) {
                             if (err) {
                                 throw err;
                             } else {
@@ -784,27 +833,3 @@ app.post("/favorites", function(req,res) {
     });
     res.redirect("/favorites");
 });
-
-// Profilbild abfragen ## Ist auskommentiert (ebenfalls in den Post/Get-Requests, weil es zu Fehlern kommt.)
-/* 
-Ist leider noch verbuggt: Ist der Server nicht schnell genug, kann das Bild nicht schnell genug abgefragt werden.
-Fehler passieren auch noch, wenn die Funktion von verschiedenen Tabs gleichzeitig oder direkt hintereinander aufgerufen wird.
-Die Profilbilder kommen so durcheinander und werden nicht korrekt angezeigt.
-Müsste man noch einmal dran feilen. Aktuell schaffe ich es aber nicht, eine Datenbankabfrage zu machen und dann das Objekt als 
-**lesbares** Objekt zu übergeben, damit die Bilddatei als String ausgelesen werden kann.
-*/
-
-/* let profilepicvar = "default.jpg";
-function getImage(loginname){
-    let query = `SELECT image FROM allusers WHERE loginname ='${loginname}'`;
-    db.all(query, function (err, rows) {
-      if(err){
-          console.log(err);
-      }else{
-          profilepicvar = rows[0].image;
-      }
-    });
-    console.log(profilepicvar);
-    return profilepicvar;
-  }
- */

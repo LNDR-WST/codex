@@ -46,6 +46,19 @@ function showButton() {
       }
   }
 
+// Prüft Namen auf korrektes Format
+
+  function checkName() {
+      let name = document.getElementById("loginname");
+      if (name.value.match(/^[a-zA-Z0-9_]+([-.][a-zA-Z0-9_]+)*$/)) {
+          name.setAttribute('style','border:solid; border-color:#33cc33');
+          document.querySelector('.error-msg.loginname').setAttribute('style','display:none');
+      } else {
+          name.setAttribute('style','border:solid; border-color:red');
+          document.querySelector('.error-msg.loginname').setAttribute('style','display:block');
+      }
+  }
+
 // Prüft, ob Passwort lang genug ist.
   function checkPass() {
       var password1 = document.getElementById("password1");
