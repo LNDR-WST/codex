@@ -12,6 +12,9 @@
         
         <!-- Laden des CSS-Stylesheets -->
         <link rel="stylesheet" href="<%=stylesheet%>">
+
+        <!-- Laden von ScrollReveal -->
+        <script src="https://unpkg.com/scrollreveal"></script>
         
         <!-- Laden der CodeMirror-Dateien -->
             <!-- Required -->
@@ -55,14 +58,14 @@
                 <div id="menu" class="side-menu">
                     <div class="menu-hl">MENÜ</div>
                     <div class="menu-container">
-                        <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
-                        <p class="menu-button"><a href="/my-profile">[ My Snippets ]</b></a></p>
-                        <p class="menu-button"><a href="/userlist">[ Other Users ]</b></a></p>
+                        <p class="menu-button" id="m1"><a href="/welcome">[ Start ]</a></p>
+                        <p class="menu-button" id="m2"><a href="/my-profile"><b>[ My Snippets ]</b></a></p>
+                        <p class="menu-button" id="m3"><a href="/userlist">[ Other Users ]</a></p>
                         <form action="/favorites" method="POST" id="favLink" class="menu-button">
                             <input type="hidden" name="userTab" value="<%= username %>">
-                            <input type="submit" value="[ Favorites ]">
+                            <input type="submit" value="[ Favorites ]"  id="m4">
                         </form>
-                        <p class="menu-button"><a href="/settings">[ Settings ]</b></a></p>
+                        <p class="menu-button"  id="m5"><a href="/settings">[ Settings ]</a></p>
                     </div>
                     <div class="menu-hl" style="font-size: 19px;">last visited</div>
                     <div class="menu-container">
@@ -76,23 +79,29 @@
                 <div class="flex-container" style="align-items: center; min-height: 350px;">
                     <div class="inner" style="justify-content: flex-start;">
                     <div style="margin-left: 14%;">
-                        <h1 style="margin-left: 20px; margin-right: 20px;">Hallo, <span style="text-decoration: underline; text-decoration-color: #FF9000;"><i><%= username %></i></span>!</h1>
+                        <h1 id="headline1" style="margin-left: 20px; margin-right: 20px;">Hallo, <span style="text-decoration: underline; text-decoration-color: #FF9000;"><i><%= username %></i></span>!</h1>
                         <div class="inner" style="justify-content: space-between; flex-direction: row; flex-wrap: nowrap; margin: 0px;">
-                            <p>Willkommen in deinem persönlichen Bereich.
+                            <p id="welcome">Willkommen in deinem persönlichen Bereich.
                                 Hier kannst du neue Code-Snippets anlegen, bestehende bearbeiten oder wieder entfernen.
                                 Über die Navigation links kommst du zu weiteren Bereichen, kannst Favoriten speichern und Code-Lösungen von anderen Nutzern entdecken. 
                                 <br><br>
                                 Viel Spaß!
                             </p>
-                            <div style="background-color: #FF9000; clip-path: circle(65px at center); margin-right: 5%;">
+                            <div id="profile-image" style="background-color: #FF9000; clip-path: circle(65px at center); margin-right: 5%;">
                                 <div style="clip-path: circle(60px at center);">
                                     <img src="/img/profileImages/<%=profilepic%>" style="height: 130px;"></img>
                                 </div>
                             </div>
                         </div>
+                        <script>
+                            ScrollReveal({ reset: false, distance: '80%', origin: 'bottom' }).reveal('#headline1', { delay: 0, duration: 1000 });
+                            ScrollReveal({ reset: false, distance: '0%', origin: 'bottom' }).reveal('#welcome', { delay: 100, duration: 1000 });
+                            ScrollReveal({ reset: false, distance: '105%', origin: 'right' }).reveal('#profile-image', { delay: 200, duration: 1000, rotate: {z: -50} });
+                        </script>
 <div style="width: 95%; max-width: 800px;">
-<!-- Hier beginnt der for Loop zum erstellen der Editorfelder -->   
+<!-- Hier beginnt der for Loop zum erstellen der Editorfelder -->
     <% for(var i = 0; i < codelist.length; i++){ %>
+    <div id="scrollanimation">
     <div class="code-head" style="background-color: #8f384d;">
         <h4 id="code-heading<%= codelist[i].id %>" style="background-color: #8f384d; border-top-left-radius: 15px; border-top-right-radius: 15px;"><%= codelist[i].headline %></h4>
         <table id=<%= `codeInfo${codelist[i].id}` %> style="border: none;">
@@ -130,6 +139,8 @@
         <form action="/onDeleteCode/<%= codelist[i].id %>" method="POST" id=delete<%= codelist[i].id %>><input type="submit" class="cta-button" style="width: 100px;" onclick="confirmDelete('delete<%= codelist[i].id %>')" value="DELETE"></form>
         <button class="cta-button" style="width: 100px;" onclick="post('/editCode/', {code: `${editor<%= codelist[i].id %>.getValue()}`, id: <%= codelist[i].id %>, headline: `<%= codelist[i].headline %>`, description: `<%= codelist[i].description %>`, format: `<%= codelist[i].format %>`, cmMode: `<%= codelist[i].cmmode %>`, timestamp: timeStamp()})">EDIT</button>
     </div>
+    </div>
+    <script>ScrollReveal({ reset: false, distance: '20%', origin: 'bottom' }).reveal('#scrollanimation', { delay: 100, duration: 500, viewFactor: 0.2 });</script>
 <% } %>
 </div>
 <!-- Add Button. Position muss/kann noch angepasst werden -->

@@ -12,6 +12,9 @@
         
         <!-- Laden des CSS-Stylesheets -->
         <link rel="stylesheet" href="<%=stylesheet%>">
+
+        <!-- Laden von ScrollReveal -->
+        <script src="https://unpkg.com/scrollreveal"></script>
         
         <!-- Meta-Daten -->
         <title>Codex - Welcome!</title>
@@ -36,8 +39,8 @@
         <!-- Maxiteaser -->
         <div class="parallax-maxiteaser">
             <div class="inner" style="justify-content: flex-start; flex-direction: column; align-items: flex-start; background-color: transparent;">
-                <img src="/img/teaser-text.svg" alt ="Welcome to Codex. Exchange. Explore. Evolve." style="width: 75%; margin-top: 10%; margin-bottom: 2%;"></img><br>
-                <a href="/register" class="cta-button" style="font-size: 14px; margin-bottom: 5%;">>&nbsp;START&nbsp;NOW</a>
+                <img src="/img/teaser-text.svg" id="teaser-text" alt ="Welcome to Codex. Exchange. Explore. Evolve." style="width: 75%; margin-top: 10%; margin-bottom: 2%;"></img><br>
+                <a href="/register" id="teaser-button" class="cta-button" style="font-size: 14px; margin-bottom: 5%;">>&nbsp;START&nbsp;NOW</a>
             </div>
         </div>
         <!-- Einleitung -->
@@ -57,24 +60,31 @@
         <!-- Info-Box -->
         <div class="parallax-infobox">
             <div class="inner" style="align-items: flex-start; background-color: transparent; padding-top: 35px;">
-                <div style="text-align: center; padding: 5px;  width: 295px;">
+                <div id="inf1" style="text-align: center; padding: 5px;  width: 295px;">
                     <img src="/img/code-icon.svg" alt="Code-Icon" style="height: 115px;"></img><br>
                     <h2 style="color: white;">Code speichern.</h2>
                     <p class="infotext">
                         Speichere deine besten Code-Snippets, um bei ähnlichen Problemen gleich eine Lösung parat zu haben!</p>
                 </div>
-                <div style="text-align: center; padding: 5px; width: 295px;">
+                <div id="inf2" style="text-align: center; padding: 5px; width: 295px;">
                     <img src="/img/comment-icon.svg" alt="Comment-Icon" style="height: 115px;"></img><br>
                     <h2 style="color: white;">Sich austauschen.</h2>
                     <p class="infotext">Tausche dich mit Nutzer:innen aus, diskutiere über Code, erhalte Vorschläge oder hilf anderen beim Optimieren!</p>
                 </div>
-                <div style="text-align: center; padding: 5px;  width: 295px;">
+                <div id="inf3" style="text-align: center; padding: 5px;  width: 295px;">
                     <img src="/img/learn-icon.svg" alt="Learn-Icon" style="height: 115px;"></img><br>
                     <h2 style="color: white;">Neues lernen.</h2>
                     <p class="infotext">Stöbere in Sammlungen anderer, finde Inspiration fürs nächste Projekt oder lerne neue Coding-Wege kennen!</p>
                 </div>
             </div>
         </div>
+        <script>
+            ScrollReveal({ reset: false }).reveal('#teaser-text', { delay: 000, duration: 2000 });
+            ScrollReveal({ reset: false, origin: 'bottom' }).reveal('#teaser-button', { delay: 1250, scale: 0.75 });
+            ScrollReveal({ reset: false, distance: '120%', origin: 'right' }).reveal('#inf1', { delay: 0, viewFactor: 0.5 });
+            ScrollReveal({ reset: false, distance: '120%', origin: 'right' }).reveal('#inf2', { delay: 500, viewFactor: 0.5 });
+            ScrollReveal({ reset: false, distance: '120%', origin: 'right' }).reveal('#inf3', { delay: 1000, viewFactor: 0.5 });
+        </script>
         <!-- Was ist Codex -->
         <div class="flex-container">
             <div class="inner" style="align-items: flex-start; justify-content: flex-start; background-color: transparent; padding-top: 35px;">
