@@ -542,6 +542,8 @@ app.post('/onChangeCode/', function(req, res) {
     const desc = req.body.desc;
     const code = req.body.code;
     const finalCode = code.replace(/\'/g,"''");
+    const finalHead = head.replace(/\'/g,"''");
+    const finalDesc = desc.replace(/\'/g,"''");
     const format = req.body.format;
     let cmMode; // cmMode wird im nachfolgenden je nach Snippet-Format gesetzt; perspektivisch ließe sich evtl. auch das "cmmode"-Feld in der DB einsparen
         switch (format) {
@@ -581,7 +583,7 @@ app.post('/onChangeCode/', function(req, res) {
         }
     const timestamp = req.body.edited;
 
-    const sql = `UPDATE allcode SET code='${finalCode}', headline='${head}', description='${desc}', format='${format}', cmmode='${cmMode}', edited='${timestamp}' WHERE id=${id}`;
+    const sql = `UPDATE allcode SET code='${finalCode}', headline='${finalHead}', description='${finalDesc}', format='${format}', cmmode='${cmMode}', edited='${timestamp}' WHERE id=${id}`;
     console.log(sql);
     codedb.run(sql, function(err) {
         console.log("Code-Snippet geändert"); // Message zum Debugging

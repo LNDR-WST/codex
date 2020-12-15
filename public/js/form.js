@@ -34,7 +34,7 @@ function showButton() {
 /* Formularfehleingaben sofort abfangen */
 /* Code-Inspiration von https://www.mediaevent.de/javascript/formulare.html */
 
-// Prüft, ob Email ein valdies Dateiformat hat
+// Prüft, ob Email ein valides Dateiformat hat
   function checkEmail() {
       var email = document.getElementById("email");
       if (email.value.match(/^([a-zA-Z0-9_\.-]+)@([\da-zA-Z\.-]+)\.([a-zA-Z\.]{2,6})$/)) {
