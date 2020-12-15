@@ -37,7 +37,7 @@ function showButton() {
 // Prüft, ob Email ein valdies Dateiformat hat
   function checkEmail() {
       var email = document.getElementById("email");
-      if (email.value.match(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/)) {
+      if (email.value.match(/^([a-zA-Z0-9_\.-]+)@([\da-zA-Z\.-]+)\.([a-zA-Z\.]{2,6})$/)) {
           email.setAttribute('style','border:solid; border-color:#33cc33');
           document.querySelector('.error-msg.email').setAttribute('style','display:none');
       } else {
