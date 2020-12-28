@@ -683,34 +683,44 @@ app.post("/onupdate/:id", function(req,res)
 {
     const id = req.params.id;
     const loginname = req.body.loginname;
-    const password = bcrypt.hashSync(req.body.password,10);
+    const password = req.body.password;
+    const passwordHash = bcrypt.hashSync(password,10);
     const email = req.body.email;
-    const favorites = req.body.favorites;
+    const favorites = req.body.favorites; // bisher nicht verwendet oder nötig
     const status = req.body.status;
     const role = req.body.role;
     const oldLogin = req.body.oldLoginname;
 
     if (loginname != oldLogin) {
-        db.run(`UPDATE allusers SET loginname="${loginname}", password="${password}", email="${email}", favorites="/${loginname}", status="${status}", role="${role}" WHERE id=${id}`,
-            function(err)
-            {
-                codedb.run(`ALTER TABLE '${oldLogin}' RENAME TO '${loginname}'`, function(err) {
-                    if (err) {
-                        console.log(err);
-                    } else {
+        codedb.run(`ALTER TABLE '${oldLogin}' RENAME TO '${loginname}'`, function(err) {
+            if (err) {
+                console.log(err);
+            } else {
+                if (password == "") {
+                    db.run(`UPDATE allusers SET loginname="${loginname}", email="${email}", favorites="/${loginname}", status="${status}", role="${role}" WHERE id=${id}`,
+                    function(err) {
                         res.redirect("/userlist");
-                    }
-                })
+                    });
+                } else {
+                    db.run(`UPDATE allusers SET loginname="${loginname}", password="${passwordHash}", email="${email}", favorites="/${loginname}", status="${status}", role="${role}" WHERE id=${id}`,
+                    function(err) {
+                        res.redirect("/userlist");
+                    });
+                }  
             }
-        );
+        });
     } else {
-        db.run(
-            `UPDATE allusers SET loginname="${loginname}", password="${password}", email="${email}", favorites="${favorites}", status="${status}", role="${role}" WHERE id=${id}`,
-            function(err)
-            {
+        if (password == "") {
+            db.run(`UPDATE allusers SET loginname="${loginname}", email="${email}", status="${status}", role="${role}" WHERE id=${id}`,
+            function(err) {
                 res.redirect("/userlist");
-            }
-        );
+            });
+        } else {
+            db.run(`UPDATE allusers SET loginname="${loginname}", password="${passwordHash}", email="${email}", status="${status}", role="${role}" WHERE id=${id}`,
+            function(err) {
+                res.redirect("/userlist");
+            });
+        }  
     }
 });
 
