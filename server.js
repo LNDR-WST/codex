@@ -8,8 +8,7 @@
 const express = require("express");
 const app = express();
 
-const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }))
 
 app.engine("ejs", require("ejs").__express);
 app.set("view engine", "ejs");
@@ -71,7 +70,7 @@ app.get("/index", function(req,res)
     res.sendFile(__dirname + "/views/index.html");
 });
 
-app.get("/welcome", function(req, res)
+app.get(["/", "/welcome"], function(req, res)
 {
     let stylesheet = "/stylesheet.css";
     if (req.cookies.darkmode == 1) {
@@ -86,7 +85,7 @@ app.get("/register", function(req, res)
     if (req.cookies.darkmode == 1) {
         stylesheet = "/stylesheet-dark.css";
     }
-    res.render("register", {displayMode: "none", stylesheet: stylesheet, regFail: "display:none;"});
+    res.render("register", {session: req.session.sessionValue, displayMode: "none", stylesheet: stylesheet, regFail: "display:none;"});
 });
 
 app.get("/registration-complete", function(req, res)
@@ -95,7 +94,7 @@ app.get("/registration-complete", function(req, res)
     if (req.cookies.darkmode == 1) {
         stylesheet = "/stylesheet-dark.css";
     }
-    res.render("reg-success", {stylesheet: stylesheet});
+    res.render("reg-success", {session: req.session.sessionValue, stylesheet: stylesheet});
 });
 
 /* Login-Seite wird nur aufgerufen, wenn keine Session aktiv ist.
@@ -108,7 +107,7 @@ app.get("/login", function(req, res)
         if (req.cookies.darkmode == 1) {
             stylesheet = "/stylesheet-dark.css";
         }
-        res.render("login", {wrongName: "display:none", wrongPass: "display:none", stylesheet: stylesheet});
+        res.render("login", {session: req.session.sessionValue, wrongName: "display:none", wrongPass: "display:none", stylesheet: stylesheet});
     } else {
         res.redirect("/my-profile");
     }
@@ -121,7 +120,7 @@ app.get("/logout", function(req, res)
     if (req.cookies.darkmode == 1) {
         stylesheet = "/stylesheet-dark.css";
     }
-    res.render("logout", {stylesheet: stylesheet});
+    res.render("logout", {session: null, stylesheet: stylesheet});
 });
 
 // Profil-Aufruf ist geschützt: Nur bei gesetzter sessionValue (Username) ist Aufruf möglich!
@@ -147,7 +146,7 @@ app.get("/my-profile", function(req, res)
                             const pic = rows[0].image;
                             console.log(pic);
 
-                            res.render("myprofile", {username: sessionValueName, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: pic, 
+                            res.render("myprofile", {session: req.session.sessionValue, username: sessionValueName, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: pic, 
                                 lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
                         }
                     });
@@ -166,7 +165,7 @@ app.get("/edit", function(req, res)
         if (req.cookies.darkmode == 1) {
             stylesheet = "/stylesheet-dark.css";
         }
-        res.render("edit-snippet", {snippetId: null, snippetCode: null, snippetHead: null, snippetDesc: null, timestamp: null, stylesheet: stylesheet, 
+        res.render("edit-snippet", {session: req.session.sessionValue, snippetId: null, snippetCode: null, snippetHead: null, snippetDesc: null, timestamp: null, stylesheet: stylesheet, 
             lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
     } 
 });
@@ -219,7 +218,7 @@ app.get("/profile", function(req, res)
                                 const pic = rows[0].image;
                                 console.log(pic);
 
-                                res.render("profiles", {username: profileName, codelist: param_userCodeInfo, sessionName: req.session.sessionValue, stylesheet: stylesheet, errorStyle: errorMessage,
+                                res.render("profiles", {session: req.session.sessionValue, username: profileName, codelist: param_userCodeInfo, sessionName: req.session.sessionValue, stylesheet: stylesheet, errorStyle: errorMessage,
                                     lastvis1: lv1, lastvis2: lv2, lastvis3: lv3, lastvis4: lv4, lastvis5: lv5, profilepic: pic});
                             }
                         });
@@ -237,7 +236,7 @@ app.get("/profile", function(req, res)
                                 const pic = rows[0].image;
                                 console.log(pic);
 
-                                res.render("nosnippets", {username: profileName, stylesheet: stylesheet, profilepic: pic, 
+                                res.render("nosnippets", {session: req.session.sessionValue, username: profileName, stylesheet: stylesheet, profilepic: pic, 
                                     lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
                             }
                         });
@@ -278,7 +277,7 @@ app.get("/favorites", function(req, res)
                                 if (req.cookies.darkmode == 1) {
                                     stylesheet = "/stylesheet-dark.css";
                                 }
-                                res.render("favorites", {favSnippets: favList, sessionName: req.session.sessionValue, stylesheet: stylesheet, 
+                                res.render("favorites", {session: req.session.sessionValue, favSnippets: favList, sessionName: req.session.sessionValue, stylesheet: stylesheet, 
                                     lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
                             }
                         });
@@ -288,7 +287,7 @@ app.get("/favorites", function(req, res)
                     if (req.cookies.darkmode == 1) {
                         stylesheet = "/stylesheet-dark.css";
                     }
-                    res.render("nofavorites", {sessionName: req.session.sessionValue, stylesheet: stylesheet, 
+                    res.render("nofavorites", {session: req.session.sessionValue, sessionName: req.session.sessionValue, stylesheet: stylesheet, 
                         lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
                 }
             });
@@ -311,7 +310,7 @@ app.get("/userlist", function(req, res)
                         if (req.cookies.darkmode == 1) {
                             stylesheet = "/stylesheet-dark.css";
                         }
-                        res.render("adminpanel", {"allusers": rows, adminname: req.session.sessionValue, stylesheet: stylesheet, 
+                        res.render("adminpanel", {session: req.session.sessionValue, allusers: rows, adminname: req.session.sessionValue, stylesheet: stylesheet, 
                         lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
                     } 
                 );
@@ -323,7 +322,7 @@ app.get("/userlist", function(req, res)
                         if (req.cookies.darkmode == 1) {
                             stylesheet = "/stylesheet-dark.css";
                         }
-                        res.render("userlist", {"allusers": rows, username: req.session.sessionValue, stylesheet: stylesheet, 
+                        res.render("userlist", {session: req.session.sessionValue, allusers: rows, username: req.session.sessionValue, stylesheet: stylesheet, 
                         lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
                     } 
                 );
@@ -348,7 +347,7 @@ app.get("/settings", function(req, res)
             if (req.cookies.darkmode == 1) {
                 stylesheet = "/stylesheet-dark.css";
             }
-            res.render("settings", {currentID: id, currentEmail: email, currentLoginname: loginname, currentPassword: password, errorMessage: "display:none;", stylesheet: stylesheet, profilepic: image,  
+            res.render("settings", {session: req.session.sessionValue, currentID: id, currentEmail: email, currentLoginname: loginname, currentPassword: password, errorMessage: "display:none;", stylesheet: stylesheet, profilepic: image,  
             lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
         });
     }
@@ -360,7 +359,7 @@ app.get("/impressum", function(req, res)
     if (req.cookies.darkmode == 1) {
         stylesheet = "/stylesheet-dark.css";
     }
-    res.render("impressum", {session: req.session.sessionValue, stylesheet: stylesheet});
+    res.render("impressum", {session: req.session.sessionValue, session: req.session.sessionValue, stylesheet: stylesheet});
 });
 
 /*
@@ -414,14 +413,14 @@ app.post('/newUser', function(req,res)
                 if (req.cookies.darkmode == 1) {
                     stylesheet = "/stylesheet-dark.css";
                 }
-                res.render("register", {displayMode: "block", stylesheet: stylesheet, regFail: "display:none;"});
+                res.render("register", {session: req.session.sessionValue, displayMode: "block", stylesheet: stylesheet, regFail: "display:none;"});
             } else
                 {
                     let stylesheet = "/stylesheet.css";
                     if (req.cookies.darkmode == 1) {
                         stylesheet = "/stylesheet-dark.css";
                     }
-                    res.render("register", {displayMode: "none", stylesheet: stylesheet, regFail: "display:block;"});
+                    res.render("register", {session: req.session.sessionValue, displayMode: "none", stylesheet: stylesheet, regFail: "display:block;"});
                 }
         });
     });
@@ -466,7 +465,7 @@ app.post('/login', function(req,res)
                             const pic = rows[0].image;
                             console.log(pic);
 
-                            res.render("myprofile", {username: param_loginname, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: pic, 
+                            res.render("myprofile", {session: req.session.sessionValue, username: param_loginname, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: pic, 
                                 lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
                         }
                     });
@@ -478,7 +477,7 @@ app.post('/login', function(req,res)
                 if (req.cookies.darkmode == 1) {
                     stylesheet = "/stylesheet-dark.css"
                 }
-                res.render("login", {wrongName: "display:none;", wrongPass: "display:block;", stylesheet: stylesheet});
+                res.render("login", {session: req.session.sessionValue, wrongName: "display:none;", wrongPass: "display:block;", stylesheet: stylesheet});
             };
         }
         else{
@@ -486,7 +485,7 @@ app.post('/login', function(req,res)
             if (req.cookies.darkmode == 1) {
                 stylesheet = "/stylesheet-dark.css"
             }
-            res.render("login", {wrongName: "display:block;", wrongPass: "display:none;", stylesheet: stylesheet});
+            res.render("login", {session: req.session.sessionValue, wrongName: "display:block;", wrongPass: "display:none;", stylesheet: stylesheet});
         }
     });
 });
@@ -529,7 +528,7 @@ app.post('/addCode', function(req,res)
             if (req.cookies.darkmode == 1) {
                 stylesheet = "/stylesheet-dark.css";
             }
-            res.render('edit-snippet', {snippetCode: code, snippetId: id, snippetHead: headline, snippetDesc: description, snippetFormat: format, cmMode: cmmode, timestamp: edited, username: req.session.sessionValue, stylesheet: stylesheet, 
+            res.render('edit-snippet', {session: req.session.sessionValue, snippetCode: code, snippetId: id, snippetHead: headline, snippetDesc: description, snippetFormat: format, cmMode: cmmode, timestamp: edited, username: req.session.sessionValue, stylesheet: stylesheet, 
                 lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
         });
     })
@@ -604,7 +603,7 @@ app.post('/editCode/', function(req, res) {
     if (req.cookies.darkmode == 1) {
         stylesheet = "/stylesheet-dark.css";
     }
-    res.render('edit-snippet', {snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, snippetFormat: param_format, cmMode: param_cmmode, timestamp: param_timestamp, username: req.session.sessionValue, stylesheet: stylesheet, 
+    res.render('edit-snippet', {session: req.session.sessionValue, snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, snippetFormat: param_format, cmMode: param_cmmode, timestamp: param_timestamp, username: req.session.sessionValue, stylesheet: stylesheet, 
     lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
 });
 
@@ -672,7 +671,7 @@ app.post("/update/:id", function(req,res)
             if (req.cookies.darkmode == 1) {
                 stylesheet = "/stylesheet-dark.css";
             }
-            res.render("userupdate", {rows: rows[0], stylesheet: stylesheet, 
+            res.render("userupdate", {session: req.session.sessionValue, rows: rows[0], stylesheet: stylesheet, 
                 lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
         }
     );
@@ -771,7 +770,7 @@ app.post("/selfupdate", function(req,res)
             if (req.cookies.darkmode == 1) {
                 stylesheet = "/stylesheet-dark.css";
             }
-            res.render("settings", {currentID: id, currentEmail: email, currentLoginname: loginname, currentPassword: password, errorMessage: "display:block", stylesheet: stylesheet, profilepic: image,  
+            res.render("settings", {session: req.session.sessionValue, currentID: id, currentEmail: email, currentLoginname: loginname, currentPassword: password, errorMessage: "display:block", stylesheet: stylesheet, profilepic: image,  
             lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
         });
     } else {

@@ -14,28 +14,13 @@
         <link rel="stylesheet" href="<%=stylesheet%>">
 
         <!-- Laden von ScrollReveal -->
-        <script src="https://unpkg.com/scrollreveal"></script>
-        
+        <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
         <!-- Meta-Daten -->
         <title>Codex - Welcome!</title>
     </head>
     <body>
         <!-- Navigation & Website-Header -->
-        <div class="navigation-container">
-            <div class="inner-nav">
-                <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
-                <!-- hier wird unterschieden zwischen angemeldetem und anonymem Benutzer-->
-                <% if (session == null) { %> <!-- ist die Session = null wird die normale Navi angezeigt -->
-                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/login">Login</a></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/register">Register</a></div>
-                <% } else { %>               <!-- ist die Session != null wird der angemeldete Zustand der Session angezeigt -->
-                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/my-profile">Profile</a></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/logout">Logout</a></div>
-                <% } %>
-            </div>
-        </div>
-        <div style="margin-top: 109px;"></div>
+        <%- include('./nav/default', {session: session}); %>
         <!-- Maxiteaser -->
         <div class="parallax-maxiteaser">
             <div class="inner" style="justify-content: flex-start; flex-direction: column; align-items: flex-start; background-color: transparent;">

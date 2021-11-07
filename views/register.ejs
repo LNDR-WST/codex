@@ -24,15 +24,7 @@
     </head>
     <body>
         <!-- Navigation & Website-Header -->
-        <div class="navigation-container">
-            <div class="inner-nav">
-                <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/login">Login</a></div>
-                <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/register">Register</a></div>
-            </div>
-        </div>
-        <div style="margin-top: 109px;"></div>
+        <%- include('./nav/default', {session: session}); %>
         <!-- Registrationsdialog -->
         <div class="flex-container" style="align-items: center; min-height: 400px;">
             <div class="inner" style="justify-content: flex-start; flex-direction: column; align-items: center;">
