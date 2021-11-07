@@ -20,12 +20,14 @@
     <body>
         <!-- Navigation & Website-Header -->
         <%- include('./nav/default', {session: session}); %>
-        <!-- Resgitrationsnachricht -->
-        <div class="flex-container" style="min-height: 400px; flex-direction: column;>
-            <div style="padding: 25px 75px 75px 75px;">
-                <h1>Registrierung erfolgreich!</h1>
-                <p><b>Bitte warte einen kleinen Moment. Du wirst in 3 Sekunden weitergeleitet...</b><br>
-                        Sollte die Weiterleitung nicht funktionieren, <a href="/login">klicke bitte hier.</a></p>
+        <!-- Registrationsnachricht -->
+        <div class="first">
+            <div class="flex-container" style="min-height: 400px; flex-direction: column;>
+                <div style="padding: 25px 75px 75px 75px;">
+                    <h1>Registrierung erfolgreich!</h1>
+                    <p><b>Bitte warte einen kleinen Moment. Du wirst in 3 Sekunden weitergeleitet...</b><br>
+                            Sollte die Weiterleitung nicht funktionieren, <a href="/login">klicke bitte hier.</a></p>
+                </div>
             </div>
         </div>
         <!-- Info-Box -->
@@ -50,11 +52,6 @@
             </div>
         </div>
         <!-- Footer -->
-        <div style="margin-bottom: 50px;"></div>
-        <div class="footer-container">
-            <p class="footer">© 2020 CODEX &nbsp;
-                <a href="/impressum">Impressum</a> | <a href="/impressum#privacy">Datenschutz</a>
-            </p>
-        </div>
+        <%- include('./elements/footer.html'); %>
     </body>
 </html>

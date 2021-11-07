@@ -31,7 +31,7 @@
         <!-- Navigation & Website-Header -->
         <%- include('./nav/default', {session: session}); %>
             <!-- Flex-Container für Seiten-Menü und Inhalt -->
-            <div class="inner" style="justify-content: flex-start; align-items: flex-start; max-width: 984px;">
+            <div class="first" style="justify-content: flex-start; align-items: flex-start; max-width: 984px;">
                 <div id="menu" class="side-menu">
                     <div class="menu-hl">MENÜ</div>
                     <div class="menu-container">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="flex-container" style="align-items: center; min-height: 350px; width: 100%;">
-                    <div class="inner" style="justify-content: flex-start; width: 100%;">
+                    <div class="" style="justify-content: flex-start; width: 100%;">
                         <div style="margin-left: 14%; width: 100%;">
                             <div class="inner" style="justify-content: space-between; flex-direction: row; flex-wrap: nowrap;">
                                 <div class="inner" style="justify-content: flex-start; flex-direction: column; align-items: flex-start; width: 100%;">
@@ -133,12 +133,7 @@
                 </div>
             </div>
             <!-- Footer -->
-            <div style="margin-bottom: 50px;"></div>
-            <div class="footer-container">
-                <p class="footer">© 2020 CODEX &nbsp;
-                    <a href="/impressum">Impressum</a> | <a href="/impressum#privacy">Datenschutz</a>
-                </p>
-            </div>
+            <%- include('./elements/footer.html'); %>
         </div>
     </body>
 </html>

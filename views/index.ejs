@@ -17,11 +17,12 @@
         <title>Codex - SEITENTITEL</title>
     </head>
     <body>
-        <div class="inner">
-            <!-- Navigation & Website-Header -->
-            <%- include('./nav/default', {session: session}); %>
+        <!-- Navigation & Website-Header -->
+        <%- include('./nav/default', {session: session}); %>
+        <div class="first">
+            
             <!-- ### HIERUNTER NEUE INHALTE EINFÜGEN ### -->
-            <div style="margin-left: 25px;"> <!-- DIVs sind leere Container-Objekte, die "gestyled" werden können (z.B. Position ändern o.ä.) -->
+            <div>
                 <h1>Headline 1</h1>
                 <h2>Headline 2</h2>
                 <h3>Headline 3</h3>
@@ -29,12 +30,7 @@
                 <a href="/welcome">Link</a>
             </div>          
             <!-- Footer -->
-            <div style="margin-bottom: 50px;"></div>
-            <div class="footer-container">
-                <p class="footer">© 2020 CODEX &nbsp;
-                    <a href="/impressum">Impressum</a> | <a href="/impressum#privacy">Datenschutz</a>
-                </p>
-            </div>
+            <%- include('./elements/footer.html'); %>
         </div>
     </body>
 </html>

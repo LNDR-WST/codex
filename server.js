@@ -67,7 +67,7 @@ app.use('/editCode', express.static(__dirname + "/addon"));
 
 app.get("/index", function(req,res)
 {
-    res.sendFile(__dirname + "/views/index.html");
+    res.render("index", {session:null});
 });
 
 app.get(["/", "/welcome"], function(req, res)
@@ -85,7 +85,11 @@ app.get("/register", function(req, res)
     if (req.cookies.darkmode == 1) {
         stylesheet = "/stylesheet-dark.css";
     }
-    res.render("register", {session: req.session.sessionValue, displayMode: "none", stylesheet: stylesheet, regFail: "display:none;"});
+    if (req.session.sessionValue) {
+        res.redirect("login");
+    } else {
+        res.render("register", {session: req.session.sessionValue, displayMode: "none", stylesheet: stylesheet, regFail: "display:none;"});
+    }
 });
 
 app.get("/registration-complete", function(req, res)

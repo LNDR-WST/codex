@@ -53,6 +53,19 @@ body {
   }
 
 /* Innere Div-Box zur Zentrierung des gesamten Inhalts */
+.first {
+  width: 100%;
+  max-width: 960px;
+  margin: 110px auto 0px auto;
+  padding: 20px;
+  background-color: #121212;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
 .inner {
   width: 100%;
   max-width: 960px;
@@ -524,10 +537,18 @@ tr:hover {
   color: #121212;
 }
 
+.footer > a:hover {
+  text-decoration: none;
+  color: #121212;
+  cursor: pointer;
+  font-weight: normal;
+}
+
 .footer > a:visited {
   text-decoration: none;
   color: #121212;
 }
+
 
 /* Button-Style */
 .cta-button {

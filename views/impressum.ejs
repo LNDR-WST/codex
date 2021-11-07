@@ -20,7 +20,7 @@
         <!-- Navigation & Website-Header -->
         <%- include('./nav/default', {session: session}); %>
         <!-- Impressumstext -->
-        <div class="inner">    
+        <div class="first">    
             <div class="flex-container" style="justify-content: flex-start;">
                 <div style="padding: 25px 75px 75px 75px;">
                     <div id="imprint">
@@ -184,11 +184,6 @@
             </div>
         </div>
         <!-- Footer -->
-        <div style="margin-bottom: 50px;"></div>
-        <div class="footer-container">
-            <p class="footer">© 2020 CODEX &nbsp;
-                <a href="/impressum">Impressum</a> | <a href="/impressum#privacy">Datenschutz</a>
-            </p>
-        </div>
+        <%- include('./elements/footer.html'); %>
     </body>
 </html>
