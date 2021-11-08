@@ -45,7 +45,7 @@ body {
     flex-direction: column;
     align-items: flex-start;
     margin-left: 150px;
-    max-width: 960px;
+    max-width: 1280px;
     padding: 20px;
     background-color: #121212;
     display: flex;
@@ -55,7 +55,7 @@ body {
 /* Innere Div-Box zur Zentrierung des gesamten Inhalts */
 .first {
   width: 100%;
-  max-width: 960px;
+  max-width: 1280px;
   margin: 110px auto 0px auto;
   padding: 20px;
   background-color: #121212;
@@ -68,7 +68,7 @@ body {
 
 .inner {
   width: 100%;
-  max-width: 960px;
+  max-width: 1280px;
   margin: 0px auto 0px auto;
   padding: 20px;
   background-color: #121212;
@@ -84,26 +84,36 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap; 
+  flex-wrap: nowrap; 
   background-color: #121212;
   position: fixed;
   top: 0;
   width: 100%;
   box-shadow: 0px 0px 15px 0px rgba(192,192,192,0.2);
   z-index: 7; /* soll alle anderen Elemente überlagern */
+  padding: 20px 0px 25px 0px;
 }
 
 .inner-nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
   width: 100%;
-  max-width: 984px;
+  max-width: 1280px;
   margin: 0px;
-  padding: 20px;
   background-color: #121212;
+  border-bottom-style: solid;
+  border-bottom-color: #FF9000;
+  border-bottom-width: 2px;
+}
+
+.nav-button-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-bottom: -5px;
 }
 
 .nav-button-top {
@@ -111,33 +121,36 @@ body {
   align-items: flex-end;
   font-family: 'Share Tech Mono', monospace;
   font-size: 22px;
-  border-bottom-style: solid;
-  border-bottom-color: #FF9000;
-  border-bottom-width: 2px;
+  height: 65px;
   padding-top: 0px;
-  padding-bottom: 0px;
+  padding-bottom: 5px;
+  margin: 0px 5px 0px 5px;
 }
-  /* Link in Navigation */
-  .nav-button-top > a:link {
-    text-decoration: none;
-    color: #eee;
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 110px;
-    text-align: center;
-  }
+/* Link in Navigation */
+.nav-button-top > a:link {
+  text-decoration: none;
+  color: #eee;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 110px;
+  text-align: center;
+}
 
-  .nav-button-top > a:visited {
-    text-decoration: none;
-    color: #eee;
-  }
+/* Hover-Link in Navigation */
+.nav-button-top > a:hover {
+  color: black;
+  background-color: #FF9000;
+  font-weight: normal;
+}
 
-  /* Hover-Link in Navigation */
-  .nav-button-top > a:hover {
-    color: black;
-    background-color: #FF9000;
-    font-weight: normal;
-  }
+.nav-button-top > a:visited {
+  text-decoration: none;
+}
+
+.active {
+  color: #eee;
+  background-color: #FF9000;
+}
 
 /* Parallax-Effekt Bildbereiche */
 .parallax-maxiteaser {

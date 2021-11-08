@@ -15,22 +15,77 @@
         
         <!-- Meta-Daten -->
         <title>Codex - SEITENTITEL</title>
+        <style>
+            .flex-container {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                align-content: flex-start;
+                align-items: center;
+            }
+
+            .flex-item:nth-child(1) {
+                margin-top: 110px;
+                order: 0;
+                flex: 0 1 auto;
+                align-self: center;
+            }
+
+            .flex-item:nth-child(2) {
+                order: 0;
+                flex: 0 1 auto;
+                align-self: auto;
+            }
+
+            .flex-item:nth-child(3) {
+                order: 0;
+                flex: 0 1 auto;
+                align-self: auto;
+            }
+
+            /* Navigation Bar */
+
+        </style>
     </head>
     <body>
         <!-- Navigation & Website-Header -->
-        <%- include('./nav/default', {session: session}); %>
-        <div class="first">
-            
+        <!-- <div class="flex-nav-container">
+            <a href="#"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a>
+            <div class="navbar">
+              <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a> 
+              <a href="#"><i class="fa fa-fw fa-search"></i> Search</a> 
+              <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a> 
+              <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
+            </div>
+        </div> -->
+
+        <div class="navigation-container">
+            <div class="inner-nav">
+                <div style="margin-bottom: -5px;">
+                    <a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a>
+                </div>
+                <div class="nav-button-container">
+                    <div class="nav-button-top"><a class="active" href="/login">Login</a></div>
+                    <div class="nav-button-top"><a href="/register">Register</a></div>
+                    <div class="nav-button-top"><a href="/my-profile">Profile</a></div>
+                    <div class="nav-button-top"><a href="/logout">Logout</a></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="flex-container">
             <!-- ### HIERUNTER NEUE INHALTE EINFÜGEN ### -->
-            <div>
+            <div class="flex-item">
                 <h1>Headline 1</h1>
                 <h2>Headline 2</h2>
                 <h3>Headline 3</h3>
                 <p>Textabsatz</p>
                 <a href="/welcome">Link</a>
-            </div>          
-            <!-- Footer -->
-            <%- include('./elements/footer.html'); %>
-        </div>
+            </div>  
+        </div>        
+        <!-- Footer -->
+        <%- include('./elements/footer.html'); %>
     </body>
 </html>

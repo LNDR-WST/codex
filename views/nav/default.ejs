@@ -1,15 +1,16 @@
 <div class="navigation-container">
     <div class="inner-nav">
-        <div><a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a></div>
-        <div class="nav-button-top" style="height: 60px; flex-grow: 10;"></div>
-        <!-- hier wird unterschieden zwischen angemeldetem und anonymem Benutzer-->
-        <% if (session == null) { %> <!-- ist die Session = null wird die normale Navi angezeigt -->
-        <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/login">Login</a></div>
-        <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/register">Register</a></div>
-        <% } else { %>               <!-- ist die Session != null wird der angemeldete Zustand der Session angezeigt -->
-        <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/my-profile">Profile</a></div>
-        <div class="nav-button-top" style="height: 60px; flex-grow: 1;"><a href="/logout">Logout</a></div>
-        <% } %>
+        <div style="margin-bottom: -5px;">
+            <a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a>
+        </div>
+        <div class="nav-button-container">
+            <% if (session == null) { %> <!-- ist die Session = null wird die normale Navi angezeigt -->
+            <div class="nav-button-top"><a href="/login">Login</a></div>
+            <div class="nav-button-top"><a href="/register">Register</a></div>
+            <% } else { %>
+            <div class="nav-button-top"><a href="/my-profile">Profile</a></div>
+            <div class="nav-button-top"><a href="/logout">Logout</a></div>
+            <% } %>
+        </div>
     </div>
 </div>
-<!-- <div style="margin-top: 109px;"></div> -->
