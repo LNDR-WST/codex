@@ -3,6 +3,7 @@
         <div class="logo">
             <a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo"></img></a>
         </div>
+        <!-- Navigation Buttons -->
         <div class="nav-button-container">
             <% if (session == null) { %> <!-- ist die Session = null wird die normale Navi angezeigt -->
             <div class="nav-button-top"><a href="/login">Login</a></div>
@@ -11,6 +12,34 @@
             <div class="nav-button-top"><a href="/my-profile">Profile</a></div>
             <div class="nav-button-top"><a href="/logout">Logout</a></div>
             <% } %>
+        </div>
+        <!-- Burger Menu on smaller Devices -->
+        <div class="nav-burger-container" id="menuArea">
+            <input class="inputboxburger" type="checkbox" id="menuToggle"></input>
+            <label for="menuToggle" class="menuOpen"><div class="open"></div></label>
+            <div class="menu menuEffects">
+                <label for="menuToggle"></label>
+                <div class="menuContent">
+                    <ul>
+                        <% if (session == null) { %>
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/register">Register</a></li>
+                        <% } else { %>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/my-profile">Profile</a></li>
+                        <li>
+                            <form action="/favorites" method="POST">
+                                <input type="hidden" name="userTab" value="<%= session %>">
+                                <input type="submit" class="refLink" value="Favorites">
+                            </form>
+                        </li>
+                        <li><a href="/userlist">Others</a></li>
+                        <li><a href="/settings">Settings</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>

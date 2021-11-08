@@ -67,7 +67,7 @@ app.use('/editCode', express.static(__dirname + "/addon"));
 
 app.get("/index", function(req,res)
 {
-    res.render("index", {session:null});
+    res.render("index", {session:"Admin"});
 });
 
 app.get(["/", "/welcome"], function(req, res)

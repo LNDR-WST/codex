@@ -102,7 +102,7 @@ body {
   flex-wrap: nowrap;
   width: 100%;
   max-width: 1280px;
-  margin: 0px;
+  margin: 0px 20px 0px 20px;
   background-color: white;
   border-bottom-style: solid;
   border-bottom-color: #FF9000;
@@ -134,13 +134,15 @@ body {
   padding-bottom: 5px;
   margin: 0px 5px 0px 5px;
 }
+
 /* Link in Navigation */
 .nav-button-top > a:link {
   text-decoration: none;
   color: #000000;
   padding-left: 10px;
   padding-right: 10px;
-  width: 110px;
+  min-width: 110px;
+  width: fit-content;
   text-align: center;
 }
 
@@ -159,7 +161,252 @@ body {
   color: black;
   background-color: #FF9000;
 }  
-  
+
+/* Burger-Menu by https://codepen.io/paulocesarpcfj/pen/mJgoez */
+.inputboxburger {
+  display: none;
+}
+
+/* Burger-Lines */
+.open {
+  background-color: white;
+  width: 24px;
+  height: 4px;
+  display: block;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  top: 8px;
+}
+
+.open:before {
+  content: "";
+  background-color: white;
+  width: 24px;
+  height: 4px;
+  display: block;
+  border-radius: 2px;
+  position: relative;
+  top: -8px;
+  transform: rotate(0deg);
+  transition: all 0.3s ease;
+}
+
+.open:after {
+  content: "";
+  background-color: white;
+  width: 24px;
+  height: 4px;
+  display: block;
+  border-radius: 2px;
+  position: relative;
+  top: 4px;
+  transform: rotate(0deg);
+  transition: all 0.3s ease;
+}
+
+.menuOpen {
+  width: 24px;
+  height: 20px;
+  display: block;
+  padding: 15px;
+  cursor: pointer;
+  float: right;
+  background-color: #ff9000;
+}
+
+/* Hover-Effect for Burger-Lines */
+/* .menuOpen:hover .open:before {
+  top: -9px;
+}
+
+.menuOpen:hover .open:after {
+  top: 5px;
+} */
+
+/* Menu-Design */
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(255, 144, 0, 1); /* #FF9000 in RGBA */
+}
+
+.menu label {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-size: 100%;
+  cursor: pointer;
+}
+
+.menu .menuContent {
+  display: flex;
+  /* position: relative; */
+  /* top: 50%; */
+  font-size: 54px;
+  text-align: center;
+  padding-bottom: 20px;
+  margin-top: 75px;
+}
+
+.menuContent input {
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 54px;
+  text-transform: uppercase;
+  padding: 20px 0;
+  min-width: 75vw;
+}
+
+.menuContent input:hover {
+  color: #ff9000;
+  text-decoration: none;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.menu ul li a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 54px;
+  text-transform: uppercase;
+  padding: 20px 0;
+  min-width: 75vw;
+}
+
+.menu ul li a:hover {
+  color: #ff9000;
+}
+
+.menu ul li:hover {
+  background: white;
+}
+
+.menu input {
+  display: block;
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 54px;
+  text-transform: uppercase;
+  padding: 20px 0;
+  min-width: 75vw;
+  border: none;
+  background: none;
+}
+
+.menu input:hover {
+  color: #ff9000;
+  background: white;
+  font-weight: bold;
+}
+
+.menuEffects {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s, visibility 0.5s;
+}
+
+.menuEffects ul {
+  transform: translateY(0%);
+  transition: all 0.5s;
+}
+
+#menuToggle:checked ~ .menuEffects {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s;
+}
+
+#menuToggle:checked ~ .menuEffects ul {
+  opacity: 1;
+}
+
+#menuToggle:checked ~ .menuOpen .open {
+  background-color: transparent;
+}
+
+#menuToggle:checked ~ .menuOpen .open:before {
+  content: "";
+  background-color: white;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+#menuToggle:checked ~ .menuOpen .open:after {
+  content: "";
+  background-color: white;
+  transform: rotate(-45deg);
+  position: relative;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+#menuToggle:not(:checked) ~ .menuEffects ul {
+  transform: translateY(-30%);
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .nav-burger-container {
+    display: block;
+  }
+  .nav-button-container {
+    display: none;
+  }
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .nav-burger-container {
+    display: block;
+  }
+  .nav-button-container {
+    display: none;
+  }
+}
+
+/* Low-Res-Desktop */
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  .nav-burger-container {
+    display: block;
+  }
+  .nav-button-container {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .nav-burger-container {
+    display: none;
+  }
+  .nav-button-container {
+    display: flex;
+  }
+}
+
 /* Parallax-Effekt Bildbereiche */
 .parallax-maxiteaser {
   background-image: url("/img/maxiteaser.jpg");

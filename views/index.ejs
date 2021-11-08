@@ -46,35 +46,12 @@
 
             /* Navigation Bar */
 
+            
+
         </style>
     </head>
     <body>
-        <!-- Navigation & Website-Header -->
-        <!-- <div class="flex-nav-container">
-            <a href="#"><img src="/img/logo.svg" alt="Codex Logo" style="height: 65px;"></img></a>
-            <div class="navbar">
-              <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a> 
-              <a href="#"><i class="fa fa-fw fa-search"></i> Search</a> 
-              <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a> 
-              <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
-            </div>
-        </div> -->
-
-        <div class="navigation-container">
-            <div class="inner-nav">
-                <div class="logo">
-                    <a href="/welcome"><img src="/img/logo.svg" alt="Codex Logo"></img></a>
-                </div>
-                <div class="nav-button-container">
-                    <div class="nav-button-top"><a class="active" href="/login">Login</a></div>
-                    <div class="nav-button-top"><a href="/register">Register</a></div>
-                    <div class="nav-button-top"><a href="/my-profile">Profile</a></div>
-                    <div class="nav-button-top"><a href="/logout">Logout</a></div>
-                </div>
-            </div>
-        </div>
-        
-
+        <%- include('./nav/default', {session: session}); %>
         <div class="flex-container">
             <!-- ### HIERUNTER NEUE INHALTE EINFÜGEN ### -->
             <div class="flex-item">
