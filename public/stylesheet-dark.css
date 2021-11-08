@@ -109,6 +109,14 @@ body {
   border-bottom-width: 2px;
 }
 
+.logo {
+  margin-bottom: -5px;
+}
+
+.logo img {
+  height: 65px;
+}
+
 .nav-button-container {
   display: flex;
   flex-wrap: nowrap;
