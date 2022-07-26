@@ -5,6 +5,9 @@
 */
 
 // Initialisierung von Express, Body-Parser, EJS, sqlite Datenbank, bcrypt, cookie-parser, express-session
+const PORT = process.env.PORT || 3000;
+
+
 const express = require("express");
 const app = express();
 
@@ -40,10 +43,7 @@ app.use(fileUpload());
 ####              Server-Start             ####
 ###############################################
 */
-app.listen(3000, function()
-{
-    console.log("listening in port 3000");
-});
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 /*
 ###############################################
