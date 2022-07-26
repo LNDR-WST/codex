@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Viewport nicht verändern (für Responsiveness auf Mobile) -->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+
         <!-- Favicon Browser -->
         <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
@@ -18,48 +21,72 @@
         <!-- Meta-Daten -->
         <title>Codex - Welcome!</title>
     </head>
+    <style>
+        .teasertext {
+            background: rgba(255, 255, 255, 0.95);
+            width: fit-content; 
+            mix-blend-mode: lighten;
+        }
+        
+        .teasertext p {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 82px;
+            margin: 0.1em;
+        }
+    </style>
     <body>
         <!-- Navigation & Website-Header -->
         <%- include('./nav/default', {session: session}); %>
         <!-- Maxiteaser -->
         <div class="parallax-maxiteaser">
-            <div class="first" style="justify-content: flex-start; flex-direction: column; align-items: flex-start; background-color: transparent;">
-                <img src="/img/teaser-text.svg" id="teaser-text" alt ="Welcome to Codex. Exchange. Explore. Evolve." style="width: 75%; margin-top: 10%; margin-bottom: 2%;"></img><br>
-                <a href="/register" id="teaser-button" class="cta-button" style="font-size: 14px; margin-bottom: 5%;">>&nbsp;START&nbsp;NOW</a>
+            <div>
+                <!-- <img src="/img/teaser-text.svg" id="teaser-text" alt ="Welcome to Codex. Exchange. Explore. Evolve."></img><br> -->
+                <div>
+                    <div class="teasertext"><p style="font-size: 2.5vw;">Welcome&nbsp;to</p></div>
+                    <div class="teasertext"><p style="font-size: 6.2vw;">CODEX</p></div>
+                    <div class="teasertext"><p style="font-size: 3.2vw;">Exchange.&nbsp;Explore.&nbsp;Evolve</p></div>
+                </div>
+                <a href="/register" id="teaser-button" class="cta-button" style="margin-top: 1em">>&nbsp;START&nbsp;NOW</a>
             </div>
         </div>
         <!-- Einleitung -->
-        <div class="flex-container" style="align-items: center; min-height: 350px;">
-            <div class="inner" style="justify-content: space-between;">
-                <div style="width: 50%">
-                    <h1><span style="font-weight: 400;">Mit </span>
-                    Codex <span style="font-weight: 400;">sammelst du deinen Lieblings-Code!</span></h1>
-                    <p>In nur einer Minute legst du dein eigenes Profil an und speicherst dein erstes Code-Snippet in deiner Sammlung!</p>                
-                    <a href="/register" class="cta-button">JETZT&nbsp;REGISTRIEREN</a>
-                </div>
-                <div>
-                    <img src="/img/macbook.jpg" alt="Macbook mit Codex-Screen" style="width: 354px"></img>
+        <div class="flex-main">
+            <div class="flex-container-center" style="margin: 0;">
+                <div class="flex-section">
+                    <div  class="flex-item" style="align-self: center;">
+                        <h1><span style="font-weight: 400;">Mit </span>
+                        Codex <span style="font-weight: 400;">sammelst du deinen Lieblings-Code!</span></h1>
+                        <p>In nur einer Minute legst du dein eigenes Profil an und speicherst dein erstes Code-Snippet in deiner Sammlung!</p>                
+                        <a href="/register" class="cta-button">JETZT&nbsp;REGISTRIEREN</a>
+                    </div>
+                    <div class="flex-item">
+                        <img src="/img/macbook.jpg" alt="Macbook mit Codex-Screen" style="width:100%"></img>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- Info-Box -->
         <div class="parallax-infobox">
-            <div class="inner" style="align-items: flex-start; background-color: transparent; padding-top: 35px;">
-                <div id="inf1" style="text-align: center; padding: 5px;  width: 295px;">
-                    <img src="/img/code-icon.svg" alt="Code-Icon" style="height: 115px;"></img><br>
-                    <h2 style="color: white;">Code speichern.</h2>
-                    <p class="infotext">
-                        Speichere deine besten Code-Snippets, um bei ähnlichen Problemen gleich eine Lösung parat zu haben!</p>
-                </div>
-                <div id="inf2" style="text-align: center; padding: 5px; width: 295px;">
-                    <img src="/img/comment-icon.svg" alt="Comment-Icon" style="height: 115px;"></img><br>
-                    <h2 style="color: white;">Sich austauschen.</h2>
-                    <p class="infotext">Tausche dich mit Nutzer:innen aus, diskutiere über Code, erhalte Vorschläge oder hilf anderen beim Optimieren!</p>
-                </div>
-                <div id="inf3" style="text-align: center; padding: 5px;  width: 295px;">
-                    <img src="/img/learn-icon.svg" alt="Learn-Icon" style="height: 115px;"></img><br>
-                    <h2 style="color: white;">Neues lernen.</h2>
-                    <p class="infotext">Stöbere in Sammlungen anderer, finde Inspiration fürs nächste Projekt oder lerne neue Coding-Wege kennen!</p>
+            <div class="flex-main">
+                <div class="flex-container-center" style="margin: 0;">
+                    <div class="flex-section" style="flex-wrap: nowrap;">
+                        <div class="flex-item infoitem" id="inf1" style="align-items: center;">
+                            <img src="/img/code-icon.svg" alt="Code-Icon" style="height: 115px;"></img><br>
+                            <h2 style="color: white;">Code&nbsp;speichern.</h2>
+                            <p class="infotext">
+                                Speichere deine besten Code-Snippets, um bei ähnlichen Problemen gleich eine Lösung parat zu haben!</p>
+                        </div>
+                        <div class="flex-item infoitem" id="inf2" style="align-items: center;">
+                            <img src="/img/comment-icon.svg" alt="Comment-Icon" style="height: 115px;"></img><br>
+                            <h2 style="color: white;">Sich&nbsp;austauschen.</h2>
+                            <p class="infotext">Tausche dich mit Nutzer:innen aus, diskutiere über Code, erhalte Vorschläge oder hilf anderen beim Optimieren!</p>
+                        </div>
+                        <div class="flex-item infoitem" id="inf3" style="align-items: center;">
+                            <img src="/img/learn-icon.svg" alt="Learn-Icon" style="height: 115px;"></img><br>
+                            <h2 style="color: white;">Neues&nbsp;lernen.</h2>
+                            <p class="infotext">Stöbere in Sammlungen anderer, finde Inspiration fürs nächste Projekt oder lerne neue Coding-Wege kennen!</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,20 +98,24 @@
             ScrollReveal({ reset: false, distance: '120%', origin: 'right' }).reveal('#inf3', { delay: 1000, viewFactor: 0.5 });
         </script>
         <!-- Was ist Codex -->
-        <div class="flex-container">
-            <div class="inner" style="align-items: flex-start; justify-content: flex-start; background-color: transparent; padding-top: 35px;">
-                <h3 style="width: 250px;">Was ist CODEX?</h3>
-                <p><b>Codex</b> ist eine Plattform, die es dir ermöglicht deine besten Code-Snippets in deinem 
-                    eigenen Profil (deiner Code-Sammlung) zu speichern. Statt bei ähnlichen Problemen immer 
-                    und immer wieder das Internet nach einem passenden Lösungsweg zu durchsuchen, alte 
-                    Projekte zu durchforsten oder stundenlang über Code zu brüten, hast du mit <b>Codex</b> deine 
-                    wichtige Code-Sammlung immer dabei.
-                    Durchsuche dabei auch Profile anderer Nutzer:innen, tausch dich mit ihnen aus, gib 
-                    Verbesserungsvorschläge oder erhalte selbst Ideen zur Optimierung deines Codes. 
-                    Gefällt dir, was du siehst, speichere Code-Snippets von anderen einfach in deinen Favoriten.
-                    Mit <b>Codex</b> sparst du also nicht nur viel Zeit, sondern lernst gleichzeitig viel Neues!</p>
+        <div class="flex-main">
+            <div class="flex-container-center" style="margin: 0;">
+                <div class="flex-section">
+                    <div  class="flex-item" style="align-self: center;">
+                        <h3 style="width: 250px;">Was ist CODEX?</h3>
+                        <p><b>Codex</b> ist eine Plattform, die es dir ermöglicht deine besten Code-Snippets in deinem 
+                            eigenen Profil (deiner Code-Sammlung) zu speichern. Statt bei ähnlichen Problemen immer 
+                            und immer wieder das Internet nach einem passenden Lösungsweg zu durchsuchen, alte 
+                            Projekte zu durchforsten oder stundenlang über Code zu brüten, hast du mit <b>Codex</b> deine 
+                            wichtige Code-Sammlung immer dabei.
+                            Durchsuche dabei auch Profile anderer Nutzer:innen, tausch dich mit ihnen aus, gib 
+                            Verbesserungsvorschläge oder erhalte selbst Ideen zur Optimierung deines Codes. 
+                            Gefällt dir, was du siehst, speichere Code-Snippets von anderen einfach in deinen Favoriten.
+                            Mit <b>Codex</b> sparst du also nicht nur viel Zeit, sondern lernst gleichzeitig viel Neues!
+                        </p>
+                    </div>
+                </div>
             </div>
-            
         </div>
         <!-- Footer -->
         <%- include('./elements/footer.html'); %>

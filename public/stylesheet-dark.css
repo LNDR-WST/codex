@@ -11,7 +11,9 @@ body {
     min-height: 90vh; /* Displayhöhe als Mindesthöhe des Bodies */
     margin: 0px;
   }
-  
+
+
+
 /* Flex-Box für Responsive-Design definieren */
 .flex-container {
   display: flex;
@@ -25,18 +27,6 @@ body {
     margin: 0px;
     padding: 20px;
     align-items: center;
-  }
-
-  /* Navigationspunkt oben nach Flex-Container */
-  .flex-container > .nav-button-top {
-    display:flex;
-    margin: 0px;
-    align-items: flex-end;
-    border-bottom-style: solid;
-    border-bottom-color: #FF9000;
-    border-bottom-width: 2px;
-    padding-top: 0px;
-    padding-bottom: 5px;
   }
 
   .flex-code {
@@ -235,6 +225,7 @@ body {
   top: 0;
   left: 0;
   background: #121212; /* #FF9000 in RGBA */
+  overflow: auto;
 }
 
 .menu label {
@@ -370,6 +361,9 @@ body {
 
 /* Mobile */
 @media screen and (max-width: 767px) {
+  .logo img {
+    height: 125px;
+  }
   .nav-burger-container {
     display: block;
   }
@@ -388,6 +382,25 @@ body {
   }
 }
 
+/* Retina NOT WORKING */
+@media
+  screen and (-webkit-min-device-pixel-ratio: 3),
+  screen and (min-resolution: 192dpi),
+  screen and (min-resolution: 2dppx) {
+
+    .logo img {
+      height: 125px;
+    }
+    .nav-burger-container {
+      display: block;
+    }
+    .nav-button-container {
+      display: none;
+    }
+
+}
+
+
 /* Low-Res-Desktop */
 @media screen and (min-width: 1024px) and (max-width: 1279px) {
   .nav-burger-container {
@@ -398,6 +411,7 @@ body {
   }
 }
 
+/* Desktop */
 @media screen and (min-width: 1280px) {
   .nav-burger-container {
     display: none;
@@ -411,23 +425,44 @@ body {
 .parallax-maxiteaser {
   background-image: url("/img/maxiteaser.jpg");
   min-height: 400px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.parallax-maxiteaser > div {
+  width: 100%;
+  max-width: 1280px;
+  min-height: 40vh;
+  margin: 110px auto 0px auto;
+  padding: 80px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly; 
+  flex-direction: column; 
+  align-items: flex-start; 
+  background-color: transparent;
+}
 
-  /* Parallax-Effekt */
+.parallax-maxiteaser img {
+  width: 75%;
+  margin: 2% 0 2% 0;
+}
+
+.parallax-infobox {
+  background-image: url("/img/image-bg2.jpg");
+  min-height: 400px;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.parallax-infobox {
-  background-image: url("/img/image-bg2.jpg");
-  min-height: 400px;
-
-  /* Parallax-Effekt */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.infoitem {
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  max-width: 295px;
 }
 
 /* Style der Headline 1 */
@@ -785,6 +820,7 @@ tr:hover {
   height: 50px;
   background-color: #FF9000;
   margin: 0;
+  left: 0;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -877,3 +913,19 @@ border-radius: 3px;
     color: #121212;
     cursor: pointer;
   }
+
+/* Fix for Tablet and Mobile adding margins on the right */
+/* https://stackoverflow.com/questions/4617872/white-space-showing-up-on-right-side-of-page-when-background-image-should-extend#answer-10841767 */
+@media
+only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5){
+
+  html,
+  body{
+    width:100%;
+    overflow-x:hidden;
+  }
+
+}

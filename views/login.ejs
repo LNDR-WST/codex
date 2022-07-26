@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Viewport nicht verändern (für Responsiveness auf Mobile) -->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+        
         <!-- Favicon Browser -->
         <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
@@ -30,11 +33,11 @@
                     <form action="login" method="POST"> 
                             <div>
                                 <label for="user" class="formlabel" style="margin-right: 108px;">Benutzername:</label>
-                                <input type="text" name="loginname" class="forminput"><br>
+                                <input type="text" name="loginname" class="forminput" value="guest"><br>
                             </div>
                             <div style="margin-bottom: 35px;">
                                 <label for="pass" class="formlabel" style="margin-right: 160px;">Passwort:</label>
-                                <input type="password" name="password" class="forminput"><br>
+                                <input type="password" name="password" class="forminput" value="password"><br>
                             </div>
                             <input type="submit" class="cta-button" style="width: 100px;" value="LOGIN">
                     </form>

@@ -10,74 +10,117 @@ body {
     background-color: white;
     min-height: 90vh; /* Displayhöhe als Mindesthöhe des Bodies */
     margin: 0px;
-  }
-  
-/* Flex-Box für Responsive-Design definieren */
-.flex-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap; 
-  background-color: white;
 }
-  
-  .flex-container > div {
-    margin: 0px;
-    padding: 20px;
-    align-items: center;
-  }
 
-  /* Navigationspunkt oben nach Flex-Container */
-  .flex-container > .nav-button-top {
-    display:flex;
-    margin: 0px;
-    align-items: flex-end;
-    border-bottom-style: solid;
-    border-bottom-color: #FF9000;
-    border-bottom-width: 2px;
-    padding-top: 0px;
-    padding-bottom: 5px;
-  }
+/* New Flex-Box Design */
+.flex-main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: center;
+}
 
-  .flex-code {
-    width: 100%;
-    justify-content: flex-start;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 150px;
-    max-width: 1280px;
-    padding: 20px;
-    background-color: white;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-/* Innere Div-Box zur Zentrierung des gesamten Inhalts */
-.first {
+.flex-container-center {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: center;
   width: 100%;
   max-width: 1280px;
-  margin: 110px auto 0px auto;
-  padding: 20px;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  flex-direction: row;
+  margin: 110px 0 0 0;
 }
 
-.inner {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0px auto 0px auto;
-  padding: 20px;
-  background-color: white;
+.flex-section {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  max-width: 1280px;
+  justify-content: space-between;
   flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 20px 20px 20px 20px;
 }
+
+.flex-items-left {
+  justify-content: flex-start;
+}
+
+.flex-items-right {
+  justify-content: flex-end;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 35px;
+  width: 40%;
+  flex: 1 1 auto;
+  align-self: auto;
+}
+
+            /* OLD but in use: Flex-Box für Responsive-Design definieren */
+            .flex-container {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-wrap: wrap; 
+              background-color: white;
+            }
+              
+              .flex-container > div {
+                margin: 0px;
+                padding: 20px;
+                align-items: center;
+              }
+
+              .flex-code {
+                width: 100%;
+                justify-content: flex-start;
+                flex-direction: column;
+                align-items: flex-start;
+                margin-left: 150px;
+                max-width: 1280px;
+                padding: 20px;
+                background-color: white;
+                display: flex;
+                flex-wrap: wrap;
+              }
+
+            /* Innere Div-Box zur Zentrierung des gesamten Inhalts */
+            .first {
+              width: 100%;
+              max-width: 1280px;
+              margin: 110px auto 0px auto;
+              padding: 20px;
+              background-color: white;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-wrap: wrap;
+              flex-direction: row;
+            }
+
+            .inner {
+              width: 100%;
+              max-width: 1280px;
+              margin: 0px auto 0px auto;
+              padding: 20px;
+              background-color: white;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-wrap: wrap;
+              flex-direction: row;
+            }
   
 /* Navigationspunkt oben */
 .navigation-container {
@@ -235,6 +278,7 @@ body {
   top: 0;
   left: 0;
   background: rgba(255, 144, 0, 1); /* #FF9000 in RGBA */
+  overflow: auto;
 }
 
 .menu label {
@@ -398,6 +442,7 @@ body {
   }
 }
 
+/* Desktop */
 @media screen and (min-width: 1280px) {
   .nav-burger-container {
     display: none;
@@ -411,23 +456,44 @@ body {
 .parallax-maxiteaser {
   background-image: url("/img/maxiteaser.jpg");
   min-height: 400px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.parallax-maxiteaser > div {
+  width: 100%;
+  max-width: 1280px;
+  min-height: 40vh;
+  margin: 110px auto 0px auto;
+  padding: 80px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly; 
+  flex-direction: column; 
+  align-items: flex-start; 
+  background-color: transparent;
+}
 
-  /* Parallax-Effekt */
+.parallax-maxiteaser img {
+  width: 75%;
+  margin: 2% 0 2% 0;
+}
+
+.parallax-infobox {
+  background-image: url("/img/image-bg2.jpg");
+  min-height: 400px;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.parallax-infobox {
-  background-image: url("/img/image-bg2.jpg");
-  min-height: 400px;
-
-  /* Parallax-Effekt */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.infoitem {
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  max-width: 295px;
 }
 
 /* Style der Headline 1 */
@@ -468,6 +534,7 @@ p {
   font-family: 'Poppins', sans-serif;
   font-size: 18px;
   font-weight: 400;
+  color: black;
 }
 
 a {
@@ -785,6 +852,7 @@ tr:hover {
   margin: 0;
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
   z-index: 4; /* soll alle anderen Elemente überlagern */
@@ -874,3 +942,19 @@ border-radius: 3px;
     color: white;
     cursor: pointer;
   }
+
+/* Fix for Tablet and Mobile adding margins on the right */
+/* https://stackoverflow.com/questions/4617872/white-space-showing-up-on-right-side-of-page-when-background-image-should-extend#answer-10841767 */
+/* @media
+only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5){
+
+  html,
+  body{
+    width:100%;
+    overflow-x:hidden;
+  }
+
+} */
