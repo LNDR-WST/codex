@@ -151,7 +151,7 @@ app.get("/my-profile", function(req, res)
                             console.log(pic);
 
                             res.render("myprofile", {session: req.session.sessionValue, username: sessionValueName, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: pic, 
-                                lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                                visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5]});
                         }
                     });
                 })
@@ -170,7 +170,7 @@ app.get("/edit", function(req, res)
             stylesheet = "/stylesheet-dark.css";
         }
         res.render("edit-snippet", {session: req.session.sessionValue, snippetId: null, snippetCode: null, snippetHead: null, snippetDesc: null, timestamp: null, stylesheet: stylesheet, 
-            lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+            visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5]});
     } 
 });
 
@@ -223,7 +223,7 @@ app.get("/profile", function(req, res)
                                 console.log(pic);
 
                                 res.render("profiles", {session: req.session.sessionValue, username: profileName, codelist: param_userCodeInfo, sessionName: req.session.sessionValue, stylesheet: stylesheet, errorStyle: errorMessage,
-                                    lastvis1: lv1, lastvis2: lv2, lastvis3: lv3, lastvis4: lv4, lastvis5: lv5, profilepic: pic});
+                                    visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5], profilepic: pic});
                             }
                         });
                     } else {
@@ -240,8 +240,7 @@ app.get("/profile", function(req, res)
                                 const pic = rows[0].image;
                                 console.log(pic);
 
-                                res.render("nosnippets", {session: req.session.sessionValue, username: profileName, stylesheet: stylesheet, profilepic: pic, 
-                                    lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                                res.render("nosnippets", {session: req.session.sessionValue, username: profileName, stylesheet: stylesheet, profilepic: pic, visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5]});
                             }
                         });
                     }
@@ -282,7 +281,7 @@ app.get("/favorites", function(req, res)
                                     stylesheet = "/stylesheet-dark.css";
                                 }
                                 res.render("favorites", {session: req.session.sessionValue, favSnippets: favList, sessionName: req.session.sessionValue, stylesheet: stylesheet, 
-                                    lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                                    visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5]});
                             }
                         });
                     }
@@ -291,8 +290,9 @@ app.get("/favorites", function(req, res)
                     if (req.cookies.darkmode == 1) {
                         stylesheet = "/stylesheet-dark.css";
                     }
+                    console.log(req.cookies);
                     res.render("nofavorites", {session: req.session.sessionValue, sessionName: req.session.sessionValue, stylesheet: stylesheet, 
-                        lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                        visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5]});
                 }
             });
         }
@@ -315,7 +315,7 @@ app.get("/userlist", function(req, res)
                             stylesheet = "/stylesheet-dark.css";
                         }
                         res.render("adminpanel", {session: req.session.sessionValue, allusers: rows, adminname: req.session.sessionValue, stylesheet: stylesheet, 
-                        lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                            visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5]});
                     } 
                 );
             } else {
@@ -327,7 +327,7 @@ app.get("/userlist", function(req, res)
                             stylesheet = "/stylesheet-dark.css";
                         }
                         res.render("userlist", {session: req.session.sessionValue, allusers: rows, username: req.session.sessionValue, stylesheet: stylesheet, 
-                        lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                            visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5]});
                     } 
                 );
             }
@@ -352,7 +352,7 @@ app.get("/settings", function(req, res)
                 stylesheet = "/stylesheet-dark.css";
             }
             res.render("settings", {session: req.session.sessionValue, currentID: id, currentEmail: email, currentLoginname: loginname, currentPassword: password, errorMessage: "display:none;", stylesheet: stylesheet, profilepic: image,  
-            lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+            visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5]});
         });
     }
 });
@@ -470,7 +470,7 @@ app.post('/login', function(req,res)
                             console.log(pic);
 
                             res.render("myprofile", {session: req.session.sessionValue, username: param_loginname, codelist: param_userCodeInfo, stylesheet: stylesheet, profilepic: pic, 
-                                lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                                visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5]});
                         }
                     });
                 })
@@ -533,7 +533,7 @@ app.post('/addCode', function(req,res)
                 stylesheet = "/stylesheet-dark.css";
             }
             res.render('edit-snippet', {session: req.session.sessionValue, snippetCode: code, snippetId: id, snippetHead: headline, snippetDesc: description, snippetFormat: format, cmMode: cmmode, timestamp: edited, username: req.session.sessionValue, stylesheet: stylesheet, 
-                lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5]});
         });
     })
 })
@@ -608,7 +608,7 @@ app.post('/editCode/', function(req, res) {
         stylesheet = "/stylesheet-dark.css";
     }
     res.render('edit-snippet', {session: req.session.sessionValue, snippetCode: `${param_code}`, snippetId: param_id, snippetHead: param_head, snippetDesc: param_desc, snippetFormat: param_format, cmMode: param_cmmode, timestamp: param_timestamp, username: req.session.sessionValue, stylesheet: stylesheet, 
-    lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+    visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5]});
 });
 
 // Code-Snippet aus Favoriten entfernen
@@ -676,7 +676,7 @@ app.post("/update/:id", function(req,res)
                 stylesheet = "/stylesheet-dark.css";
             }
             res.render("userupdate", {session: req.session.sessionValue, rows: rows[0], stylesheet: stylesheet, 
-                lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+                visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5]});
         }
     );
 });
@@ -775,7 +775,7 @@ app.post("/selfupdate", function(req,res)
                 stylesheet = "/stylesheet-dark.css";
             }
             res.render("settings", {session: req.session.sessionValue, currentID: id, currentEmail: email, currentLoginname: loginname, currentPassword: password, errorMessage: "display:block", stylesheet: stylesheet, profilepic: image,  
-            lastvis1: req.cookies.lastvisit1, lastvis2: req.cookies.lastvisit2, lastvis3: req.cookies.lastvisit3, lastvis4: req.cookies.lastvisit4, lastvis5: req.cookies.lastvisit5});
+            visited: [req.cookies.lastvisit1, req.cookies.lastvisit2, req.cookies.lastvisit3, req.cookies.lastvisit4, req.cookies.lastvisit5]});
         });
     } else {
         if (password === "") { // wurde das Passwortfeld leer gelassen, wird das Passwort nicht geändert

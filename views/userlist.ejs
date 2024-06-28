@@ -31,8 +31,8 @@
         <!-- Flex-Container für Seiten-Menü und Inhalt -->
         <div class="first" style="justify-content: flex-start; align-items: flex-start; max-width: 984px;">
             <div id="menu" class="side-menu">
-                <div class="menu-hl">MENÜ</div>
-                <div class="menu-container">
+                <div class="menu-hl" id="menu">MENÜ</div>
+                <div class="menu-container" id="menu">
                     <p class="menu-button"><a href="/welcome">[ Start ]</a></p>
                     <p class="menu-button"><a href="/my-profile">[ My Snippets ]</a></p>
                     <p class="menu-button"><a href="/userlist"><b>[ Other Users ]</b></a></p>
@@ -42,18 +42,20 @@
                     </form>
                     <p class="menu-button"><a href="/settings">[ Settings ]</a></p>
                 </div>
-                <div class="menu-hl" style="font-size: 19px;">last visited</div>
-                <div class="menu-container">
-                    <p class="menu-button"><a href="/profile?view=<%=lastvis1%>">> <%=lastvis1%></b></a></p>
-                    <p class="menu-button"><a href="/profile?view=<%=lastvis2%>">> <%=lastvis2%></b></a></p>
-                    <p class="menu-button"><a href="/profile?view=<%=lastvis3%>">> <%=lastvis3%></b></a></p>
-                    <p class="menu-button"><a href="/profile?view=<%=lastvis4%>">> <%=lastvis4%></b></a></p>
-                    <p class="menu-button"><a href="/profile?view=<%=lastvis5%>">> <%=lastvis5%></b></a></p>
+                <div class="menu-hl" id="visited" style="font-size: 19px;">last visited</div>
+                <div class="menu-container" id="visited">
+                    <% temp=[] %>
+                    <% for (let i = 0; i<5; i++){ %>
+                        <% if (visited[i] !== 'undefined' && !temp.includes(visited[i])) { %>
+                            <p class="menu-button"><a href="/profile?view=<%= visited[i] %>">> <%= visited[i] %></a></p>
+                            <% temp.push(visited[i]) %>
+                          <% } %>
+                    <% } %>
                 </div>
             </div>
             <div class="flex-container" style="align-items: center; min-height: 350px; width: 100%;">
                 <div class="inner" style="justify-content: flex-start; width: 100%;">
-                    <div style="margin-left: 14%; width: 100%;">
+                    <div style="margin: 0 14% 0 14%;; width: 100%;">
                         <h1 style="margin-left: 20px; margin-right: 20px;">Benutzerübersicht</h1>
                         <p style="margin-left: 20px; margin-right: 20px;">Hier findest du eine Übersicht über andere Benutzer.</p>
                         <div style="min-height: 65vh;">

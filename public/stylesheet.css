@@ -139,7 +139,7 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  margin: 20px 20px 20px 20px;
+  margin: 20px 0px 20px 0px;
 }
 
 .flex-items-left {
@@ -510,45 +510,7 @@ body {
   transform: translateY(-30%);
 }
 
-/* Mobile */
-@media screen and (max-width: 767px) {
-  .nav-burger-container {
-    display: block;
-  }
-  .nav-button-container {
-    display: none;
-  }
-}
 
-/* Tablet */
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-  .nav-burger-container {
-    display: block;
-  }
-  .nav-button-container {
-    display: none;
-  }
-}
-
-/* Low-Res-Desktop */
-@media screen and (min-width: 1024px) and (max-width: 1279px) {
-  .nav-burger-container {
-    display: block;
-  }
-  .nav-button-container {
-    display: none;
-  }
-}
-
-/* Desktop */
-@media screen and (min-width: 1280px) {
-  .nav-burger-container {
-    display: none;
-  }
-  .nav-button-container {
-    display: flex;
-  }
-}
 
 /* Parallax-Effekt Bildbereiche */
 .parallax-maxiteaser {
@@ -576,6 +538,27 @@ body {
 .parallax-maxiteaser img {
   width: 75%;
   margin: 2% 0 2% 0;
+}
+
+.teasertext {
+  background: rgba(255, 255, 255, 0.95);
+  width: fit-content;
+  mix-blend-mode: lighten;
+}
+
+.teasertext p {
+  font-family: 'Share Tech Mono', monospace;
+  margin: 0.1em;
+  color: black;
+}
+.teasertext#welcome p{
+  font-size: 40px;
+}
+.teasertext#codex p{
+  font-size: 100px;
+}
+.teasertext#subline p{
+  font-size: 60px;
 }
 
 .parallax-infobox {
@@ -948,9 +931,9 @@ tr:hover {
   height: 50px;
   background-color: #FF9000;
   margin: 0;
+  left: 0;
   position: fixed;
   bottom: 0;
-  left: 0;
   width: 100%;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
   z-index: 4; /* soll alle anderen Elemente überlagern */
@@ -980,6 +963,7 @@ tr:hover {
   text-decoration: none;
   color: white;
 }
+
 
 /* Button-Style */
 .cta-button {
@@ -1056,3 +1040,79 @@ only screen and (min-device-pixel-ratio: 1.5){
   }
 
 } */
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  /*   .logo img {
+      height: 125px;
+    } */
+    .nav-burger-container {
+      display: block;
+    }
+    .nav-button-container {
+      display: none;
+    }
+    .teasertext#welcome p{
+      font-size: 20px;
+    }
+    .teasertext#codex p{
+      font-size: 60px;
+    }
+    .teasertext#subline p{
+      font-size: 16px;
+    }
+    #scrollanimation {
+      max-width: 80%;
+    }
+    .menu-container#visited {
+      display: none;
+    }
+    .menu-hl#visited {
+      display: none;
+    }
+  }
+  
+  /* Tablet */
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    .nav-burger-container {
+      display: block;
+    }
+    .nav-button-container {
+      display: none;
+    }
+    .teasertext#subline p{
+      font-size: 40px;
+    }
+    #scrollanimation {
+      max-width: 80%;
+    }
+  }
+  
+  /* Low-Res-Desktop */
+  @media screen and (min-width: 1024px) and (max-width: 1279px) {
+    .nav-burger-container {
+      display: block;
+    }
+    .nav-button-container {
+      display: none;
+    }
+    .teasertext#welcome p{
+      font-size: 40px;
+    }
+    .teasertext#codex p{
+      font-size: 100px;
+    }
+    .teasertext#subline p{
+      font-size: 60px;
+    }
+  }
+  
+  /* Desktop */
+  @media screen and (min-width: 1280px) {
+    .nav-burger-container {
+      display: none;
+    }
+    .nav-button-container {
+      display: flex;
+    }
+  }

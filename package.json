@@ -20,12 +20,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SirMightyMo/codex.git"
+    "url": "git+https://github.com/LeanderWernst/codex.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SirMightyMo/codex/issues"
+    "url": "https://github.com/LeanderWernst/codex/issues"
   },
-  "homepage": "https://github.com/SirMightyMo/codex#readme"
+  "homepage": "https://leanderwernst.de/",
+  "engines": {
+    "node": ">=16.0.0"
+  }
 }

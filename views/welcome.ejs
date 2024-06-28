@@ -17,19 +17,6 @@
         <!-- Meta-Daten -->
         <title>Codex - Welcome!</title>
     </head>
-    <style>
-        .teasertext {
-            background: rgba(255, 255, 255, 0.95);
-            width: fit-content; 
-            mix-blend-mode: lighten;
-        }
-        
-        .teasertext p {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 82px;
-            margin: 0.1em;
-        }
-    </style>
     <body>
         <!-- Navigation & Website-Header -->
         <%- include('./nav/default', {session: session}); %>
@@ -38,9 +25,9 @@
             <div>
                 <!-- <img src="/img/teaser-text.svg" id="teaser-text" alt ="Welcome to Codex. Exchange. Explore. Evolve."></img><br> -->
                 <div>
-                    <div class="teasertext"><p style="font-size: 2.5vw;">Welcome&nbsp;to</p></div>
-                    <div class="teasertext"><p style="font-size: 6.2vw;">CODEX</p></div>
-                    <div class="teasertext"><p style="font-size: 3.2vw;">Exchange.&nbsp;Explore.&nbsp;Evolve</p></div>
+                    <div class="teasertext" id="welcome"><p>Welcome&nbsp;to</p></div>
+                    <div class="teasertext" id="codex"><p>CODEX</p></div>
+                    <div class="teasertext" id="subline"><p>Exchange.&nbsp;Explore.&nbsp;Evolve.</p></div>
                 </div>
                 <a href="/register" id="teaser-button" class="cta-button" style="margin-top: 1em">>&nbsp;START&nbsp;NOW</a>
             </div>
@@ -74,7 +61,7 @@
                         </div>
                         <div class="flex-item infoitem" id="inf2" style="align-items: center;">
                             <img src="/img/comment-icon.svg" alt="Comment-Icon" style="height: 115px;"></img><br>
-                            <h2 style="color: white;">Sich&nbsp;austauschen.</h2>
+                            <h2 style="color: white;">Austauschen.</h2>
                             <p class="infotext">Tausche dich mit Nutzer:innen aus, diskutiere über Code, erhalte Vorschläge oder hilf anderen beim Optimieren!</p>
                         </div>
                         <div class="flex-item infoitem" id="inf3" style="align-items: center;">
@@ -99,15 +86,15 @@
                 <div class="flex-section">
                     <div  class="flex-item" style="align-self: center;">
                         <h3 style="width: 250px;">Was ist CODEX?</h3>
-                        <p><b>Codex</b> ist eine Plattform, die es dir ermöglicht deine besten Code-Snippets in deinem 
+                        <p><b>Codex</b> ist eine Plattform, die es dir ermöglicht deine wichtigsten Code-Snippets in einem 
                             eigenen Profil (deiner Code-Sammlung) zu speichern. Statt bei ähnlichen Problemen immer 
                             und immer wieder das Internet nach einem passenden Lösungsweg zu durchsuchen, alte 
                             Projekte zu durchforsten oder stundenlang über Code zu brüten, hast du mit <b>Codex</b> deine 
-                            wichtige Code-Sammlung immer dabei.
-                            Durchsuche dabei auch Profile anderer Nutzer:innen, tausch dich mit ihnen aus, gib 
+                            Lieblingssnippets immer dabei.
+                            Durchsuche dabei auch Profile anderer Nutzer:innen, tausche dich mit ihnen aus, gib 
                             Verbesserungsvorschläge oder erhalte selbst Ideen zur Optimierung deines Codes. 
-                            Gefällt dir, was du siehst, speichere Code-Snippets von anderen einfach in deinen Favoriten.
-                            Mit <b>Codex</b> sparst du also nicht nur viel Zeit, sondern lernst gleichzeitig viel Neues!
+                            Gefällt dir, was du siehst? Dann speichere Code-Snippets von anderen einfach in deinen Favoriten.
+                            Mit <b>Codex</b> sparst du also nicht nur Zeit, sondern lernst gleichzeitig auch Neues!
                         </p>
                     </div>
                 </div>
