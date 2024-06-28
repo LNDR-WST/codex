@@ -135,7 +135,7 @@ body {
 .flex-section {
   display: flex;
   max-width: 1280px;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
